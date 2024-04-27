@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/CSS/styles.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+    
+</head>
+
+<body>
+    <header class="header">
+        <div class="menu container">
+            <a href="#" class="logo">logo</a>
+            <input type="checkbox" id="menu" />
+            <label for="menu">
+                <img src="assets/IMG/menu.png" class="menu-icono" alt="menu">
+            </label>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="#">Inicio</a></li>
+                    <li class="menu-item"><a href="#">Productos</a>
+                        <ul class="submenus">
+                            <li><a href="#">Telefonos</a></li>
+                            <li><a href="#">Laptop</a></li>
+                            <li><a href="#">Accesorios</a></li>
+                            <!-- Agrega más categorías según sea necesario -->
+                        </ul>
+                    </li>
+                    <li><a href="#">Contacto</a></li>
+                    <li><a href="#">Conocenos</a></li>
+                </ul>
+
+            </nav>
+            <div>
+                <ul>
+                    <li class="submenu">
+                        <img src="assets/IMG/car.svg" id="img-carrito" alt="carrito">
+                        <div id="carrito">
+                            <table id="lista-carrito">
+                                <thead>
+                                    <tr>
+                                        <th>Imagen</th>
+                                        <th>Nombre</th>
+                                        <th>Precio</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                            <a href="#" id="vaciar-carrito" class="btn-2">Vaciar Carrito</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="header-content container">
+            <div class="header-img">
+                <img src="assets/IMG/laptop.webp" alt="">
+            </div>
+            <div class="header-txt">
+                <h1>Ofertas especiales</h1>
+                <p></p>
+                <a href="#" class="btn-1">informacion</a>
+            </div>
+        </div>
+        
+    </header>
+
+
+
+    <main class="products container" id="lista-1">
+        <h2>Productos</h2>
+        <div class="product-content">
+            <div class="product">
+                <img src="assets/IMG/images (1).jpg" alt="">
+                <div class="product-txt">
+                    <h3>Elisyum</h3>
+                    <p>calidad premium</p>
+                    <p class="precio">$200</p>
+                    <a href="#" class="agregar-carrito btn-2" data-id="1">Agregar al carrito</a>
+                </div>
+            </div>
+
+            <div class="product">
+                <img src="assets/IMG/images (1).jpg" alt="">
+                <div class="product-txt">
+                    <h3>Elisyum</h3>
+                    <p>calidad premium</p>
+                    <p class="precio">$200</p>
+                    <a href="#" class="agregar-carrito btn-2" data-id="2">Agregar al carrito</a>
+                </div>
+            </div>
+
+
+            <div class="product">
+                <img src="assets/IMG/images (1).jpg" alt="">
+                <div class="product-txt">
+                    <h3>Elisyum</h3>
+                    <p>calidad premium</p>
+                    <p class="precio">$200</p>
+                    <a href="#" class="agregar-carrito btn-2" data-id="3">Agregar al carrito</a>
+                </div>
+
+            </div>
+
+            <div class="product">
+                <img src="assets/IMG/images (1).jpg" alt="">
+                <div class="product-txt">
+                    <h3>Elisyum</h3>
+                    <p>calidad premium</p>
+                    <p class="precio">$200</p>
+                    <a href="#" class="agregar-carrito btn-2" data-id="4">Agregar al carrito</a>
+                </div>
+            </div>
+
+
+            <div class="product">
+                <img src="assets/IMG/images (1).jpg" alt="">
+                <div class="product-txt">
+                    <h3>Elisyum</h3>
+                    <p>calidad premium</p>
+                    <p class="precio">$200</p>
+                    <a href="#" class="agregar-carrito btn-2" data-id="1">Agregar al carrito</a>
+                </div>
+
+            </div>
+
+            <div class="product">
+                <img src="assets/IMG/images (1).jpg" alt="">
+                <div class="product-txt">
+                    <h3>Elisyum</h3>
+                    <p>calidad premium</p>
+                    <p class="precio">$200</p>
+                    <a href="#" class="agregar-carrito btn-2" data-id="6">Agregar al carrito</a>
+                </div>
+
+            </div>
+
+    </main>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!--CDN-->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <script src="assets/JS/main.js"></script>
+</body>
+
+</html>
