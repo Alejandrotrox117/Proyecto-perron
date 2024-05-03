@@ -1,153 +1,299 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="assets/CSS/styles.css">
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
-    
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.10.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="styles.css">
 </head>
+<body class="bg-gray-100">
 
-<body>
-    <header class="header">
-        <div class="menu container">
-            <a href="#" class="logo">logo</a>
-            <input type="checkbox" id="menu" />
-            <label for="menu">
-                <img src="assets/IMG/menu.png" class="menu-icono" alt="menu">
-            </label>
-            <nav class="navbar">
-                <ul>
-                    <li><a href="#">Inicio</a></li>
-                    <li class="menu-item"><a href="#">Productos</a>
-                        <ul class="submenus">
-                            <li><a href="#">Telefonos</a></li>
-                            <li><a href="#">Laptop</a></li>
-                            <li><a href="#">Accesorios</a></li>
-                            <!-- Agrega más categorías según sea necesario -->
-                        </ul>
-                    </li>
-                    <li><a href="#">Contacto</a></li>
-                    <li><a href="#">Conocenos</a></li>
-                </ul>
+    <!-- Navbar -->
+    <nav class="navbar bg-gray-0 text-black py-4">
+      <div class="container mx-auto flex justify-between items-center menus">
+          <a href="index.html"  class="text-lg font-bold logo">Logo</a>
+          <div class="w-full max-w-xs xl:max-w-lg 2xl:max-w-2xl bg-gray-100 rounded-md hidden xl:flex items-center">
+            <select class="bg-transparent uppercase font-bold text-sm p-4 mr-4" name="" id="">
+              <option>all categories</option>
+            </select>
+            <input class="border-l border-gray-300 bg-transparent font-semibold text-sm pl-4" type="text" placeholder="I'm searching for ...">
+            <svg class="ml-auto h-5 px-4 text-gray-500" aria-hidden="true" focusable="false" data-prefix="far" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-search fa-w-16 fa-9x"><path fill="currentColor" d="M508.5 468.9L387.1 347.5c-2.3-2.3-5.3-3.5-8.5-3.5h-13.2c31.5-36.5 50.6-84 50.6-136C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c52 0 99.5-19.1 136-50.6v13.2c0 3.2 1.3 6.2 3.5 8.5l121.4 121.4c4.7 4.7 12.3 4.7 17 0l22.6-22.6c4.7-4.7 4.7-12.3 0-17zM208 368c-88.4 0-160-71.6-160-160S119.6 48 208 48s160 71.6 160 160-71.6 160-160 160z"></path></svg>
+          </div>
+          <ul class="flex space-x-4">
+              <li><a href="index.html" class="hover:text-black-200">Inicio</a></li>
+              <li><a href="#" class="hover:text-black-300">Productos</a></li>
+          </ul>
+          
+      </div>
+      <div class="flex-none">
+        <div class="dropdown dropdown-end">
+          <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+              <div class="indicator">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                  <span class="badge badge-sm indicator-item">0</span>
+              </div>
+          </div>
+          <div tabindex="0" class="mt-3 z-[1] card card-compact dropdown-content w-[300px] bg-white shadow-lg z-20">
+              <div class="card-body">
+                  <h3 class="font-bold text-lg mb-3">Your Cart</h3>
+                  <div class="products-container mb-4">
+                      <!-- Lista de productos en el carrito -->
+                      <!-- Aquí se agregarán los productos -->
+                  </div>
+                  <hr class="my-4">
+                  <div class="subtotal-info mb-4">
+                    <span class="text-info text-gray-600">Subtotal: <span class="subtotal-price text-lg text-black">$0.00</span></span>
+                  </div>
+                  <div class="card-actions">
+                      <button class="btn btn-primary btn-block  bg-[#4c1d95] text-[white] hover:bg-[#8b5cf6]">Comprar</button>
+                  </div>
+                  
+              </div>
+          </div>
+      </div>
+      
+      
+      <div class="dropdown dropdown-end login z-20">
+          <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar ">
+              <div class="w-10 rounded-full">
+                <img alt="Tailwind CSS Navbar component" src="https://images.rawpixel.com/image_png_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvam9iNjAyLTU2LXAucG5n.png" />
+              </div>
+            </div>
+            <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-white rounded-box w-52">
+              <li class="hover:text-gray-700 "><a class="justify-between"> Perfil</a>
+              </li>
+              <li class="hover:text-gray-700 "><a>Configuraciones</a></li>
+              <li class="hover:text-gray-700 "><a>Cerrar Sesion</a></li>
 
-            </nav>
-            <div>
-                <ul>
-                    <li class="submenu">
-                        <img src="assets/IMG/car.svg" id="img-carrito" alt="carrito">
-                        <div id="carrito">
-                            <table id="lista-carrito">
-                                <thead>
-                                    <tr>
-                                        <th>Imagen</th>
-                                        <th>Nombre</th>
-                                        <th>Precio</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                            <a href="#" id="vaciar-carrito" class="btn-2">Vaciar Carrito</a>
-                        </div>
-                    </li>
-                </ul>
+            </ul>
+            
+          </div>
+      </div>
+  </nav>
+    
+<div class="relative  flex items-center overflow-hidden bg-white mb-[15%] ">
+  <div class="container relative flex px-6 py-16 mx-auto">
+      <div class="relative  flex flex-col sm:w-2/3 lg:w-2/5">
+          <span class="w-20 h-2 mb-12 bg-gray-800 ">
+          </span>
+          <h1 class="flex flex-col text-6xl font-black leading-none text-gray-800 uppercase font-bebas-neue sm:text-8xl ">
+            Ofertas
+              <span class="text-5xl sm:text-7xl">
+                especiales
+              </span>
+          </h1>
+          <p class="text-sm text-gray-700 sm:text-base dark:text-white">
+              Dimension of reality that makes change possible and understandable. An indefinite and homogeneous environment in which natural events and human existence take place.
+          </p>
+          <div class="flex mt-8">
+              <a href="#" class="px-4 py-2 mr-4  uppercase  border-2  rounded-lg text-md text-md btn bg-[#4c1d95] text-[white] hover:bg-[#8b5cf6]">
+                  Productos en ofertas
+              </a>
+              <a href="#" class="px-4 py-2 uppercase  border-2 border-2 rounded-lg    text-md btn bg-[#4c1d95] text-[white] hover:bg-[#8b5cf6]">
+                 Otros productos
+              </a>
+          </div>
+      </div>
+      <div class="relative hidden sm:block sm:w-1/3 lg:w-3/5 m-auto">
+          <img src="https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA5L3Jhd3BpeGVsX29mZmljZV8zMV9waG90b19vZl9hX2xhcHRvcF9tb2NrdXBfY2xvc2UtdXBfbWluaW1hbF9pc182M2Q2NzViOS00YjlhLTQ3OWEtOGMyMS1hYWQwMjViNWYzZDIucG5n.png" class="max-w-xs m-auto md:max-w-sm"/>
+      </div>
+  </div>
+</div>
+
+    <!-- Hero Section -->
+    
+    <!-- Featured Products -->
+    <div class="subtitulos">
+    <h1>Productos</h1>
+  </div>
+    <div class="productos flex flex-wrap justify-center">
+    
+      <div class="pl-2 card w-96 bg-white mx-auto my-10 shadow-xl text-black">
+        <figure><img src="https://i.blogs.es/3a5a5e/gama-media-moviles/1366_2000.jpg" alt="Shoes" /></figure>
+        <div class="card-body">
+            <h2 class="card-title">
+                Telefono
+                <div class="badge bg-[#4c1d95] text-[white]">NEW</div>
+            </h2>
+            <p>If a dog chews shoes whose shoes does he choose?</p>
+            <div class="card-actions justify-end">
+                <div class="badge badge-outline">Fashion</div> 
+                <div class="badge badge-outline">Products</div>
+            </div>
+            <div class="card-actions justify-between">
+                <h1 class="price font-sans text-2xl">$100</h1>
+                <!-- Agrega un botón "Comprar" con el evento onclick -->
+                <button class="btn bg-[#4c1d95] text-[white] hover:bg-[#8b5cf6]" data-id="1" onclick="addToCart(this)">Comprar</button>
             </div>
         </div>
-        <div class="header-content container">
-            <div class="header-img">
-                <img src="assets/IMG/laptop.webp" alt="">
-            </div>
-            <div class="header-txt">
-                <h1>Ofertas especiales</h1>
-                <p></p>
-                <a href="#" class="btn-1">informacion</a>
-            </div>
+    </div>
+    <div class="card w-96 bg-white mx-auto my-10 shadow-xl text-black">
+      <figure><img src="https://i.blogs.es/3a5a5e/gama-media-moviles/1366_2000.jpg" alt="Shoes" /></figure>
+      <div class="card-body">
+          <h2 class="card-title">
+              Telefono
+              <div class="badge bg-[#4c1d95] text-[white]">NEW</div>
+          </h2>
+          <p>If a dog chews shoes whose shoes does he choose?</p>
+          <div class="card-actions justify-end">
+              <div class="badge badge-outline">Fashion</div> 
+              <div class="badge badge-outline">Products</div>
+          </div>
+          <div class="card-actions justify-between">
+              <h1 class="price font-sans text-2xl">$200</h1>
+              <!-- Agrega un botón "Comprar" con el evento onclick -->
+              <button class="btn bg-[#4c1d95] text-[white] hover:bg-[#8b5cf6]" data-id="1" onclick="addToCart(this)">Comprar</button>
+          </div>
+      </div>
+  </div>
+  <div class="card w-96 bg-white mx-auto my-10 shadow-xl text-black">
+    <figure><img src="https://i.blogs.es/3a5a5e/gama-media-moviles/1366_2000.jpg" alt="Shoes" /></figure>
+    <div class="card-body">
+        <h2 class="card-title">
+            Telefono
+            <div class="badge bg-[#4c1d95] text-[white]">NEW</div>
+        </h2>
+        <p>If a dog chews shoes whose shoes does he choose?</p>
+        <div class="card-actions justify-end">
+            <div class="badge badge-outline">Fashion</div> 
+            <div class="badge badge-outline">Products</div>
         </div>
-        
-    </header>
+        <div class="card-actions justify-between">
+            <h1 class="price font-sans text-2xl">$100</h1>
+            <!-- Agrega un botón "Comprar" con el evento onclick -->
+            <button class="btn bg-[#4c1d95] text-[white] hover:bg-[#8b5cf6]" data-id="1" onclick="addToCart(this)">Comprar</button>
+        </div>
+    </div>
+  </div>
+  <div class="card w-96 bg-white mx-auto my-10 shadow-xl text-black">
+    <figure><img src="https://i.blogs.es/3a5a5e/gama-media-moviles/1366_2000.jpg" alt="Shoes" /></figure>
+    <div class="card-body">
+        <h2 class="card-title">
+            Telefono
+            <div class="badge bg-[#4c1d95] text-[white]">NEW</div>
+        </h2>
+        <p>If a dog chews shoes whose shoes does he choose?</p>
+        <div class="card-actions justify-end">
+            <div class="badge badge-outline">Fashion</div> 
+            <div class="badge badge-outline">Products</div>
+        </div>
+        <div class="card-actions justify-between">
+            <h1 class="price font-sans text-2xl">$100</h1>
+            <!-- Agrega un botón "Comprar" con el evento onclick -->
+            <button class="btn bg-[#4c1d95] text-[white] hover:bg-[#8b5cf6]" data-id="1" onclick="addToCart(this)">Comprar</button>
+        </div>
+    </div>
+</div>
+<div class="card w-96 bg-white mx-auto my-10 shadow-xl text-black">
+  <figure><img src="https://i.blogs.es/3a5a5e/gama-media-moviles/1366_2000.jpg" alt="Shoes" /></figure>
+  <div class="card-body">
+      <h2 class="card-title">
+          Telefono
+          <div class="badge bg-[#4c1d95] text-[white]">NEW</div>
+      </h2>
+      <p>If a dog chews shoes whose shoes does he choose?</p>
+      <div class="card-actions justify-end">
+          <div class="badge badge-outline">Fashion</div> 
+          <div class="badge badge-outline">Products</div>
+      </div>
+      <div class="card-actions justify-between">
+          <h1 class="price font-sans text-2xl">$100</h1>
+          <!-- Agrega un botón "Comprar" con el evento onclick -->
+          <button class="btn bg-[#4c1d95] text-[white] hover:bg-[#8b5cf6]" data-id="1" onclick="addToCart(this)">Comprar</button>
+      </div>
+  </div>
+</div>
+<div class="card w-96 bg-white mx-auto my-10 shadow-xl text-black">
+  <figure><img src="https://i.blogs.es/3a5a5e/gama-media-moviles/1366_2000.jpg" alt="Shoes" /></figure>
+  <div class="card-body">
+      <h2 class="card-title">
+          Telefono
+          <div class="badge bg-[#4c1d95] text-[white]">NEW</div>
+      </h2>
+      <p>If a dog chews shoes whose shoes does he choose?</p>
+      <div class="card-actions justify-end">
+          <div class="badge badge-outline">Fashion</div> 
+          <div class="badge badge-outline">Products</div>
+      </div>
+      <div class="card-actions justify-between">
+          <h1 class="price font-sans text-2xl">$100</h1>
+          <!-- Agrega un botón "Comprar" con el evento onclick -->
+          <button class="btn bg-[#4c1d95] text-[white] hover:bg-[#8b5cf6]" data-id="1" onclick="addToCart(this)">Comprar</button>
+      </div>
+  </div>
+</div>
+<div class="card w-96 bg-white mx-auto my-10 shadow-xl text-black">
+  <figure><img src="https://i.blogs.es/3a5a5e/gama-media-moviles/1366_2000.jpg" alt="Shoes" /></figure>
+  <div class="card-body">
+      <h2 class="card-title">
+          Telefono
+          <div class="badge bg-[#4c1d95] text-[white]">NEW</div>
+      </h2>
+      <p>If a dog chews shoes whose shoes does he choose?</p>
+      <div class="card-actions justify-end">
+          <div class="badge badge-outline">Fashion</div> 
+          <div class="badge badge-outline">Products</div>
+      </div>
+      <div class="card-actions justify-between">
+          <h1 class="price font-sans text-2xl">$100</h1>
+          <!-- Agrega un botón "Comprar" con el evento onclick -->
+          <button class="btn bg-[#4c1d95] text-[white] hover:bg-[#8b5cf6]" data-id="1" onclick="addToCart(this)">Comprar</button>
+      </div>
+  </div>
+</div>
+<div class="card w-96 bg-white mx-auto my-10 shadow-xl text-black">
+  <figure><img src="https://i.blogs.es/3a5a5e/gama-media-moviles/1366_2000.jpg" alt="Shoes" /></figure>
+  <div class="card-body">
+      <h2 class="card-title">
+          Telefono
+          <div class="badge bg-[#4c1d95] text-[white]">NEW</div>
+      </h2>
+      <p>If a dog chews shoes whose shoes does he choose?</p>
+      <div class="card-actions justify-end">
+          <div class="badge badge-outline">Fashion</div> 
+          <div class="badge badge-outline">Products</div>
+      </div>
+      <div class="card-actions justify-between">
+          <h1 class="price font-sans text-2xl">$100</h1>
+          <!-- Agrega un botón "Comprar" con el evento onclick -->
+          <button class="btn bg-[#4c1d95] text-[white] hover:bg-[#8b5cf6]" data-id="1" onclick="addToCart(this)">Comprar</button>
+      </div>
+  </div>
+</div>
+</div>
+      
+    </div>
+    <div class="flex justify-center join my-8">
+      <button class="join-item btn">1</button>
+      <button class="join-item btn btn-active">2</button>
+      <button class="join-item btn">3</button>
+      <button class="join-item btn">4</button>
+    </div>
 
+    <!-- Footer -->
+    <footer class="footer footer-center p-10 bg-base-200 text-base-content rounded">
+      <nav class="grid grid-flow-col gap-4">
+        <a href="conocenos.html" class="link link-hover">Nosotros</a>
+        <a href="conocenos.html"  class="link link-hover">Contactanos</a>
+        <a class="link link-hover">Jobs</a>
+        <a class="link link-hover">Press kit</a>
+      </nav> 
+      <nav>
+        <div class="grid grid-flow-col gap-4">
+          <a><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path></svg></a>
+          <a><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path></svg></a>
+          <a><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path></svg></a>
+        </div>
+      </nav> 
+      <aside>
+        <p>Copyright © 2024 - All right reserved by ACME Industries Ltd</p>
+      </aside>
+    </footer>
+    <script src="main.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 
-
-    <main class="products container" id="lista-1">
-        <h2>Productos</h2>
-        <div class="product-content">
-            <div class="product">
-                <img src="assets/IMG/images (1).jpg" alt="">
-                <div class="product-txt">
-                    <h3>Elisyum</h3>
-                    <p>calidad premium</p>
-                    <p class="precio">$200</p>
-                    <a href="#" class="agregar-carrito btn-2" data-id="1">Agregar al carrito</a>
-                </div>
-            </div>
-
-            <div class="product">
-                <img src="assets/IMG/images (1).jpg" alt="">
-                <div class="product-txt">
-                    <h3>Elisyum</h3>
-                    <p>calidad premium</p>
-                    <p class="precio">$200</p>
-                    <a href="#" class="agregar-carrito btn-2" data-id="2">Agregar al carrito</a>
-                </div>
-            </div>
-
-
-            <div class="product">
-                <img src="assets/IMG/images (1).jpg" alt="">
-                <div class="product-txt">
-                    <h3>Elisyum</h3>
-                    <p>calidad premium</p>
-                    <p class="precio">$200</p>
-                    <a href="#" class="agregar-carrito btn-2" data-id="3">Agregar al carrito</a>
-                </div>
-
-            </div>
-
-            <div class="product">
-                <img src="assets/IMG/images (1).jpg" alt="">
-                <div class="product-txt">
-                    <h3>Elisyum</h3>
-                    <p>calidad premium</p>
-                    <p class="precio">$200</p>
-                    <a href="#" class="agregar-carrito btn-2" data-id="4">Agregar al carrito</a>
-                </div>
-            </div>
-
-
-            <div class="product">
-                <img src="assets/IMG/images (1).jpg" alt="">
-                <div class="product-txt">
-                    <h3>Elisyum</h3>
-                    <p>calidad premium</p>
-                    <p class="precio">$200</p>
-                    <a href="#" class="agregar-carrito btn-2" data-id="1">Agregar al carrito</a>
-                </div>
-
-            </div>
-
-            <div class="product">
-                <img src="assets/IMG/images (1).jpg" alt="">
-                <div class="product-txt">
-                    <h3>Elisyum</h3>
-                    <p>calidad premium</p>
-                    <p class="precio">$200</p>
-                    <a href="#" class="agregar-carrito btn-2" data-id="6">Agregar al carrito</a>
-                </div>
-
-            </div>
-
-    </main>
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!--CDN-->
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
-    <script src="assets/JS/main.js"></script>
 </body>
-
 </html>
