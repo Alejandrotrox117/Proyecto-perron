@@ -1,18 +1,17 @@
 <?php 
-    class Home extends Controllers{
+    class Home extends Controllers 
+    {
         public function __construct(){
            //ejecutar el constructor del controlador
             parent::__construct();
+            
         }
-        public function metodo($params){
-            echo "Hola desde el controlador Hom";
-    }
-
-        public function carrito($params){
-            $carrito = $this->model->getCarrito($params);
-            echo $carrito;
+      
+        public function home($params){
+           $this ->views->getView($this,"home");
         }
 
     }
+
 
 ?>
