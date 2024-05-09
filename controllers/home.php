@@ -8,7 +8,10 @@
         }
       
         public function home($params){
-           $this ->views->getView($this,"home");
+            $data["page_title"] = "Pagina principal";
+            $data["tag_page"]="Home";
+            $data["page_name"]="Home";
+           $this ->views->getView($this,"home",$data);
         }
 
     }
