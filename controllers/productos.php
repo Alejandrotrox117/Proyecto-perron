@@ -1,7 +1,12 @@
 <?php 
- include '../models/db.php';
+ class productos extends Controllers{   
+    
 
-     $db = new Database();
-     $productos = $db->sqlQuery("SELECT * FROM productos ");
-     
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+   
+}
 ?>
