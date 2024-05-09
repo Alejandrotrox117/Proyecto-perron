@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
+
+/*
+font-family: 'Oswald', sans-serif;
+font-family: 'Poppins', sans-serif;
+*/
+:root {
+    --main-color: #5E17EB;
+    --text-color: #5E17EB;
+    --black: rgb(0, 0, 0) ;
+    --bg-color: #fff;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden !important;
+    background-color: var(--bg-color);
+}
+
+img {
+    max-width: 100%;
+}
+
+.container {
+    max-width: 1350px;
+    margin: 0 auto;
+}
+
+.formContainer {
+    max-width: 800px;
+    border-radius: 15px;
+    margin: 40px auto;
+    -webkit-border-radius: 21px;
+    border-radius: 21px;
+    background: #ffffff;
+    -webkit-box-shadow: 12px 12px 24px #d9d9d9, -12px -12px 24px #ffffff;
+    box-shadow: 12px 12px 24px #d9d9d9, -12px -12px 24px #ffffff;
+}
+
+form{
+    padding: 20px;
+}
+
+.display-6{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+.col-20{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
