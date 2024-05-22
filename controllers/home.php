@@ -13,14 +13,7 @@ class Home extends Controllers
         $this->views->getView($this,"home",$data);
     }
 
-    public function insertar(){
-        $data = $this->model->setProduct("Iphone","Prueba",1,1,1.000,1);
-        print_r($data);
-    }
+    
 
-    public function getProduct($id){
-        $data = $this->model->getProduct($id);
-        print_r($data);
-    }
 }   
 ?>

@@ -7,4 +7,7 @@
     const DB_NAME = "db_celtech";
     const DB_CHARSET = "charset=utf8";
 
+    const SPD = ",";
+    const SPM = ".";
+    const SMONEY = "$";
 ?>
