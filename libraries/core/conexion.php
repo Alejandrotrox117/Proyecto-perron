@@ -1,6 +1,6 @@
 <?php 
     class Conexion{
-        private conect;
+        private $conect;
         public function __construct(){
             $connectionString="mysql:host=".DB_HOST.";dbname=".DB_NAME.";.DB_CHARSET.";
             try{

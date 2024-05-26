@@ -7,18 +7,17 @@
         public function __construct(){
             $this->conexion = new Conexion();
             //invoca el metodo conect() de la clase Conexion
-            $this->conexion = $this->conexion->connect();
+            $this->conexion = $this->conexion->conect();
             
         }
 
         public function insert(string $query,array $arrValues){
             $this -> query = $query;
             $this -> arrValues = $arrValues;
-
             $insert = $this -> conexion -> prepare($this -> query);
             $insert -> execute($this -> arrValues);
             if ($insert) {
-                $lastInsert $this -> conexion -> lastInsertId();
+                $lastInsert = $this -> conexion -> lastInsertId();
             }else{
                 $lastInsert = 0;
             }
