@@ -8,15 +8,24 @@
         return BASE_URL."/assets";
     }
     
+    //permite fragmentar el header del html principal
     function headerAdmin($data=""){
         $view_header = "views/templates/admin/header_admin.php";
         require_once($view_header);
     }
 
+    //Permite fragmentar el footer del html principal
     function footerAdmin($data=""){
         $view_footer = "views/templates/admin/footer_admin.php";
         require_once($view_footer);
     }
+    //permite fragmentar los modales
+    function getModal(string $modal, $data){
+        $view_modal = "views/roles/modals/{$modal}.php";
+        require_once ($view_modal);
+    }
+        
+
     function dep($data){
         $format = print_r('<pre>');
         $format .= print_r($data);
