@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
-    <script src="ruta/a/bootstrap/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/2.0.5/css/dataTables.dataTables.min.css">
     <title>Productos</title>
 </head>
@@ -37,8 +35,6 @@
         </tr>
     </tbody>
 </table> -->
-
-</div>
 
 <script src="//code.jquery.com/jquery-3.5.1.js"></script>
 <script src="//cdn.datatables.net/2.0.5/js/jquery.dataTables.min.js"></script>
