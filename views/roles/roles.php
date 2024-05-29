@@ -14,10 +14,26 @@
           <li class="breadcrumb-item"><a href="<?= base_url(); ?>/roles"><?= $data['page_title'] ?></a></li>
         </ul>
       </div>
+      <!-- Cuerpo principal de la tabla-->
       <div class="row">
         <div class="col-md-12">
           <div class="tile">
-            <div class="tile-body">Roles de usuarios</div>
+            <div class="tile-body">
+              <div class="table-responsive">
+                <table class="table table-hover table-bordered" id="tablaRoles">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Nombre</th>
+                      <th>Estatus</th>
+                      <th>Descripción</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>
