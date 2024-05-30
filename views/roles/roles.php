@@ -25,8 +25,8 @@
                     <tr>
                       <th>ID</th>
                       <th>Nombre</th>
-                      <th>Estatus</th>
                       <th>Descripción</th>
+                      <th>Estatus</th>
                     </tr>
                   </thead>
                   <tbody>
