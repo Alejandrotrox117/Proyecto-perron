@@ -15531,7 +15531,6 @@ be a descendant of the grid when it is being dragged.
 .tile {
   position: relative;
   background: #ffffff;
-  border-radius: 3px;
   padding: 20px;
   margin-bottom: 30px;
   -webkit-transition: all 0.3s ease-in-out;
