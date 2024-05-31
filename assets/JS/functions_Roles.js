@@ -14,22 +14,16 @@ document.addEventListener('DOMContentLoaded', function () {
         "columns": [
             { "data": "rol_id" },
             { "data": "nombre" },
-            { 
-                "data": "estatus",
-                "render": function (data, type, row) {
-                    if (data == "1") {
-                        return '<span class="badge badge-pill badge-success">Activo</span>';
-                    } else {
-                        return '<span class="badge badge-pill badge-danger">Inactivo</span>';
-                    }
-                }
-            },
-            { "data": "descripcion" }
+            { "data": "descripcion" },
+            { "data": "estatus"},
+            { "data": "acciones"}
+
+           
         ],
         "destroy": true,
         "responsive": true,
         "pageLength": 10,
-        "order": [[0, "desc"]]
+        "order": [[0, "asc"]]
     });
 });
 

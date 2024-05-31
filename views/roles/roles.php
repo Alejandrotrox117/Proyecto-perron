@@ -27,6 +27,7 @@
                       <th>Nombre</th>
                       <th>Descripción</th>
                       <th>Estatus</th>
+                      <th>Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
