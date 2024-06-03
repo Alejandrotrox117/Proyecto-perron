@@ -11,22 +11,22 @@
       </div>
       <div class="modal-body">
       <div class="tile">
-          <h3 class="tile-title">Registrar Rol</h3>
+          <h3 class="tile-title">Registrar nuevo Rol</h3>
           <div class="tile-body">
             <form id="formRol" name="formRol">
               <div class="form-group">
                 <label class="control-label">Nombre del Rol</label>
-                <input class="form-control" id="txtRol" name="txtRol" type="text" placeholder="Ej.Supervisor" required="">
+                <input class="form-control" id="txtRol" name="txtRol" type="text" required="" >
               </div>
               <div class="form-group">
                 <label class="control-label">Descripción</label>
-                <input class="form-control" id="txtDescripcion" name="txtDescripcion" type="text" placeholder="" required="">
+                <input class="form-control" id="txtDescripcion" name="txtDescripcion" type="text" required="" >
               </div>
               <div class="form-group">
                 <label for="exampleSelect1">Estado</label>
-                <select class="form-control" id="listStatus" name="listStatus" required="">
+                <select class="form-control" id="listEstatus" name="listEstatus" required="" >
                   <option value="1">Activo</option>
-                  <option value="2">Inactivo</option>
+                  <option value="0">Inactivo</option>
                 </select>
               </div>
           </div>
