@@ -15533,8 +15533,8 @@ be a descendant of the grid when it is being dragged.
   background: #ffffff;
   border-radius: 3px;
   padding: 20px;
-  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  /*-webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);*/
   margin-bottom: 30px;
   -webkit-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
@@ -16733,4 +16733,67 @@ be a descendant of the grid when it is being dragged.
 
 .user .user-settings label {
   color: #666;
+}
+
+/*estilos de la foto de categorias*/
+.prevPhoto {
+  display: flex;
+  justify-content: space-between;
+  width: 300px;
+  height: 200px;
+  border: 1px solid #CCC;
+  position: relative;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  margin: auto;
+}
+.prevPhoto label{
+cursor: pointer;
+width: 100%;
+height: 100%;
+position: absolute;
+top: 0;
+left: 0;
+z-index: 2;
+}
+.prevPhoto img{
+width: 100%;
+height: 100%;
+}
+.upimg, .notBlock{
+display: none !important;
+}
+.errorArchivo{
+font-size: 16px;
+font-family: arial;
+color: #cc0000;
+text-align: center;
+font-weight: bold; 
+margin-top: 10px;
+}
+.delPhoto{
+color: #FFF;
+display: -webkit-flex;
+display: -moz-flex;
+display: -ms-flex;
+display: -o-flex;
+display: flex;
+justify-content: center;
+align-items: center;
+border-radius: 50%;
+width: 25px;
+height: 25px;
+background: red;
+position: absolute;
+right: -10px;
+top: -10px;
+z-index: 10;
+}
+#tbl_list_productos img{
+width: 50px;
+}
+.imgProductoDelete{
+width: 175px;
 }

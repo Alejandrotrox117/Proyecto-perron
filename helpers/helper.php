@@ -21,7 +21,7 @@
     }
     //permite fragmentar los modales
     function getModal(string $modal, $data){
-        $view_modal = "views/roles/modals/{$modal}.php";
+        $view_modal = "views/modals/{$modal}.php";
         require_once ($view_modal);
     }
         
