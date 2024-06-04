@@ -11,12 +11,21 @@ class rolesModel extends Mysql
         parent::__construct();
     }
 
-    public function selectRol()
+    //funcion para consultar todos
+    public function selectRoles()
     {
         $query = "SELECT * FROM rol WHERE rol_id != 0 ORDER BY rol_id ASC";
         $request = $this->searchAll($query);
         return $request;
     }
+    //funcion para seleccionar un rol
+    public function selectOneRol(int $id){
+        $this -> intIdRol = $id;
+        $sql = "SELECT * FROM rol WHERE rol_id = $this->intIdRol";
+        $request = $this->search($sql);
+        return $request;
+    }
+
 
     public function insertRol(string $rol, int $estatus, string $descripcion)
     {

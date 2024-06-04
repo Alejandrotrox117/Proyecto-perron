@@ -84,5 +84,71 @@ document.addEventListener('DOMContentLoaded', function () {
 // Para abrir el modal del formulario de registro de roles
 function OpenModalRol() {
     $('#modalFormRol').modal('show');
-    
+        document.querySelector('#idRol').value = "";
+        document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
+        document.querySelector('#btnActionForm').classList.replace('btn-info', 'btn-primary');
+        document.querySelector('#btnText').innerHTML = 'Guardar';
+        document.querySelector('#titleModal').innerHTML = 'Nuevo Rol';
+        document.querySelector("#formRol").reset();
+}
+
+// Editar rol
+window.addEventListener('load', function () {
+    EditRol();
+}, false);
+
+function EditRol() {
+    var btnEditRol = document.querySelectorAll(".btnEditRol");
+    btnEditRol.forEach(function (btnEditRol) {
+        btnEditRol.addEventListener('click', function () {
+           //Para cambiar el nomrbre del modal al hacer click en actualizar
+            document.querySelector('#titleModal').innerHTML = 'Actualizar Rol';
+            document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
+            document.querySelector('#btnActionForm').classList.replace('btn-primary', 'btn-info');
+            document.querySelector('#btnText').innerHTML = 'Actualizar';
+            
+            //Obtener el id del rol por el atributo rl
+            var idRol = this.getAttribute('rl');
+            //para obtener el rol depnediendo del navegador que se este usando
+            var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+            // Ajax para buscar la informacion con la url del metodo getOneRol
+            var ajaxUrl = base_url + '/roles/getOneRol/' + idRol;
+            request.open("GET", ajaxUrl, true);
+            request.send();
+            //para obtener la informacion del rol y autorellenar el modal
+            request.onreadystatechange = function () {
+                if (request.readyState == 4 && request.status == 200) {
+                    var objData = JSON.parse(request.responseText);
+                    console.log (objData);
+                    if (objData.status) {
+                        //obtenemos los valores de cada input del modal utilizando value
+                        document.querySelector('#idRol').value = objData.data.rol_id;
+                        document.querySelector('#txtRol').value = objData.data.nombre;
+                        document.querySelector('#txtDescripcion').value = objData.data.descripcion;
+                        document.querySelector('#listEstatus').value = objData.data.estatus;
+                        
+                        //crear una variable para el select la lista de activo o inactivo
+                        if(objData.data.estatus == 1){
+                            var optionSelect = '<option value="1" selected class="notBlock">Activo</option>';
+                        }else{
+                            var optionSelect = '<option value="0" class="notBlock">Inactivo</option>';
+                        }
+                        //crear otra variable HTML para insertar el select
+                        var htmlSelect = `${optionSelect}
+                        <option value="1">Activo</option>
+                        <option value="0">Inactivo</option>`;
+                        document.querySelector('#listEstatus').innerHTML = htmlSelect;
+                        $('#modalFormRol').modal('show');
+                    }else{
+                        swal("Error", objData.msg, "error");
+                    }
+                }
+            }
+
+
+
+
+            $('#modalFormRol').modal('show');
+        });
+    });
 }

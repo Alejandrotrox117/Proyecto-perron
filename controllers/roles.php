@@ -16,9 +16,31 @@ class Roles extends Controllers
         $this->views->getView($this, "roles", $data);
     }
 
+    //Obtener un solo rol
+    public function getOneRol(int $id){
+        $intIdRol= intval(strClean($id));
+        if($intIdRol > 0){
+            $arrData = $this->model->selectOneRol($intIdRol);
+            if(empty($arrData)){
+                $arrResponse = array('status' => false, 'msg' => 'Rol no encontrado');
+            }else{
+                $arrResponse = array('status' => true, 'data' => $arrData);
+            }
+            //convertir en formato json
+            echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        }
+        exit();
+    }
+
+
+
+
+
+
+    // Obtener todos los roles
     public function getRoles()
     {
-        $arrData = $this->model->selectRol();
+        $arrData = $this->model->selectRoles();
 
         for ($i=0; $i < count($arrData); $i++) {
             if ($arrData[$i]['estatus'] == 1) {
@@ -40,6 +62,7 @@ class Roles extends Controllers
         exit();
     }
 
+    // Crear un nuevo rol
     public function setRol()
     {
         $rol = strClean($_POST['txtRol']);

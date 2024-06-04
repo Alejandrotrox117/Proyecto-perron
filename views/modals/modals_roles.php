@@ -3,18 +3,18 @@
 <div class="modal fade" id="modalFormRol" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Formulario Rol</h5>
+      <div class="modal-header headerRegister">
+        <h5 class="modal-title" id="titleModal">Nuevo Rol</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
       <div class="tile">
-          <h3 class="tile-title">Registrar nuevo Rol</h3>
           <div class="tile-body">
             <form id="formRol" name="formRol">
-              <div class="form-group">
+              <input type="hidden" id="idRol" name="idRol" value="">
+            <div class="form-group">
                 <label class="control-label">Nombre del Rol</label>
                 <input class="form-control" id="txtRol" name="txtRol" type="text" required="" >
               </div>
@@ -32,8 +32,8 @@
           </div>
       </div>
       <div class="tile-footer">
-        <button class="btn btn-primary" type="submit">
-          <i class="fa fa-fw fa-lg fa-check-circle"></i>Registrar
+        <button class="btn btn-primary" type="submit" id="btnActionForm">
+          <i class="fa fa-fw fa-lg fa-check-circle"></i><span id="btnText">Guardar</span>
         </button>
         &nbsp;&nbsp;&nbsp;
         <button class="btn btn-secondary" href="#" data-dismiss="modal">
