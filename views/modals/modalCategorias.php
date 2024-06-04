@@ -12,15 +12,14 @@
         <div class="tile">
           <h3 class="tile-title">Registrar Categorias</h3>
           <div class="tile-body">
-        <form id="formCategorias" name="formCategotias" class="form-horizontal">
-          <input type="hidden" id="idUsuario" name="idUsuario" value="">
+        <form id="formCategorias" name="formCategorias" class="form-horizontal">
           <p class="text-primary">Los campos con asteriscos(<span class="required">*</span>)</p>
           <div class="row">
             <div class="col-md-6">
               <input type="hidden" id="idCategoria" name="idCategoria" value="">
               <div class="form-group">
                   <label class="control-label">Nombre <span class="required">*</span></label>
-                  <input class="form-control" id="txtRol" name="txtRol" type="text" placeholder="Nombre de la Categoria" required="">
+                  <input class="form-control" id="txtNombre" name="txtNombre" type="text" placeholder="Nombre de la Categoria" required="">
                 </div>
                 <div class="form-group">
                   <label class="control-label">Descripción <span class="required">*</span></label>
@@ -28,9 +27,9 @@
                 </div>
                 <div class="form-group">
                   <label for="exampleSelect1">Estado <span class="required">*</span></label>
-                  <select class="form-control" id="listStatus" name="listStatus" required="">
+                  <select class="form-control" id="listEstatus" name="listEstatus" required="">
                     <option value="1">Activo</option>
-                    <option value="2">Inactivo</option>
+                    <option value="0">Inactivo</option>
                   </select>
                 </div>
             </div>

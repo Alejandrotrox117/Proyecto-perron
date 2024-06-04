@@ -1,3 +1,52 @@
+//Nueva Categoria
+
+
+document.addEventListener('DOMContentLoaded', function(){
+    var formCategorias = document.querySelector("#formCategorias");
+    formCategorias.onsubmit = function(e){
+        e.preventDefault();
+
+        var intidCategoria = document.querySelector('#idCategoria').value;
+        var strNombre = document.querySelector('#txtNombre').value;
+        var srtDescripcion = document.querySelector('#txtDescripcion').value;
+        var intStatus = document.querySelector('#listEstatus').value;
+           
+        if(strNombre == '' || srtDescripcion == '' || intStatus == ''){
+            swal("Atencion", "Todos los campos son obligatorios", "error");
+            return false;
+        }
+
+        var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        var ajaxUrl = base_url+'/categorias/setCategoria';
+        formData = new FormData(formCategorias);
+        request.open("POST", ajaxUrl, true);
+        request.send(formData);
+        request.onreadystatechange = function(){
+            if(request.readyState == 4 && request.status == 200){
+                var objData = JSON.parse(request.responseText);
+                if(objData.status){
+                    $('#modalFormCategorias').modal("hide");
+                    formCategorias.reset();
+                    swal("Categorias", objData.msg, "success");
+                    // tableRoles.api().ajax.reload(function(){
+                    //     fntEditRol();
+                    //     fntDelRol();
+                    //     fntPermisos();
+                    // });
+                }else{
+                    swal("Error", objData.msg, "error");
+                }
+            }
+        }
+
+    }
+});
+
+
+
+
+
+
 
 //carga de la foto para las categorias, valida si existe el elemento foto
 // y si existe ejecuta el script

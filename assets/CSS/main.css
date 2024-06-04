@@ -16744,6 +16744,7 @@ be a descendant of the grid when it is being dragged.
   border: 1px solid #CCC;
   position: relative;
   cursor: pointer;
+  background: url(../img/categorias.png);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;

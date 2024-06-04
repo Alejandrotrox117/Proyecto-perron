@@ -16,5 +16,24 @@ class Categorias extends Controllers
         $this->views->getView($this,"categorias",$data);
     }
 
-}   
+    public function setCategoria(){
+
+        $intidCategoria = intval($_POST['idCategoria']);
+        $strNombre = strClean($_POST['txtNombre']);
+        $strDescripcion = strClean($_POST['txtDescripcion']);
+        $intStatus = intval($_POST['listEstatus']);
+        $request_categoria = $this->model->insertCategoria($strNombre, $strDescripcion, $intStatus);
+       
+        if(is_numeric($request_categoria) && $request_categoria > 0){
+            $arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
+        }else if($request_categoria === "exist"){
+            $arrResponse = array('status' => false, 'msg' => 'Categoria ya existe.');
+        }else{
+            $arrResponse = array('status' => false, 'msg' => 'No es posible almacenar los datos.');
+        }
+        echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        die();
+    }
+}
+   
 ?>
