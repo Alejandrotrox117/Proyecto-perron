@@ -131,14 +131,15 @@ img {
     padding: 20px;
     min-height: 400px;
 }
-
+/*DATATABLES */
 table {
     width: 100%;
 }
 
+/*DATATABLES COLUMS*/
 th,
 td {
-    color: #FFFFFF;
+    color: #111111;
 }
 
 .borrar {
@@ -532,4 +533,13 @@ td {
 
 .wrapper .inside .contents p{
     font-size: 19px;
+}
+
+.headerRegister{
+    background: #009688;
+    color: #fff;
+}
+.headerUpdate{
+    background: #007BFF;
+    color: #fff;
 }

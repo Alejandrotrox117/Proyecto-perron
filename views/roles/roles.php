@@ -5,7 +5,7 @@
       <div class="app-title">
         <div>
           <h1><i class="fa-solid fa-users-gear"></i> <?= $data['page_title'] ?>
-          <button class="btn btn-primary" type="button" onclick="OpenModal();">
+          <button class="btn btn-primary" type="button" onclick="OpenModalRol();">
             <i class="fa-solid fa-plus"></i> Agregar</button>
         </h1>
         </div>
@@ -27,6 +27,7 @@
                       <th>Nombre</th>
                       <th>Descripción</th>
                       <th>Estatus</th>
+                      <th>Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
