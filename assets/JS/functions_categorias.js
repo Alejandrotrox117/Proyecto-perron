@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 if(objData.status){
                     $('#modalFormCategorias').modal("hide");
                     formCategorias.reset();
+                    removePhoto();
                     swal("Categorias", objData.msg, "success");
                     // tableRoles.api().ajax.reload(function(){
                     //     fntEditRol();
@@ -40,11 +41,12 @@ document.addEventListener('DOMContentLoaded', function(){
         }
 
     }
+
+    var closeButton = document.querySelector('.close');
+    closeButton.addEventListener('click', function() {
+        removePhoto();
+    });
 });
-
-
-
-
 
 
 
@@ -93,13 +95,15 @@ document.addEventListener('DOMContentLoaded', function(){
             removePhoto();
         }
     }
-    
-    function removePhoto(){//funcion para quitar foto seleccionada
-        document.querySelector('#foto').value ="";
-        document.querySelector('.delPhoto').classList.add("notBlock");
-        document.querySelector('#img').remove();
-    }
 }, false);
+
+function removePhoto(){
+    document.querySelector('#foto').value ="";
+    document.querySelector('.delPhoto').classList.add("notBlock");
+    document.querySelector('#img').remove();
+    // Agrega la imagen predeterminada
+    document.querySelector('.prevPhoto div').innerHTML = '<img id="img" src="assets/img/categorias.png">';
+}
 
 // Para abrir el modal del formulario de registro de categotias
 function OpenModal() {

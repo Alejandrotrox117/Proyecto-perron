@@ -47,13 +47,12 @@
                 <input type="file" name="foto" id="foto">
               </div>
               <div id="form_alert"></div>
-              </div>
             </div>
           </div>
           </div>
       </div>
       <div class="tile-footer">
-        <button class="btn btn-primary" type="submit">
+        <button class="btn btn-primary" type="submit" name="enviar">
           <i class="fa fa-fw fa-lg fa-check-circle"></i>Registrar
         </button>
         &nbsp;&nbsp;&nbsp;
