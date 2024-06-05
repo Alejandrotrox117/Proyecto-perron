@@ -38,6 +38,13 @@
         return $format;
     }
 
+    function uploadImage(array $data, string $name){
+        $url_temp = $data['tmp_name'];
+        $destino = 'assets/img/uploads/'.$name;
+        $move = move_uploaded_file($url_temp, $destino);
+        return $move;
+    }
+
     function strClean($str){
         $string = preg_replace('/[^A-Za-z0-9]/', ' ', $str);
         $string = trim($string);//Elimina espacios en blanco al inicio y al final

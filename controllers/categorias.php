@@ -37,14 +37,13 @@ class Categorias extends Controllers
 
             if($nombre_foto != ''){
                 $imgPortada = 'img_'.md5(date('d-m-Y H:m:s')).'.jpg';
-                $destino = $_SERVER['DOCUMENT_ROOT'] . '/celtech/assets/img/uploads/'. $imgPortada;
-                move_uploaded_file($url, $destino);
             }
 
             if($intidCategoria == 0){
                 $request_categoria = $this->model->insertCategoria($strNombre, $strDescripcion, $intStatus, $imgPortada);
                 if(is_numeric($request_categoria) && $request_categoria > 0){
                     $arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
+                    if($nombre_foto != ''){uploadImage($foto, $imgPortada);}
                 }else if($request_categoria === "exist"){
                     $arrResponse = array('status' => false, 'msg' => 'Categoria ya existe.');
                 }else{
@@ -52,6 +51,14 @@ class Categorias extends Controllers
                 }
                 echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
                 die();
+            }else{
+                if(is_numeric($request_categoria) && $request_categoria > 0){
+                    $arrResponse = array('status' => true, 'msg' => 'Datos actualizados correctamente.');
+                }else if($request_categoria === "exist"){
+                    $arrResponse = array('status' => false, 'msg' => 'Categoria ya existe.');
+                }else{
+                    $arrResponse = array('status' => false, 'msg' => 'No es posible actualizar los datos.');
+                }
             }
         }
     }
