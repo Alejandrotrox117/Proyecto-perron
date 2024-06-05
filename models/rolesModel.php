@@ -48,13 +48,28 @@ class rolesModel extends Mysql
 
         return $retornar;
     }
+    public function updateRol(int $id,string $rol,int $estatus,string $descripcion){
+        $this -> intIdRol = $id;
+        $this -> descripcion = $descripcion;
+        $this -> estatus = $estatus;
+        $this -> nombre= $rol;
+        //indicamos si el nombre del rol es igual al que estamos actualizando o no con un id diferente
+        $query = "SELECT * FROM roles WHERE nombre = '{$this -> nombre}' AND rol_id != $this -> intIdRol";
+        $request =searchAll($query);
+
+        if(empty($request)) {
+            $query = "UPDATE roles SET nombre = ?, estatus = ?, descripcion = ? WHERE rol_id = $this -> intIdRol";
+            $arrData = array($this -> nombre, $this -> estatus, $this -> descripcion);
+            //llamamos a la funcion update de la clase mysql
+            $request = $this -> update($query, $arrData);
+            return $request;
+        } else {
+            return 'exist';
+        }
+
+
+    }
+
 }
-
-
-
-
-
-
-
 
 ?>

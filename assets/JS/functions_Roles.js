@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var formRol = document.querySelector("#formRol");
     formRol.onsubmit = function (e) {
         e.preventDefault();
+        var idRol = document.querySelector('#idRol').value;
         var nombreRol = document.querySelector("#txtRol").value;
         var descRol = document.querySelector("#txtDescripcion").value;
         var estatusRol = document.querySelector("#listEstatus").value;
@@ -127,28 +128,28 @@ function EditRol() {
                         document.querySelector('#txtDescripcion').value = objData.data.descripcion;
                         document.querySelector('#listEstatus').value = objData.data.estatus;
                         
-                        //crear una variable para el select la lista de activo o inactivo
-                        if(objData.data.estatus == 1){
-                            var optionSelect = '<option value="1" selected class="notBlock">Activo</option>';
-                        }else{
-                            var optionSelect = '<option value="0" class="notBlock">Inactivo</option>';
-                        }
-                        //crear otra variable HTML para insertar el select
-                        var htmlSelect = `${optionSelect}
-                        <option value="1">Activo</option>
-                        <option value="0">Inactivo</option>`;
+                       // Crear una variable para almacenar el HTML de las opciones
+                       // usamos el operador ternario ejemplo   -> condicion ? resultado_verdadero : resultado_falso
+                        var optionsHTML = objData.data.estatus === 1
+                        ? '<option value="1" selected class="notBlock">Activo</option>'
+                        : '<option value="0" class="notBlock">Inactivo</option>';
+
+                        // Generar el HTML para las opciones adicionales utilizando map
+                        var additionalOptions = ['Activo', 'Inactivo'].map(function(option) {
+                        return `<option value="${option.toLowerCase()}">${option}</option>`;
+                        });
+
+                        // Combinar el HTML de la opción seleccionada y las opciones adicionales
+                        var htmlSelect = optionsHTML + additionalOptions.join('');
+
+                        // Actualizar el contenido del elemento listEstatus con el nuevo HTML
                         document.querySelector('#listEstatus').innerHTML = htmlSelect;
-                        $('#modalFormRol').modal('show');
+                                                $('#modalFormRol').modal('show');
                     }else{
                         swal("Error", objData.msg, "error");
                     }
                 }
             }
-
-
-
-
-            $('#modalFormRol').modal('show');
         });
     });
 }
