@@ -7,7 +7,7 @@
         public function __construct(){
             $this->conexion = new Conexion();
             //invoca el metodo conect() de la clase Conexion
-            $this->conexion = $this->conexion->conect();
+            $this->conexion = $this->conexion->connect();
             
         }
 

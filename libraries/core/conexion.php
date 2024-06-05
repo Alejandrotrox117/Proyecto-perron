@@ -9,10 +9,13 @@
             }catch(PDOException $e){
                 $this -> conect = "Error: ";
                 echo " ERROR".$e->getMessage();
-            }
+            } 
         }
-        public function conect(){
-            return $this -> conect;
+
+
+
+        public function connect(){
+            return $this->conect;
         }
     }
 
