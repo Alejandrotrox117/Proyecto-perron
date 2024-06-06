@@ -32,24 +32,22 @@ class rolesModel extends Mysql
 
     public function insertRol(string $rol, int $estatus, string $descripcion)
     {
-        $retornar = "";
         $this->strRol = $rol;
         $this->descripcionRol = $descripcion;
         $this->intStatus = $estatus;
 
         $query = "SELECT * FROM rol WHERE nombre = '{$this->strRol}'";
         $request = $this->searchAll($query);
-
-
-        if (empty($request)) {
-            $query_insert = "INSERT INTO rol (nombre, estatus, descripcion) VALUES (?, ?, ?)";
-            $arrData = array($this->strRol, $this->intStatus, $this->descripcionRol);
-            $request_insert = $this->insert($query_insert, $arrData);
-            $retornar = $request_insert;
-        } else {
-            $retornar ="exist";
+        //validar si el rol ya existe
+        if (!empty($request)) {
+            return "exist";
         }
-        return $retornar;
+
+        $query_insert = "INSERT INTO rol (nombre, estatus, descripcion) VALUES (?, ?, ?)";
+        $arrData = array($this->strRol, $this->intStatus, $this->descripcionRol);
+        $request_insert = $this->insert($query_insert, $arrData);
+        //devolvemos el resultado  
+        return $request_insert ?: false;
     }
     public function updateRol(int $id, string $rol, int $estatus, string $descripcion)
     {
