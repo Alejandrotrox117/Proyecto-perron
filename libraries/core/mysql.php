@@ -42,13 +42,18 @@
         }
 
         //actualizar un registro
-        public function update(string $query,array $arrValues){
-            $this -> query = $query;
-            $this -> arrValues = $arrValues;
-            $update = $this -> conexion -> prepare($this -> query);
-            $execute = $update -> execute($this -> arrValues);
-            return $execute;
-        } 
+        public function update(string $query, array $arrValues) {
+            try {
+                $this->query = $query;
+                $this->arrValues = $arrValues;
+                $update = $this->conexion->prepare($this->query);
+                $execute = $update->execute($this->arrValues);
+                return $update->rowCount();
+            } catch(PDOException $e) {
+                //Lanzamos una excepción para visualizar por si hay errores.
+                echo "Error en la consulta de actualización: " . $e->getMessage();
+            }
+        }
 
         //funcion para eliminar un registro
         public function delete(string $query){

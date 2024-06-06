@@ -39,11 +39,6 @@ class Roles extends Controllers
         exit();
     }
 
-
-
-
-
-
     // Obtener todos los roles
     public function getRoles()
     {
@@ -70,45 +65,39 @@ class Roles extends Controllers
     }
 
     // Crear un nuevo rol
-            public function setRol(){
-            $intIdRol = intval($_POST['idRol']);
-            $rol = strClean($_POST['txtRol']);
-            $descripcion = strClean($_POST['txtDescripcion']);
-            $estatus = intval($_POST['listEstatus']);
-            $request_rol = $this->model->insertRol($rol, $estatus, $descripcion);
-
-            $arrResponse = [];
-
-            
-            if($intIdRol == 0){
-                //crear
-                $request_rol = $this->model->insertRol($rol, $estatus, $descripcion);
-                $option = 1;
-            } else {
-                $request_rol = $this->model->updateRol($intIdRol, $rol, $estatus, $descripcion);
-                $option = 2;
-            }
-
-            if ($request_rol > 0) {
-                if($option == 1){
-                    $arrResponse = array('status' => true, 'msg' => 'Se ha registrado el rol correctamente.');
-                }else{
-                    $arrResponse = array('status' => true, 'msg' => 'Se ha actualizado el rol correctamente.');
-                }
-                $arrResponse['status'] = true;
-                $arrResponse['msg'] = '¡Se ha registrado el rol correctamente!';
-            } elseif ($request_rol === 'exist') {
-                $arrResponse['status'] = false;
-                $arrResponse['msg'] = '¡Atención! El rol ya existe.';
-            } else {
-                $arrResponse['status'] = false;
-                $arrResponse['msg'] = 'No es posible registrar el rol.';
-            }
-
-            echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
-            exit();
-        }
+    public function setRol()
+    {
+        $intIdRol = intval($_POST['idRol']);
+        $rol = strClean($_POST['txtRol']);
+        $descripcion = strClean($_POST['txtDescripcion']);
+        $estatus = intval($_POST['listEstatus']);
         
+    
+        if ($intIdRol == 0) {
+            // Crear
+            $request_rol = $this->model->insertRol($rol, $estatus, $descripcion);
+            $option = 1;
+        } else {
+            $request_rol = $this->model->updateRol($intIdRol, $rol, $estatus, $descripcion);
+            $option = 2;
+        }
+    
+        if ($request_rol > 0) {
+            if ($option == 1) {
+                $arrResponse = array('status' => true, 'msg' => 'Se ha registrado el rol correctamente.');
+            } else {
+                $arrResponse = array('status' => true, 'msg' => 'Se ha actualizado el rol correctamente.');
+            }
+            } elseif ($request_rol === 'exist') {
+
+            $arrResponse = array('status' => false, 'msg' => '¡Atención! El rol ya existe.');
+        } else {
+            $arrResponse = array('status' => false, 'msg' => 'No es posible registrar el rol.');
+        }
+    
+        echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        exit();
+    }
 }
 
 ?>

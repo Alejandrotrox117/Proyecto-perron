@@ -6,23 +6,23 @@ document.addEventListener('DOMContentLoaded', function () {
         "aServerSide": true,
         "language": {
             "decimal": "",
-        "emptyTable": "No hay información",
-        "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-        "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
-        "infoPostFix": "",
-        "thousands": ",",
-        "lengthMenu": "Mostrar _MENU_ Entradas",
-        "loadingRecords": "Cargando...",
-        "processing": "Procesando...",
-        "search": "Buscar:",
-        "zeroRecords": "Sin resultados encontrados",
-        "paginate": {
-            "first": "Primero",
-            "last": "Ultimo",
-            "next": "Siguiente",
-            "previous": "Anterior"
-        }
+            "emptyTable": "No hay información",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+            "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+            "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+            "infoPostFix": "",
+            "thousands": ",",
+            "lengthMenu": "Mostrar _MENU_ Entradas",
+            "loadingRecords": "Cargando...",
+            "processing": "Procesando...",
+            "search": "Buscar:",
+            "zeroRecords": "Sin resultados encontrados",
+            "paginate": {
+                "first": "Primero",
+                "last": "Ultimo",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            }
         },
         "ajax": {
             "url": base_url + "/roles/getRoles",
@@ -32,8 +32,8 @@ document.addEventListener('DOMContentLoaded', function () {
             { "data": "rol_id" },
             { "data": "nombre" },
             { "data": "descripcion" },
-            { "data": "estatus"},
-            { "data": "acciones"}
+            { "data": "estatus" },
+            { "data": "acciones" }
         ],
         "destroy": true,
         "responsive": true,
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
             swal("Atención", "Todos los campos son obligatorios", "error");
             return false;
         }
-        
+
         var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
         // Ajax para insertar datos
         var ajaxUrl = base_url + '/roles/setRol';
@@ -65,32 +65,35 @@ document.addEventListener('DOMContentLoaded', function () {
         request.onreadystatechange = function () {
             if (request.readyState == 4 && request.status == 200) {
                 var objData = JSON.parse(request.responseText);
-               
+
                 if (objData.status) {
-                $('#modalFormRol').modal('hide');
-                formRol.reset();
-                swal("Rol de usuario", objData.msg, "success");
-                   // Después de insertar un nuevo rol con éxito
-                    tablaRoles.ajax.reload(null, false);
+                    $('#modalFormRol').modal('hide');
+                    formRol.reset();
+                    swal("Rol de usuario", objData.msg, "success");
+                    // Después de insertar un nuevo rol con éxito
+                    tablaRoles.api().ajax.reload(function () {
+                        // Cargamos nuevamente las roles
+                        EditRol();
+                    });
 
                 } else {
                     swal("Error", objData.msg, "error");
                 }
             }
         };
-        
+
     };
 });
 
 // Para abrir el modal del formulario de registro de roles
 function OpenModalRol() {
     $('#modalFormRol').modal('show');
-        document.querySelector('#idRol').value = "";
-        document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
-        document.querySelector('#btnActionForm').classList.replace('btn-info', 'btn-primary');
-        document.querySelector('#btnText').innerHTML = 'Guardar';
-        document.querySelector('#titleModal').innerHTML = 'Nuevo Rol';
-        document.querySelector("#formRol").reset();
+    document.querySelector('#idRol').value = "";
+    document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
+    document.querySelector('#btnActionForm').classList.replace('btn-info', 'btn-primary');
+    document.querySelector('#btnText').innerHTML = 'Guardar';
+    document.querySelector('#titleModal').innerHTML = 'Nuevo Rol';
+    document.querySelector("#formRol").reset();
 }
 
 // Editar rol
@@ -102,12 +105,12 @@ function EditRol() {
     var btnEditRol = document.querySelectorAll(".btnEditRol");
     btnEditRol.forEach(function (btnEditRol) {
         btnEditRol.addEventListener('click', function () {
-           //Para cambiar el nomrbre del modal al hacer click en actualizar
+            //Para cambiar el nomrbre del modal al hacer click en actualizar
             document.querySelector('#titleModal').innerHTML = 'Actualizar Rol';
             document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
             document.querySelector('#btnActionForm').classList.replace('btn-primary', 'btn-info');
             document.querySelector('#btnText').innerHTML = 'Actualizar';
-            
+
             //Obtener el id del rol por el atributo rl
             var idRol = this.getAttribute('rl');
             //para obtener el rol depnediendo del navegador que se este usando
@@ -120,32 +123,23 @@ function EditRol() {
             request.onreadystatechange = function () {
                 if (request.readyState == 4 && request.status == 200) {
                     var objData = JSON.parse(request.responseText);
-                    console.log (objData);
                     if (objData.status) {
                         //obtenemos los valores de cada input del modal utilizando value
                         document.querySelector('#idRol').value = objData.data.rol_id;
                         document.querySelector('#txtRol').value = objData.data.nombre;
                         document.querySelector('#txtDescripcion').value = objData.data.descripcion;
                         document.querySelector('#listEstatus').value = objData.data.estatus;
-                        
-                       // Crear una variable para almacenar el HTML de las opciones
-                       // usamos el operador ternario ejemplo   -> condicion ? resultado_verdadero : resultado_falso
-                        var optionsHTML = objData.data.estatus === 1
-                        ? '<option value="1" selected class="notBlock">Activo</option>'
-                        : '<option value="0" class="notBlock">Inactivo</option>';
 
-                        // Generar el HTML para las opciones adicionales utilizando map
-                        var additionalOptions = ['Activo', 'Inactivo'].map(function(option) {
-                        return `<option value="${option.toLowerCase()}">${option}</option>`;
-                        });
+                        // Establecer el valor seleccionado del elemento listEstatus
+                        var listEstatus = document.querySelector('#listEstatus');
+                        if (objData.data.estatus === 1) {
+                            listEstatus.selectedIndex = 0; // Activo
+                        } else {
+                            listEstatus.selectedIndex = 1; // Inactivo
+                        }
 
-                        // Combinar el HTML de la opción seleccionada y las opciones adicionales
-                        var htmlSelect = optionsHTML + additionalOptions.join('');
-
-                        // Actualizar el contenido del elemento listEstatus con el nuevo HTML
-                        document.querySelector('#listEstatus').innerHTML = htmlSelect;
-                                                $('#modalFormRol').modal('show');
-                    }else{
+                        $('#modalFormRol').modal('show');
+                    } else {
                         swal("Error", objData.msg, "error");
                     }
                 }
