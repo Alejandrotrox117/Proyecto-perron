@@ -12,6 +12,21 @@ class categoriasModel extends Mysql
     {
      parent::__construct();
     }
+
+    //funcion para consultar todos
+    public function selectCategorias()
+    {
+        $query = "SELECT * FROM categoria WHERE categoriaId != 0 ORDER BY categoriaId ASC";
+        $request = $this->searchAll($query);
+        return $request;
+    }
+    //funcion para seleccionar uno
+    public function selectOneCategoria(int $id){
+        $this->intIdcategoria = $id;
+        $sql = "SELECT * FROM categoria WHERE categoriaId = $this->intIdcategoria";
+        $request = $this->search($sql);
+        return $request;
+    }    
     
     public function insertCategoria(string $nombreCat, string $descripcion, int $estatus, string $portada)
     {

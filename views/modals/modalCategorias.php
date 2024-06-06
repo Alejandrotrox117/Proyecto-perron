@@ -40,7 +40,7 @@
                 <span class="delPhoto notBlock">X</span>
                 <label for="foto"></label>
                 <div>
-                  <img id="img" src="<?= media(); ?>/img/categorias.png">
+                  <img id="img" src="<?= media(); ?>/img/uploads/categorias.png">
                 </div>
               </div>
               <div class="upimg">
@@ -64,6 +64,49 @@
     </div>
      </div>
       </div>  
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalViewCategoria" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" >
+    <div class="modal-content">
+      <div class="modal-header header-primary">
+        <h5 class="modal-title" id="titleModal">Datos de la categoría</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td>ID:</td>
+              <td id="celId"></td>
+            </tr>
+            <tr>
+              <td>Nombres:</td>
+              <td id="celNombre"></td>
+            </tr>
+            <tr>
+              <td>Descripción:</td>
+              <td id="celDescripcion"></td>
+            </tr>
+            <tr>
+              <td>Estado:</td>
+              <td id="celEstado"></td>
+            </tr>
+            <tr>
+              <td>Foto:</td>
+              <td id="imgCategoria"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
     </div>
   </div>
 </div>

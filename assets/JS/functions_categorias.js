@@ -1,7 +1,49 @@
-//Nueva Categoria
-
 
 document.addEventListener('DOMContentLoaded', function(){
+
+    //DataTable
+    var tablaCategoria;
+    tablaCategoria = $('#tablaCategoria').DataTable({
+        "aProcessing": true,
+        "aServerSide": true,
+        "language": {
+            "decimal": "",
+        "emptyTable": "No hay información",
+        "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+        "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+        "infoPostFix": "",
+        "thousands": ",",
+        "lengthMenu": "Mostrar _MENU_ Entradas",
+        "loadingRecords": "Cargando...",
+        "processing": "Procesando...",
+        "search": "Buscar:",
+        "zeroRecords": "Sin resultados encontrados",
+        "paginate": {
+            "first": "Primero",
+            "last": "Ultimo",
+            "next": "Siguiente",
+            "previous": "Anterior"
+        }
+        },
+        "ajax": {
+            "url": base_url + "/categorias/getCategoria",
+            "dataSrc": ""
+        },
+        "columns": [
+            { "data": "categoriaId" },
+            { "data": "nombre" },
+            { "data": "descripcion" },
+            { "data": "estadoId"},
+            { "data": "acciones"}
+        ],
+        "destroy": true,
+        "responsive": true,
+        "pageLength": 10,
+        "order": [[0, "asc"]]
+    });
+
+    //Crear Categoria
     var formCategorias = document.querySelector("#formCategorias");
     formCategorias.onsubmit = function(e){
         e.preventDefault();
@@ -29,11 +71,12 @@ document.addEventListener('DOMContentLoaded', function(){
                     formCategorias.reset();
                     removePhoto();
                     swal("Categorias", objData.msg, "success");
-                    // tableRoles.api().ajax.reload(function(){
-                    //     fntEditRol();
+                    tablaCategoria.ajax.reload(null, false);
+                    tablaCategoria.api().ajax.reload(function(){
+                        btnViewInfo();
                     //     fntDelRol();
                     //     fntPermisos();
-                    // });
+                    });
                 }else{
                     swal("Error", objData.msg, "error");
                 }
@@ -47,8 +90,6 @@ document.addEventListener('DOMContentLoaded', function(){
         removePhoto();
     });
 });
-
-
 
 //carga de la foto para las categorias, valida si existe el elemento foto
 // y si existe ejecuta el script
@@ -97,12 +138,39 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 }, false);
 
+function btnViewInfo(idcategoria){
+    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    let ajaxUrl = base_url+'/Categorias/getAcategoria/'+idcategoria;
+    request.open("GET",ajaxUrl,true);
+    request.send();
+    request.onreadystatechange = function(){
+        if(request.readyState == 4 && request.status == 200){
+            let objData = JSON.parse(request.responseText);
+            if(objData != '')
+            {
+                let estado = objData.estadoId == 1 ? 
+                '<span class="badge badge-success">Activo</span>' : 
+                '<span class="badge badge-danger">Inactivo</span>';
+                document.querySelector("#celId").innerHTML = objData.categoriaId;
+                document.querySelector("#celNombre").innerHTML = objData.nombre;
+                document.querySelector("#celDescripcion").innerHTML = objData.descripcion;
+                document.querySelector("#celEstado").innerHTML = estado;
+                document.querySelector("#imgCategoria").innerHTML = '<img src="'+objData.url_portada+'"></img>';
+                $('#modalViewCategoria').modal('show');
+            }else{
+                swal("Error", objData.msg , "error");
+            }
+        }
+    }
+}
+
+
 function removePhoto(){
     document.querySelector('#foto').value ="";
     document.querySelector('.delPhoto').classList.add("notBlock");
     document.querySelector('#img').remove();
     // Agrega la imagen predeterminada
-    document.querySelector('.prevPhoto div').innerHTML = '<img id="img" src="assets/img/categorias.png">';
+    document.querySelector('.prevPhoto div').innerHTML = '<img id="img" src="assets/img/uploads/categorias.png">';
 }
 
 // Para abrir el modal del formulario de registro de categotias

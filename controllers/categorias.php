@@ -62,6 +62,46 @@ class Categorias extends Controllers
             }
         }
     }
+
+    public function getCategoria(){
+        $arrData = $this->model->selectCategorias();
+
+        for ($i=0; $i < count($arrData); $i++) {
+            if ($arrData[$i]['estadoId'] == 1) {
+                $arrData[$i]['estadoId'] = '<span class="badge badge-success">Activo</span>';
+            } else {
+                $arrData[$i]['estadoId'] = '<span class="badge badge-danger">Inactivo</span>';
+            }
+
+            $arrData[$i]['acciones'] = '<div class="text-center">
+            <button class="btn btn-warning btn-sm " onClick="btnViewInfo('.$arrData[$i]['categoriaId'].')" title="Ver"><i class="fas fa-eye"></i></button>
+            <button class="btn btn-warning btn-sm btnEditRol" rl="'.$arrData[$i]['categoriaId'].'" title="Editar"><i class="fas fa-edit"></i></button>
+            <button class="btn btn-danger btn-sm btnEliRol" rl="'.$arrData[$i]['categoriaId'].'" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
+            </div>';
+        }
+
+        // Convertir a formato JSON
+        echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
+        // Finalizar el proceso
+        exit();
+    }
+
+    public function getAcategoria(int $idCategoria){
+        if(isset($idCategoria)){
+            $intidCategoria = intval($idCategoria);
+            if($intidCategoria > 0){
+                $arrData = $this->model->selectOneCategoria($intidCategoria);
+                if(empty($arrData)){
+                    $arrResponse = array('status' => false, 'msg' => 'Datos no encontrados.');
+                }else{
+                    $arrData['url_portada'] = media().'/img/uploads/'.$arrData['portada'];
+                    $arrResponse = array('status' => true, 'data' => $arrData);
+                }
+                echo json_encode($arrData, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ;    
+            }
+            die();
+        }
+    }
 }
    
 ?>

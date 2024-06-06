@@ -21,13 +21,14 @@
           <div class="tile">
             <div class="tile-body">
               <div class="table-responsive">
-                <table class="table table-hover table-bordered" id="tablaCategorias">
+                <table class="table table-hover table-bordered" id="tablaCategoria">
                   <thead>
                     <tr>
                       <th>ID</th>
                       <th>Nombre</th>
                       <th>Descripción</th>
                       <th>Estatus</th>
+                      <th>Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
