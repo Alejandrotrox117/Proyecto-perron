@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
             "dataSrc": ""
         },
         "columns": [
-            { "data": "rol_id" },
+            //{ "data": "rol_id" },
             { "data": "nombre" },
             { "data": "descripcion" },
             { "data": "estatus" },
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var formRol = document.querySelector("#formRol");
     formRol.onsubmit = function (e) {
         e.preventDefault();
-        var idRol = document.querySelector('#idRol').value;
+        var idRol = document.querySelector("#idRol").value;
         var nombreRol = document.querySelector("#txtRol").value;
         var descRol = document.querySelector("#txtDescripcion").value;
         var estatusRol = document.querySelector("#listEstatus").value;
@@ -70,9 +70,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     $('#modalFormRol').modal('hide');
                     formRol.reset();
                     swal("Rol de usuario", objData.msg, "success");
+
                     // Después de insertar un nuevo rol con éxito
-                    tablaRoles.api().ajax.reload(function () {
+                    tablaRoles.ajax.reload(function () {
                         // Cargamos nuevamente las roles
+                       
                         EditRol();
                     });
 

@@ -40,15 +40,15 @@ class rolesModel extends Mysql
         $query = "SELECT * FROM rol WHERE nombre = '{$this->strRol}'";
         $request = $this->searchAll($query);
 
+
         if (empty($request)) {
             $query_insert = "INSERT INTO rol (nombre, estatus, descripcion) VALUES (?, ?, ?)";
             $arrData = array($this->strRol, $this->intStatus, $this->descripcionRol);
             $request_insert = $this->insert($query_insert, $arrData);
             $retornar = $request_insert;
         } else {
-            $retornar = "exist";
+            $retornar ="exist";
         }
-
         return $retornar;
     }
     public function updateRol(int $id, string $rol, int $estatus, string $descripcion)

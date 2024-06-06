@@ -23,7 +23,7 @@
                 <table class="table table-hover table-bordered" id="tablaRoles">
                   <thead>
                     <tr>
-                      <th>ID</th>
+                      <!-- <th>ID</th> -->
                       <th>Nombre</th>
                       <th>Descripción</th>
                       <th>Estatus</th>
