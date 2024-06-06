@@ -59,15 +59,15 @@ class rolesModel extends Mysql
         $query = "SELECT * FROM rol WHERE nombre = '{$this->strRol}' AND rol_id != $this->intIdRol";
         $request = $this->searchAll($query);
 
-        if (empty($request)) {
-            $query = "UPDATE rol SET nombre = ?, estatus = ?, descripcion = ? WHERE rol_id = $this->intIdRol";
-            $arrData = array($this->strRol, $this->intStatus, $this->descripcionRol);
-            $request = $this->update($query, $arrData);
-        } else {
+        if (!empty($request)) {
             return 'exist';
         }
 
-        return $request;
+        $query = "UPDATE rol SET nombre = ?, estatus = ?, descripcion = ? WHERE rol_id = $this->intIdRol";
+        $arrData = array($this->strRol, $this->intStatus, $this->descripcionRol);
+        $request = $this->update($query, $arrData);
+
+        return $request ?: false;
     }
 }
 ?>
