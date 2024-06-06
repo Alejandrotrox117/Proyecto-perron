@@ -1,9 +1,11 @@
-<?php 
+<?php
 
 class rolesModel extends Mysql
 {
+
+    public $intIdRol;
     public $strRol;
-    public $strDescripcion;
+    public $descripcionRol;
     public $intStatus;
 
     public function __construct()
@@ -19,8 +21,9 @@ class rolesModel extends Mysql
         return $request;
     }
     //funcion para seleccionar un rol
-    public function selectOneRol(int $id){
-        $this -> intIdRol = $id;
+    public function selectOneRol(int $id)
+    {
+        $this->intIdRol = $id;
         $sql = "SELECT * FROM rol WHERE rol_id = $this->intIdRol";
         $request = $this->search($sql);
         return $request;
@@ -29,47 +32,62 @@ class rolesModel extends Mysql
 
     public function insertRol(string $rol, int $estatus, string $descripcion)
     {
-        $retornar = "";
         $this->strRol = $rol;
-        $this->strDescripcion = $descripcion;
+        $this->descripcionRol = $descripcion;
         $this->intStatus = $estatus;
 
         $query = "SELECT * FROM rol WHERE nombre = '{$this->strRol}'";
         $request = $this->searchAll($query);
-
-        if (empty($request)) {
-            $query_insert = "INSERT INTO rol (nombre, estatus, descripcion) VALUES (?, ?, ?)";
-            $arrData = array($this->strRol, $this->intStatus, $this->strDescripcion);
-            $request_insert = $this->insert($query_insert, $arrData);
-            $retornar = $request_insert;
-        } else {
-            $retornar = "exist";
+        //validar si el rol ya existe
+        if (!empty($request)) {
+            return "exist";
         }
 
-        return $retornar;
+        $query_insert = "INSERT INTO rol (nombre, estatus, descripcion) VALUES (?, ?, ?)";
+        $arrData = array($this->strRol, $this->intStatus, $this->descripcionRol);
+        $request_insert = $this->insert($query_insert, $arrData);
+        //devolvemos el resultado  
+        return $request_insert ?: false;
     }
-    public function updateRol(int $id,string $rol,int $estatus,string $descripcion){
-        $this -> intIdRol = $id;
-        $this -> descripcion = $descripcion;
-        $this -> estatus = $estatus;
-        $this -> nombre= $rol;
-        //indicamos si el nombre del rol es igual al que estamos actualizando o no con un id diferente
-        $query = "SELECT * FROM roles WHERE nombre = '{$this -> nombre}' AND rol_id != $this -> intIdRol";
-        $request =searchAll($query);
+    public function updateRol(int $id, string $rol, int $estatus, string $descripcion)
+    {
+        $this->intIdRol = $id;
+        $this->descripcionRol = $descripcion;
+        $this->intStatus = $estatus;
+        $this->strRol = $rol;
 
-        if(empty($request)) {
-            $query = "UPDATE roles SET nombre = ?, estatus = ?, descripcion = ? WHERE rol_id = $this -> intIdRol";
-            $arrData = array($this -> nombre, $this -> estatus, $this -> descripcion);
-            //llamamos a la funcion update de la clase mysql
-            $request = $this -> update($query, $arrData);
-            return $request;
-        } else {
+        $query = "SELECT * FROM rol WHERE nombre = '{$this->strRol}' AND rol_id != $this->intIdRol";
+        $request = $this->searchAll($query);
+
+        if (!empty($request)) {
             return 'exist';
         }
 
+        $query = "UPDATE rol SET nombre = ?, estatus = ?, descripcion = ? WHERE rol_id = $this->intIdRol";
+        $arrData = array($this->strRol, $this->intStatus, $this->descripcionRol);
+        $request = $this->update($query, $arrData);
 
+        return $request ?: false;
     }
 
-}
+    public function deleteRol(int $idRol)
+    {
+        $this->intIdRol = $idRol;
+        $query = "SELECT * FROM empleado WHERE rol_id = $idRol";
+        $request = $this->searchAll($query);
 
+        if (empty($request)) {
+            $sql = "DELETE FROM rol WHERE rol_id = $idRol";	
+            $request = $this->delete($sql);
+
+            if ($request) {
+                return "ok";
+            } else {
+                return "Error";
+            }
+        } else {
+            return "exist";
+        }
+    }
+}
 ?>
