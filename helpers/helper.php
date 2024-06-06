@@ -45,6 +45,10 @@
         return $move;
     }
 
+    function deleteFile(string $name){
+        unlink('assets/img/uploads/'.$name);
+    }
+
     function strClean($str){
         $string = preg_replace('/[^A-Za-z0-9]/', ' ', $str);
         $string = trim($string);//Elimina espacios en blanco al inicio y al final

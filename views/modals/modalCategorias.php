@@ -3,16 +3,18 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Nueva Categoria</h5>
+        <h5 class="modal-title" id="staticBackdropLabel"></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <div class="tile">
-          <h3 class="tile-title">Registrar Categorias</h3>
+          <h3 class="tile-title"></h3>
           <div class="tile-body">
         <form id="formCategorias" name="formCategorias" class="form-horizontal">
+          <input type="hidden" id="foto_actual" name="foto_actual" value="">
+          <input type="hidden" id="foto_remove" name="foto_remove" value="0">
           <p class="text-primary">Los campos con asteriscos(<span class="required">*</span>)</p>
           <div class="row">
             <div class="col-md-6">
@@ -52,8 +54,8 @@
           </div>
       </div>
       <div class="tile-footer">
-        <button class="btn btn-primary" type="submit" name="enviar">
-          <i class="fa fa-fw fa-lg fa-check-circle"></i>Registrar
+        <button class="btn btn-primary" id="btnActionForm" type="submit" name="enviar">
+          <i class="fa fa-fw fa-lg fa-check-circle" id="btnText"></i>
         </button>
         &nbsp;&nbsp;&nbsp;
         <button class="btn btn-secondary" href="#" data-dismiss="modal">

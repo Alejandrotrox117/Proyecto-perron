@@ -27,7 +27,7 @@ class categoriasModel extends Mysql
         $request = $this->search($sql);
         return $request;
     }    
-    
+    //Insertar
     public function insertCategoria(string $nombreCat, string $descripcion, int $estatus, string $portada)
     {
         $retornar = "";
@@ -48,6 +48,27 @@ class categoriasModel extends Mysql
             $retornar = "exist";
         }
         return $retornar;
+    }
+    //Actualizar
+    public function updateCategoria(int $idcategoria, string $categoria, string $descripcion, string $portada, int $status){
+        $this->$intIdcategoria = $idcategoria;
+        $this->strCat = $nombreCat;
+        $this->strDescripcion = $descripcion;
+        $this->intStatus = $estatus;
+        $this->strPortada = $portada;
+
+        $sql = "SELECT * FROM categoria WHERE nombre = '{$this->strCat}' AND categoriaId != $this->intIdcategoria";
+        $request = $this->select_all($sql);
+
+        if(empty($request))
+        {
+            $sql = "UPDATE categoria SET nombre = ?, descripcion = ?, status = ?, portada = ? WHERE categoriaId = $this->intIdcategoria ";
+            $arrData = array($this->strCat, $this->strDescripcion, $this->intStatus, $this->strPortada);
+            $request = $this->update($sql,$arrData);
+        }else{
+            $request = "exist";
+        }
+        return $request;			
     }
 }
 
