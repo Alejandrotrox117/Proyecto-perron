@@ -69,5 +69,25 @@ class rolesModel extends Mysql
 
         return $request ?: false;
     }
+
+    public function deleteRol(int $idRol)
+    {
+        $this->intIdRol = $idRol;
+        $query = "SELECT * FROM empleado WHERE rol_id = $idRol";
+        $request = $this->searchAll($query);
+
+        if (empty($request)) {
+            $sql = "DELETE FROM rol WHERE rol_id = $idRol";	
+            $request = $this->delete($sql);
+
+            if ($request) {
+                return "ok";
+            } else {
+                return "Error";
+            }
+        } else {
+            return "exist";
+        }
+    }
 }
 ?>
