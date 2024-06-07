@@ -1,8 +1,8 @@
-
+let tablaCategoria;
 document.addEventListener('DOMContentLoaded', function(){
 
     //DataTable
-    var tablaCategoria;
+    
     tablaCategoria = $('#tablaCategoria').DataTable({
         "aProcessing": true,
         "aServerSide": true,
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function(){
             { "data": "categoriaId" },
             { "data": "nombre" },
             { "data": "descripcion" },
-            { "data": "estadoId"},
+            { "data": "estado"},
             { "data": "acciones"}
         ],
         "destroy": true,
@@ -44,27 +44,28 @@ document.addEventListener('DOMContentLoaded', function(){
     });
 
     //Crear Categoria
-    var formCategorias = document.querySelector("#formCategorias");
+    
+    let formCategorias = document.querySelector("#formCategorias");
     formCategorias.onsubmit = function(e){
         e.preventDefault();
 
-        var strNombre = document.querySelector('#txtNombre').value;
-        var srtDescripcion = document.querySelector('#txtDescripcion').value;
-        var intStatus = document.querySelector('#listEstatus').value;
+        let strNombre = document.querySelector('#txtNombre').value;
+        let srtDescripcion = document.querySelector('#txtDescripcion').value;
+        let intStatus = document.querySelector('#listEstatus').value;
            
         if(strNombre == '' || srtDescripcion == '' || intStatus == ''){
             swal("Atencion", "Todos los campos son obligatorios", "error");
             return false;
         }
 
-        var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-        var ajaxUrl = base_url+'/categorias/setCategoria';
+        let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        let ajaxUrl = base_url+'/categorias/setCategoria';
         formData = new FormData(formCategorias);
         request.open("POST", ajaxUrl, true);
         request.send(formData);
         request.onreadystatechange = function(){
             if(request.readyState == 4 && request.status == 200){
-                var objData = JSON.parse(request.responseText);
+                let objData = JSON.parse(request.responseText);
                 if(objData.status){
                     $('#modalFormCategorias').modal("hide");
                     formCategorias.reset();
@@ -84,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     }
 
-    var closeButton = document.querySelector('.close');
+    let closeButton = document.querySelector('.close');
     closeButton.addEventListener('click', function() {
         removePhoto();
     });
@@ -94,15 +95,15 @@ document.addEventListener('DOMContentLoaded', function(){
 // y si existe ejecuta el script
 document.addEventListener('DOMContentLoaded', function(){
     if(document.querySelector("#foto")){
-        var foto = document.querySelector("#foto");
+        let foto = document.querySelector("#foto");
         foto.onchange = function(e) { //se efecuta cuando el input cambia de valor
-            var uploadFoto = document.querySelector("#foto").value;
-            var fileimg = document.querySelector("#foto").files;
-            var nav = window.URL || window.webkitURL;
-            var contactAlert = document.querySelector('#form_alert');
+            let uploadFoto = document.querySelector("#foto").value;
+            let fileimg = document.querySelector("#foto").files;
+            let nav = window.URL || window.webkitURL;
+            let contactAlert = document.querySelector('#form_alert');
             if(uploadFoto !=''){
-                var type = fileimg[0].type;
-                var name = fileimg[0].name;
+                let type = fileimg[0].type;
+                let name = fileimg[0].name;
                 if(type != 'image/jpeg' && type != 'image/jpg' && type != 'image/png'){ //validacion de los formatos de imagen
                     contactAlert.innerHTML = '<p class="errorArchivo">El archivo no es válido.</p>';
                     if(document.querySelector('#img')){
@@ -117,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function(){
                             document.querySelector('#img').remove();
                         }
                         document.querySelector('.delPhoto').classList.remove("notBlock");
-                        var objeto_url = nav.createObjectURL(this.files[0]);//se crea un nuevo objeto con la imagen
+                        let objeto_url = nav.createObjectURL(this.files[0]);//se crea un nuevo objeto con la imagen
                         document.querySelector('.prevPhoto div').innerHTML = "<img id='img' src="+objeto_url+">"; //ruta temporal
                     }
             }else{
@@ -130,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function(){
     }
     
     if(document.querySelector(".delPhoto")){
-        var delPhoto = document.querySelector(".delPhoto");
+        let delPhoto = document.querySelector(".delPhoto");
         delPhoto.onclick = function(e) {
             document.querySelector("#foto_remove").value = 1;
             removePhoto();
@@ -148,7 +149,7 @@ function btnViewInfo(idcategoria){
             let objData = JSON.parse(request.responseText);
             if(objData != '')
             {
-                let estado = objData.estadoId == 1 ? 
+                let estado = objData.estado == 1 ? 
                 '<span class="badge badge-success">Activo</span>' : 
                 '<span class="badge badge-danger">Inactivo</span>';
                 document.querySelector("#celId").innerHTML = objData.categoriaId;
@@ -164,13 +165,13 @@ function btnViewInfo(idcategoria){
     }
 }
 
-function btnEditInfo(idcategoria){
+function btnEditInfo(element, idcategoria){
+    rowTable = element.parentNode.parentNode;
     document.querySelector('.tile-title').innerHTML ="Actualizar Categoría";
     document.querySelector('.modal-title').innerHTML ="Actualizar Categoría";
     document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
     document.querySelector('#btnActionForm').innerHTML ="Actualizar";
 
-    var idcategoria = idcategoria;
     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     let ajaxUrl = base_url+'/categorias/getAcategoria/'+idcategoria;
     request.open("GET",ajaxUrl,true);
@@ -186,7 +187,7 @@ function btnEditInfo(idcategoria){
                 document.querySelector("#foto_actual").value = objData.portada;
                 document.querySelector("#foto_remove").value = 0;
 
-                if(objData.estadoId == '1'){
+                if(objData.estado == '1'){
                     parseInt(document.querySelector('#listEstatus').value = 1);
                 }else{
                     parseInt(document.querySelector('#listEstatus').value = 2);
@@ -214,6 +215,45 @@ function btnEditInfo(idcategoria){
     }
 }
 
+function btnDelInfo(idcategoria){
+    swal({
+        title: "Eliminar Categoría",
+        text: "¿Realmente quiere eliminar al categoría?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Si, eliminar!",
+        cancelButtonText: "No, cancelar!",
+        closeOnConfirm: false,
+        closeOnCancel: true
+    }, function(isConfirm) {
+        
+        if (isConfirm) 
+        {
+            let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+            let ajaxUrl = base_url+'/categorias/delCategoria';
+            let strData = "idCategoria="+idcategoria;
+            request.open("POST",ajaxUrl,true);
+            request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            request.send(strData);
+            request.onreadystatechange = function(){
+                if(request.readyState == 4 && request.status == 200){
+                    let objData = JSON.parse(request.responseText);
+                    if(objData.status){
+                        swal("Atención!", objData.msg , "error");
+                        tablaCategoria.ajax.reload(function () {
+                            btnEditInfo();
+                            btnEditInfo();
+                          });
+                    }else{
+                        swal("Atención!", objData.msg , "error");
+                    }
+                }
+            }
+        }
+
+    });
+}
+
 
 function removePhoto(){
     document.querySelector('#foto').value ="";
@@ -227,6 +267,7 @@ function removePhoto(){
 
 // Para abrir el modal del formulario de registro de categotias
 function OpenModal() {
+    document.querySelector("#idCategoria").value = "";
     document.querySelector('.tile-title').innerHTML ="Nueva Categoria";
     document.querySelector('.modal-title').innerHTML ="Registrar Categoria";
     document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");

@@ -32,14 +32,14 @@ CREATE TABLE `categoria` (
   `nombre` varchar(100) NOT NULL,
   `descripcion` varchar(1000) NOT NULL,
   `creado` datetime NOT NULL DEFAULT current_timestamp(),
-  `estadoId` int(11) NOT NULL
+  `estado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `categoria`
 --
 
-INSERT INTO `categoria` (`categoriaId`, `nombre`, `descripcion`, `creado`, `estadoId`) VALUES
+INSERT INTO `categoria` (`categoriaId`, `nombre`, `descripcion`, `creado`, `estado`) VALUES
 (1, 'Telefonos', 'Telefonos Iphones...', '0000-00-00 00:00:00', 1),
 (2, 'Accesorios', 'Los accesorios son...', '0000-00-00 00:00:00', 1);
 
@@ -84,7 +84,7 @@ CREATE TABLE `empleado` (
 --
 
 CREATE TABLE `estado` (
-  `estadoId` int(11) NOT NULL,
+  `estado` int(11) NOT NULL,
   `estado` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -92,7 +92,7 @@ CREATE TABLE `estado` (
 -- Volcado de datos para la tabla `estado`
 --
 
-INSERT INTO `estado` (`estadoId`, `estado`) VALUES
+INSERT INTO `estado` (`estado`, `estado`) VALUES
 (0, 'inactivo'),
 (1, 'activo');
 
@@ -106,7 +106,7 @@ CREATE TABLE `productos` (
   `productosId` int(100) NOT NULL,
   `descripcion` varchar(1000) NOT NULL,
   `categoriaId` int(100) NOT NULL,
-  `estadoId` int(100) NOT NULL,
+  `estado` int(100) NOT NULL,
   `nombre` varchar(1000) NOT NULL,
   `precio` float NOT NULL,
   `stock` int(100) NOT NULL,
@@ -117,7 +117,7 @@ CREATE TABLE `productos` (
 -- Volcado de datos para la tabla `productos`
 --
 
-INSERT INTO `productos` (`productosId`, `descripcion`, `categoriaId`, `estadoId`, `nombre`, `precio`, `stock`, `creado`) VALUES
+INSERT INTO `productos` (`productosId`, `descripcion`, `categoriaId`, `estado`, `nombre`, `precio`, `stock`, `creado`) VALUES
 (2, 'Prueba', 1, 1, 'Iphone', 1, 1, '2024-05-09 02:09:39'),
 (3, 'Prueba', 1, 1, 'Iphone', 1, 1, '2024-05-18 23:22:10');
 
@@ -154,7 +154,7 @@ CREATE TABLE `usuario` (
   `username` varchar(15) NOT NULL,
   `contrasena` varchar(30) NOT NULL,
   `rolId` int(11) NOT NULL,
-  `estadoId` int(11) NOT NULL,
+  `estado` int(11) NOT NULL,
   `registro` datetime(6) NOT NULL,
   `modificado` datetime(6) NOT NULL,
   `modificadoPor` datetime(6) NOT NULL
@@ -188,14 +188,14 @@ ALTER TABLE `empleado`
 -- Indices de la tabla `estado`
 --
 ALTER TABLE `estado`
-  ADD PRIMARY KEY (`estadoId`);
+  ADD PRIMARY KEY (`estado`);
 
 --
 -- Indices de la tabla `productos`
 --
 ALTER TABLE `productos`
   ADD PRIMARY KEY (`productosId`),
-  ADD KEY `estadoId` (`estadoId`),
+  ADD KEY `estado` (`estado`),
   ADD KEY `categoriaId` (`categoriaId`);
 
 --
@@ -209,7 +209,7 @@ ALTER TABLE `rol`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`usuarioId`),
-  ADD KEY `estadoId` (`estadoId`),
+  ADD KEY `estado` (`estado`),
   ADD KEY `rolId` (`rolId`);
 
 --
@@ -226,7 +226,7 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `estado`
 --
 ALTER TABLE `estado`
-  MODIFY `estadoId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -266,14 +266,14 @@ ALTER TABLE `empleado`
 -- Filtros para la tabla `productos`
 --
 ALTER TABLE `productos`
-  ADD CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`estadoId`) REFERENCES `estado` (`estadoId`),
+  ADD CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`estado`) REFERENCES `estado` (`estado`),
   ADD CONSTRAINT `productos_ibfk_2` FOREIGN KEY (`categoriaId`) REFERENCES `categoria` (`categoriaId`);
 
 --
 -- Filtros para la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`estadoId`) REFERENCES `estado` (`estadoId`),
+  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`estado`) REFERENCES `estado` (`estado`),
   ADD CONSTRAINT `usuario_ibfk_2` FOREIGN KEY (`rolId`) REFERENCES `rol` (`rol_id`);
 COMMIT;
 

@@ -40,7 +40,7 @@ class categoriasModel extends Mysql
         $request = $this->searchAll($sql);
 
         if(empty($request)){
-            $query_insert = "INSERT INTO categoria (nombre, descripcion, estadoId, portada) VALUES (?, ?, ?, ?)";
+            $query_insert = "INSERT INTO categoria (nombre, descripcion, estado, portada) VALUES (?, ?, ?, ?)";
             $arrData = array($this->strCat, $this->strDescripcion, $this->intStatus, $this->strPortada);
             $request_insert = $this->insert($query_insert, $arrData);
             $retornar = $request_insert;
@@ -50,25 +50,45 @@ class categoriasModel extends Mysql
         return $retornar;
     }
     //Actualizar
-    public function updateCategoria(int $idcategoria, string $categoria, string $descripcion, string $portada, int $status){
-        $this->$intIdcategoria = $idcategoria;
+    public function updateCategoria(int $idcategoria, string $nombreCat, string $descripcion, int $estatus, string $portada){
+        $this->intIdcategoria = $idcategoria;
         $this->strCat = $nombreCat;
         $this->strDescripcion = $descripcion;
         $this->intStatus = $estatus;
         $this->strPortada = $portada;
-
-        $sql = "SELECT * FROM categoria WHERE nombre = '{$this->strCat}' AND categoriaId != $this->intIdcategoria";
+    
+        $sql = "SELECT * FROM categoria WHERE nombre = '{$this->strCat}' AND categoriaId != {$this->intIdcategoria}";
         $request = $this->select_all($sql);
-
+    
         if(empty($request))
         {
-            $sql = "UPDATE categoria SET nombre = ?, descripcion = ?, status = ?, portada = ? WHERE categoriaId = $this->intIdcategoria ";
+            $sql = "UPDATE categoria SET nombre = ?, descripcion = ?, estado = ?, portada = ? WHERE categoriaId = {$this->intIdcategoria} ";
             $arrData = array($this->strCat, $this->strDescripcion, $this->intStatus, $this->strPortada);
             $request = $this->update($sql,$arrData);
         }else{
             $request = "exist";
         }
         return $request;			
+    }
+
+    //Eliminar
+    public function deleteCategoria(int $idcategoria){
+        $this->intIdcategoria = $idcategoria;
+        $sql = "SELECT * FROM productos WHERE categoriaId = $this->intIdcategoria";
+        $request = $this->select_all($sql);
+    
+        if (empty($request)) {
+            $sql = "DELETE FROM categoria WHERE categoriaId = $idcategoria";	
+            $request = $this->delete($sql);
+    
+            if ($request){
+                return "ok";
+            }else{
+                return "Error";
+            }
+        }else{
+            return "exist";
+        }
     }
 }
 

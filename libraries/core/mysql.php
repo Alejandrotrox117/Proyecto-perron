@@ -41,6 +41,16 @@
             return $data;
         }
 
+        		//Devuelve todos los registros
+		public function select_all(string $query)
+		{
+			$this->strquery = $query;
+        	$result = $this->conexion->prepare($this->strquery);
+			$result->execute();
+        	$data = $result->fetchall(PDO::FETCH_ASSOC);
+        	return $data;
+		}
+
         //actualizar un registro
         public function update(string $query, array $arrValues) {
             try {

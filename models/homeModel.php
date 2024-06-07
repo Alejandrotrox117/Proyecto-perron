@@ -7,9 +7,9 @@ class HomeModel extends mysql {
 
     //en este modelo se declaran funciones para el crud de productos
     //agregar un producto
-    public function setProduct(string $nombre,string $descripcion,int $categoriaId,int $estadoId,float $precio,int $stock) {
-        $queryInsert = "INSERT INTO productos(nombre, descripcion, categoriaId, estadoId, precio, stock) VALUES (?, ?, ?, ?, ?, ?)";
-        $arrayData = array($nombre, $descripcion, $categoriaId, $estadoId, $precio, $stock);
+    public function setProduct(string $nombre,string $descripcion,int $categoriaId,int $estado,float $precio,int $stock) {
+        $queryInsert = "INSERT INTO productos(nombre, descripcion, categoriaId, estado, precio, stock) VALUES (?, ?, ?, ?, ?, ?)";
+        $arrayData = array($nombre, $descripcion, $categoriaId, $estado, $precio, $stock);
         $requestInsert = $this->insert($queryInsert, $arrayData);
         return $requestInsert;
     }
@@ -23,9 +23,9 @@ class HomeModel extends mysql {
     }
 
     //actualizar un producto
-    public function updateProduct(int $id,string $nombre,string $descripcion,int $categoriaId,int $estadoId,float $precio,int $stock) {
-        $query = "UPDATE productos SET nombre = ?, descripcion = ?, categoriaId = ?, estadoId = ?, precio = ?, stock = ? WHERE productosId = $id";
-        $arrayData = array($nombre, $descripcion, $categoriaId, $estadoId, $precio, $stock);
+    public function updateProduct(int $id,string $nombre,string $descripcion,int $categoriaId,int $estado,float $precio,int $stock) {
+        $query = "UPDATE productos SET nombre = ?, descripcion = ?, categoriaId = ?, estado = ?, precio = ?, stock = ? WHERE productosId = $id";
+        $arrayData = array($nombre, $descripcion, $categoriaId, $estado, $precio, $stock);
        //invoca el metodo uptate() de la clase Mysql
         $request = $this->update($query, $arrayData);
         return $request;

@@ -27,7 +27,7 @@
             <td><?php echo $row['productosId']; ?></td>
             <td><?php echo $row['descripcion']; ?></td>
             <td><?php echo $row['categoriaId']; ?></td>
-            <td><?php echo $row['estadoId']; ?></td>
+            <td><?php echo $row['estado']; ?></td>
             <td><?php echo $row['nombre']; ?></td>
             <td><?php echo $row['precio']; ?></td>
             <td><?php echo $row['stock']; ?></td>

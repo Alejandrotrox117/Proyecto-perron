@@ -59,12 +59,12 @@ class Categorias extends Controllers
                     }
                 }
                 if(($nombre_foto == '' && $_POST['foto_remove'] == 1 && $_POST['foto_actual'] != 'categorias.png') || ($nombre_foto != '' && $_POST['foto_actual'] != 'categorias.png')){
-                    deleteFiles($_POST['foto_actual']);
+                    deleteFile($_POST['foto_actual']);
                 }
-                $Status = intval($intStatus);
-                $request_categoria = $this->model->updateCategoria($intidCategoria, $strNombre, $strDescripcion, $Status, $imgPortada);
+                $request_categoria = $this->model->updateCategoria($intidCategoria, $strNombre, $strDescripcion, $intStatus, $imgPortada);
                 if(is_numeric($request_categoria) && $request_categoria > 0){
                     $arrResponse = array('status' => true, 'msg' => 'Datos actualizados correctamente.');
+                    if($nombre_foto != ''){uploadImage($foto, $imgPortada);}
                 }else if($request_categoria === "exist"){
                     $arrResponse = array('status' => false, 'msg' => 'Categoria ya existe.');
                 }else{
@@ -80,16 +80,16 @@ class Categorias extends Controllers
         $arrData = $this->model->selectCategorias();
 
         for ($i=0; $i < count($arrData); $i++) {
-            if ($arrData[$i]['estadoId'] == 1) {
-                $arrData[$i]['estadoId'] = '<span class="badge badge-success">Activo</span>';
+            if ($arrData[$i]['estado'] == 1) {
+                $arrData[$i]['estado'] = '<span class="badge badge-success">Activo</span>';
             } else {
-                $arrData[$i]['estadoId'] = '<span class="badge badge-danger">Inactivo</span>';
+                $arrData[$i]['estado'] = '<span class="badge badge-danger">Inactivo</span>';
             }
 
             $arrData[$i]['acciones'] = '<div class="text-center">
             <button class="btn btn-warning btn-sm" onClick="btnViewInfo('.$arrData[$i]['categoriaId'].')" title="Ver"><i class="fas fa-eye"></i></button>
-            <button class="btn btn-warning btn-sm" onClick="btnEditInfo('.$arrData[$i]['categoriaId'].')" title="Editar"><i class="fas fa-edit"></i></button>
-            <button class="btn btn-danger btn-sm btnEliRol" rl="'.$arrData[$i]['categoriaId'].'" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
+            <button class="btn btn-warning btn-sm" onClick="btnEditInfo(this,'.$arrData[$i]['categoriaId'].')" title="Editar"><i class="fas fa-edit"></i></button>
+            <button class="btn btn-danger btn-sm" onClick="btnDelInfo('.$arrData[$i]['categoriaId'].')" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
             </div>';
         }
 
@@ -115,6 +115,23 @@ class Categorias extends Controllers
             die();
         }
     }
+
+    public function delCategoria($idCategoria){
+        if($_POST['idCategoria']){
+            $intIdcategoria = $_POST['idCategoria'];
+			$requestDelete = $this->model->deleteCategoria($intIdcategoria);
+				if($requestDelete = 'ok'){
+					$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado la categoría');
+				}else if($requestDelete == 'exist'){
+					$arrResponse = array('status' => false, 'msg' => 'No es posible eliminar una categoría con productos asociados.');
+				}else{
+					$arrResponse = array('status' => false, 'msg' => 'Error al eliminar la categoría.');
+				}
+				echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+			}
+		    die();
+		}
+
 }
    
 ?>
