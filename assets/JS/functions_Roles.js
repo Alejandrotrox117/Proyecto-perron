@@ -107,6 +107,7 @@ window.addEventListener(
   function () {
     EditRol();
     DeleteRol();
+    PermisosRol();
   },
   false
 );
@@ -218,4 +219,17 @@ function DeleteRol() {
       );
     });
   });
+}
+
+function PermisosRol(){
+        var btnPermisos = document.querySelectorAll(".btnPermisos");
+        btnPermisos.forEach(function (btnPermisos) {
+            btnPermisos.addEventListener("click", function () {
+            
+            
+            $("#modalPermisos").modal("show");
+            
+            
+            });
+        });  
 }
