@@ -11,7 +11,7 @@
       <div class="modal-body">
         <div class="tile">
           <h3 class="tile-title"></h3>
-          <div class="tile-body">
+        <div class="tile-body">
         <form id="formCategorias" name="formCategorias" class="form-horizontal">
           <input type="hidden" id="foto_actual" name="foto_actual" value="">
           <input type="hidden" id="foto_remove" name="foto_remove" value="0">
