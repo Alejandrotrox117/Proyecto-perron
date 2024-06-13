@@ -1,6 +1,9 @@
 <?php headerAdmin($data); 
   getModal('modals_roles', $data);
+  
 ?>
+
+<div id="contenidoAjax"></div>
    <main class="app-content">
       <div class="app-title">
         <div>
