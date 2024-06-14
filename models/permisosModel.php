@@ -16,7 +16,7 @@ class PermisosModel extends Mysql
     // Obtenemos todos los módulos
     public function searchModulos()
     {
-        $sql = "SELECT * FROM modulo WHERE estatus = 1";
+        $sql = "SELECT * FROM modulo WHERE estado = 1";
         $request = $this->searchAll($sql);
         return $request;
     }
@@ -24,7 +24,7 @@ class PermisosModel extends Mysql
     public function searchPermisosRol(int $idrol)
     {
         $this->rolId = $idrol;
-        $sql = "SELECT * FROM permisos WHERE rol_id = $this->rolId";
+        $sql = "SELECT * FROM permisos WHERE rolId = $this->rolId";
         $request = $this->searchAll($sql);
         return $request;
     }
@@ -32,7 +32,7 @@ class PermisosModel extends Mysql
     public function deletePermisosRol(int $idrol){
         $this->rolId = $idrol;
         try {
-            $sql = "DELETE FROM permisos WHERE rol_id = $this->rolId";
+            $sql = "DELETE FROM permisos WHERE rolId = $this->rolId";
             $request = $this->delete($sql);
             return $request;
         } catch (Exception $e) {
@@ -42,15 +42,16 @@ class PermisosModel extends Mysql
     }
 
 
-    public function insertPermisosRol(int $idrol, int $idmodulo, int $lectura, int $escritura, int $eliminar, int $actualizar){
-
+    public function insertPermisosRol(int $idrol, int $idmodulo, int $lectura, int $escritura, int $actualizar,int $eliminar ){
+        
+       
         $this->rolId = $idrol;
         $this->idModulo = $idmodulo;
         $this->lectura = $lectura;
         $this->escritura = $escritura;
         $this->actualizar = $actualizar;
         $this->eliminar = $eliminar;
-        $query = "INSERT INTO permisos(rol_id, idmodulo, lectura, escritura, eliminar,actualizar) VALUES(?,?,?,?,?,?)";
+        $query = "INSERT INTO permisos(rolId, moduloId, lectura, escritura, actualizar,eliminar) VALUES(?,?,?,?,?,?)";
         $arrData = array($this->rolId, $this->idModulo, $this->lectura, $this->escritura, $this->actualizar, $this->eliminar);
         $request = $this->insert($query, $arrData);
         return $request;

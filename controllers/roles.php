@@ -53,9 +53,9 @@ class Roles extends Controllers
             }
 
             $arrData[$i]['acciones'] = '<div class="text-center">
-            <button class="btn btn-warning btn-sm btnEditRol" rl="' . $arrData[$i]['rol_id'] . '" title="Editar"><i class="fas fa-edit"></i></button>
-            <button class="btn btn-info btn-sm btnPermisos" rl="' . $arrData[$i]['rol_id'] . '" title="Permisos"><i class="fas fa-key"></i></button>
-            <button class="btn btn-danger btn-sm btnEliRol" rl="' . $arrData[$i]['rol_id'] . '" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
+            <button class="btn btn-warning btn-sm btnEditRol" rl="' . $arrData[$i]['rolId'] . '" title="Editar"><i class="fas fa-edit"></i></button>
+            <button class="btn btn-info btn-sm btnPermisos" rl="' . $arrData[$i]['rolId'] . '" title="Permisos"><i class="fas fa-key"></i></button>
+            <button class="btn btn-danger btn-sm btnEliRol" rl="' . $arrData[$i]['rolId'] . '" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
                 </div>';
         }
 

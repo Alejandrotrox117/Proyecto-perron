@@ -31,11 +31,11 @@
                   <tbody>
                     <?php
                     $n = 1;
-                    $modulos = $data['modulos'];
+                    $modulos = $data['modulos']; 
                     // Obtenemos permisos para la tabla
                     for ($i = 0; $i < count($modulos); $i++) {
                       $modulo = $modulos[$i];
-                      $idmod = isset($modulo['idmodulo']) ? $modulo['idmodulo'] : '';
+                      $idmod = isset($modulo['moduloId']) ? $modulo['moduloId'] : '';
 
                       // Verificamos si el módulo tiene permisos definidos
                       if (isset($modulo['permisos'])) {
@@ -50,7 +50,9 @@
                         $escrituraChecked = '';
                         $actualizacionChecked = '';
                         $eliminacionChecked = '';
+                       
                       }
+                     
                       ?>
                       <tr>
                        

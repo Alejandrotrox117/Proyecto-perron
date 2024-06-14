@@ -12,7 +12,7 @@ class Permisos extends Controllers
         if ($rolId > 0) {
             $arrayModulos = $this->model->searchModulos();
             $arrayPermisosRol = $this->model->searchPermisosRol($rolId);
-            $arrayPermiso = array('lectura' => 0, 'escritura' => 0, 'eliminar' => 0, 'actualizar' => 0);
+            $arrayPermiso = array('lectura' => 0, 'escritura' => 0, 'actualizar' => 0, 'eliminar' => 0);
             $arrayRol = array('rolId' => $rolId);
 
             if (empty($arrayPermisosRol)) {
@@ -26,13 +26,14 @@ class Permisos extends Controllers
                         $arrayPermiso = array(
                             'lectura' => $arrayPermisosRol[$i]['lectura'],
                             'escritura' => $arrayPermisosRol[$i]['escritura'],
+                            'actualizar' => $arrayPermisosRol[$i]['actualizar'],
                             'eliminar' => $arrayPermisosRol[$i]['eliminar'],
-                            'actualizar' => $arrayPermisosRol[$i]['actualizar']
+
                         );
 
-                        if ($arrayModulos[$i]['idmodulo'] == $arrayPermisosRol[$i]['idmodulo']) {
+                        if ($arrayModulos[$i]['moduloId'] == $arrayPermisosRol[$i]['moduloId']) {
                             $arrayModulos[$i]['permisos'] = $arrayPermiso;
-                            $arrayModulos[$i]['idmodulo'] = $arrayPermisosRol[$i]['idmodulo']; // Agregamos el ID del módulo
+                            $arrayModulos[$i]['moduloId'] = $arrayPermisosRol[$i]['moduloId']; // Agregamos el ID del módulo
                         }
                     }
                 }
@@ -59,7 +60,7 @@ class Permisos extends Controllers
             $escritura = empty($modulo['escritura']) ? 0 : 1;
             $eliminar = empty($modulo['eliminar']) ? 0 : 1;
             $actualizar = empty($modulo['actualizar']) ? 0 : 1;
-            $requestPermiso = $this->model->insertPermisosRol($intIdRol, $intIdModulo, $lectura, $escritura, $eliminar, $actualizar);
+            $requestPermiso = $this->model->insertPermisosRol($intIdRol, $intIdModulo, $lectura, $escritura,$actualizar,$eliminar);
         }
         if ($requestPermiso > 0) {
             $arrResponse = array('status' => true, 'msg' => 'Permisos guardados correctamente.');
