@@ -25,7 +25,6 @@
                   <thead>
                     <tr>
                       <th>ID</th>
-                      <th>Codigo</th>
                       <th>Nombre</th>
                       <th>Stock</th>
                       <th>Precio</th>

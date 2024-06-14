@@ -130,7 +130,22 @@ class Categorias extends Controllers
 				echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
 			}
 		    die();
-		}
+	}
+
+    public function getSelectCategorias(){
+        $arrData = $this->model->selectCategorias();
+        $options = "";
+        if(count($arrData) > 0){
+            for($i=0; $i < count($arrData); $i++){
+                if($arrData[$i]['estado'] == 1){
+                    $options .= '<option value="'.$arrData[$i]['categoriaId'].'">'.$arrData[$i]['nombre'].'</option>';
+                }
+            }
+            echo $options;
+			die();
+        }
+
+	}
 
 }
    

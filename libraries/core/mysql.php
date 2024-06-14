@@ -24,7 +24,17 @@
             return $lastInsert;
         }
 
-        //funcion para consultar uno solo
+        //Busca un registro
+		public function select(string $query)
+		{
+			$this->strquery = $query;
+        	$result = $this->conexion->prepare($this->strquery);
+			$result->execute();
+        	$data = $result->fetch(PDO::FETCH_ASSOC);
+        	return $data;
+		}
+
+        //funcion para buscar un registro
         public function search(string $query){
             $this -> query = $query;
             $select = $this -> conexion -> prepare($this -> query);
@@ -41,7 +51,7 @@
             return $data;
         }
 
-        		//Devuelve todos los registros
+        //Devuelve todos los registros
 		public function select_all(string $query)
 		{
 			$this->strquery = $query;

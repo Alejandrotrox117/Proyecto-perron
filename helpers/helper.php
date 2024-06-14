@@ -105,9 +105,9 @@
     }
 
 
-
+    //formato para cantidades monetarias
      function formatMoney($cantidad){
-        $cantidad = number_format($cantidad, 2, SPD, "");
+        $cantidad = number_format($cantidad, 2, SPD, SPM);
         return $cantidad;
     }
 
