@@ -213,6 +213,7 @@ function DeleteRol() {
                   tablaRoles.ajax.reload(function () {
                     EditRol();
                     DeleteRol();
+                    PermisosRol();
                   });
                 } else {
                   swal("Error", objData.msg, "error");
@@ -276,14 +277,14 @@ function guardarPermisos() {
   request.open("POST", ajaxUrl, true);
   request.send(formData);
 
-  // request.onreadystatechange = function () {
-  //   if (request.readyState == 4 && request.status == 200) {
-  //     var objData = JSON.parse(request.responseText);
-  //     if (objData.status) {
-  //       swal("Permisos de usuario", objData.msg, "success");
-  //     } else {
-  //       swal("Error", objData.msg, "error");
-  //     }
-  //   }
-  // };
+  request.onreadystatechange = function () {
+    if (request.readyState == 4 && request.status == 200) {
+      var objData = JSON.parse(request.responseText);
+      if (objData.status) {
+        swal("Permisos de usuario", objData.msg, "success");
+      } else {
+        swal("Error", objData.msg, "error");
+      }
+    }
+  };
 }

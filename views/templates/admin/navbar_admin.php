@@ -22,7 +22,8 @@
             <li><a class="treeview-item" href="<?= base_url(); ?>/categorias"><i class="icon fa fa-address-card"></i>Categorias</a></li>
           </ul>
         </li>        
-        <li><a class="app-menu__item" href="<?= base_url(); ?>/pedidos"><i class="app-menu__icon fa fa fa-shopping-cart"></i><span class="app-menu__label">Pedidos</span></a></li>
-        <li><a class="app-menu__item" href="docs.html"><i class="app-menu__icon fa fa-file-code-o"></i><span class="app-menu__label"> Reportes</span></a></li>
+        <li><a class="app-menu__item" href="<?= base_url(); ?>/pedidos"><i class="app-menu__icon fa fa fa-shopping-cart"></i><span class="app-menu__label">Solicitudes</span></a></li>
+        <!-- <li><a class="app-menu__item" href="docs.html"><i class="app-menu__icon fa fa-file-code-o"></i><span class="app-menu__label"> Reportes</span></a></li>
+       -->
       </ul>
     </aside>

@@ -42,17 +42,18 @@ class PermisosModel extends Mysql
     }
 
 
-    public function insertPermisos(int $idrol, int $idmodulo, int $lectura, int $escritura, int $actualizar, int $eliminar){
+    public function insertPermisosRol(int $idrol, int $idmodulo, int $lectura, int $escritura, int $eliminar, int $actualizar){
 
-
-
-
-
-
-
-
-
-
+        $this->rolId = $idrol;
+        $this->idModulo = $idmodulo;
+        $this->lectura = $lectura;
+        $this->escritura = $escritura;
+        $this->actualizar = $actualizar;
+        $this->eliminar = $eliminar;
+        $query = "INSERT INTO permisos(rol_id, idmodulo, lectura, escritura, eliminar,actualizar) VALUES(?,?,?,?,?,?)";
+        $arrData = array($this->rolId, $this->idModulo, $this->lectura, $this->escritura, $this->actualizar, $this->eliminar);
+        $request = $this->insert($query, $arrData);
+        return $request;
     }
 }
 ?>

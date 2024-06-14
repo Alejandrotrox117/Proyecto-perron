@@ -22,8 +22,8 @@
                   <thead>
                     <tr>
                       <th>Modulo</th>
-                      <th>Leer</th>
-                      <th>Escribir</th>
+                      <th>Ver</th>
+                      <th>Crear</th>
                       <th>Actualizar</th>
                       <th>Eliminar</th>
                     </tr>
@@ -106,7 +106,7 @@
                 class="fa fa-fw fa-lg fa-check-circle"></i> Guardar</button>
 
             <button class="btn btn-danger" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"
-                aria-hidden="true"></i>Cancelar</button>
+                aria-hidden="true"></i>Salir</button>
           </div>
           </form>
         </div>

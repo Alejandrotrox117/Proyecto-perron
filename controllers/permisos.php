@@ -51,8 +51,10 @@ class Permisos extends Controllers
         $intIdRol = intval($_POST['idRol']);
         $modulos = $_POST['modulos'];
         $this->model->deletePermisosRol($intIdRol);
+        //recorremos los modulos
         foreach($modulos as $modulo){
             $intIdModulo = intval($modulo['idmodulo']);
+            //verificamos si el elemento fue enviado
             $lectura =empty($modulo['lectura']) ? 0 : 1;
             $escritura = empty($modulo['escritura']) ? 0 : 1;
             $eliminar = empty($modulo['eliminar']) ? 0 : 1;
