@@ -111,5 +111,21 @@ class Roles extends Controllers
         }
         exit();
     }
+    public function getSelectRoles()
+    {
+        $htmlOptions = "";
+        $arrData = $this->model->selectRoles();
+        if (count($arrData) > 0) {
+            for ($i = 0; $i < count($arrData); $i++) {
+                $htmlOptions .= '<option value="' . $arrData[$i]['rol_id'] . '">' . $arrData[$i]['nombre'] . '</option>';
+            }
+        }
+        echo $htmlOptions;
+        die();
+    }
+    
 }
+
+
+
 ?>

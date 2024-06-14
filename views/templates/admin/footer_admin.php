@@ -9,6 +9,7 @@
     <script src="<?= media(); ?>/js/main.js"></script>
     <script src="<?= media(); ?>/js/functions_admin.js"></script>
     <script src="<?= media(); ?>/js/functions_Roles.js"></script>
+    <script src="<?= media(); ?>/js/functions_usuarios.js"></script>
     <script src="<?= media(); ?>/js/functions_categorias.js"></script>
   
     <script src="<?= media(); ?>/js/fontawesome.js" crossorigin="anonymous"></script>
@@ -18,7 +19,11 @@
     <script type="text/javascript" src="<?= media(); ?>/js/plugins/sweetalert.min.js"></script>
 
     <!-- Data table plugin-->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script type="text/javascript" src="<?= media(); ?>/js/plugins/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="<?= media(); ?>/js/plugins/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?= media(); ?>/js/plugins/bootstrap-select.min.js"></script>
   </body>
 </html>

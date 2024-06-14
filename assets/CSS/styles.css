@@ -543,3 +543,7 @@ td {
     background: #007BFF;
     color: #fff;
 }
+
+.linkw:hover{
+text-decoration: none;
+}

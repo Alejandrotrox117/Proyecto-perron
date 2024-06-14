@@ -73,7 +73,7 @@ class rolesModel extends Mysql
     public function deleteRol(int $idRol)
     {
         $this->intIdRol = $idRol;
-        $query = "SELECT * FROM empleado WHERE rol_id = $idRol";
+        $query = "SELECT * FROM persona WHERE rolId = $idRol";
         $request = $this->searchAll($query);
 
         if (empty($request)) {
