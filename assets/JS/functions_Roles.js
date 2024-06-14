@@ -1,5 +1,5 @@
 var tablaRoles;
-
+//Datatable con sus atributos
 document.addEventListener("DOMContentLoaded", function () {
   tablaRoles = $("#tablaRoles").DataTable({
     aProcessing: true,
@@ -76,8 +76,10 @@ document.addEventListener("DOMContentLoaded", function () {
           // Después de insertar un nuevo rol con éxito
           tablaRoles.ajax.reload(function () {
             // Cargamos nuevamente las roles
-
+            // para que se actualizen en la vista
             EditRol();
+            DeleteRol();
+            PermisosRol();
           });
         } else {
           swal("Error", objData.msg, "error");
@@ -102,11 +104,13 @@ function OpenModalRol() {
   document.querySelector("#formRol").reset();
 }
 
+//funcion load para que se carguen los modales
 window.addEventListener(
   "load",
   function () {
     EditRol();
     DeleteRol();
+    PermisosRol();
   },
   false
 );
@@ -118,9 +122,11 @@ function EditRol() {
     btnEditRol.addEventListener("click", function () {
       //Para cambiar el nomrbre del modal al hacer click en actualizar
       document.querySelector("#titleModal").innerHTML = "Actualizar Rol";
+      //cambia el tiutlo del modal de insertar a actualizar
       document
         .querySelector(".modal-header")
         .classList.replace("headerRegister", "headerUpdate");
+      // cambia el nombre de guardar a actualizar
       document
         .querySelector("#btnActionForm")
         .classList.replace("btn-primary", "btn-info");
@@ -132,7 +138,7 @@ function EditRol() {
       var request = window.XMLHttpRequest
         ? new XMLHttpRequest()
         : new ActiveXObject("Microsoft.XMLHTTP");
-      // Ajax para buscar la informacion con la url del metodo getOneRol
+      // Ajax para buscar la informacion con la url de la funcion getOneRol
       var ajaxUrl = base_url + "/roles/getOneRol/" + idRol;
       request.open("GET", ajaxUrl, true);
       request.send();
@@ -173,7 +179,7 @@ function DeleteRol() {
   btnEliRol.forEach(function (btnEliRol) {
     btnEliRol.addEventListener("click", function () {
       var idRol = this.getAttribute("rl");
-
+      //alerta de confirmacion de eliminar generada con sweetAlert
       swal(
         {
           title: "Eliminar Rol",
@@ -207,6 +213,7 @@ function DeleteRol() {
                   tablaRoles.ajax.reload(function () {
                     EditRol();
                     DeleteRol();
+                    PermisosRol();
                   });
                 } else {
                   swal("Error", objData.msg, "error");
@@ -218,4 +225,66 @@ function DeleteRol() {
       );
     });
   });
+}
+
+// PERMISOS ////
+function PermisosRol() {
+  var btnPermisos = document.querySelectorAll(".btnPermisos");
+  btnPermisos.forEach(function (btnPermisos) {
+    btnPermisos.addEventListener("click", function () {
+      // Obtenemos el id del rol por el atributo "rl"
+      var idRol = this.getAttribute("rl");
+
+      var request = window.XMLHttpRequest
+        ? new XMLHttpRequest()
+        : new ActiveXObject("Microsoft.XMLHTTP");
+      var ajaxUrl = base_url + "/permisos/getPermisos/" + idRol;
+
+      // Peticion GET para obtener los permisos del rol
+      request.open("GET", ajaxUrl, true);
+
+      // Enviamos la petición
+      request.send();
+
+      request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+          // Mostramos los permisos
+          document.querySelector("#contenidoAjax").innerHTML =
+            request.responseText;
+          $("#modalPermisos").modal("show");
+          document.querySelector("#btnGuardarPermiso").addEventListener(
+            "click",
+            function (e) {
+              e.preventDefault();
+              guardarPermisos();
+            },
+            false
+          );
+        }
+      };
+    });
+  });
+}
+
+// función para guardar el permiso
+function guardarPermisos() {
+  var request = window.XMLHttpRequest
+    ? new XMLHttpRequest()
+    : new ActiveXObject("Microsoft.XMLHTTP");
+  var ajaxUrl = base_url + "/permisos/setPermisos";
+  var formElement = document.querySelector("#formPermisos");
+  var formData = new FormData(formElement);
+  request.open("POST", ajaxUrl, true);
+  request.send(formData);
+
+  request.onreadystatechange = function () {
+    if (request.readyState == 4 && request.status == 200) {
+      var objData = JSON.parse(request.responseText);
+      if (objData.status) {
+        swal("Permisos de usuario", objData.msg, "success");
+      } else {
+        swal("Error", objData.msg, "error");
+      }
+    }
+  };
 }

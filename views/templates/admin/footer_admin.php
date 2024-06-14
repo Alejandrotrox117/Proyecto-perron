@@ -12,9 +12,9 @@
     <script src="<?= media(); ?>/js/functions_categorias.js"></script>
     <script src="<?= media(); ?>/js/functions_productos.js"></script>
   
-    <script src="<?= media(); ?>/js/fontawesome.js" crossorigin="anonymous"></script>
-    <!-- The javascript plugin to display page loading on top-->
-    <script src="<?= media(); ?>/js/plugins/pace.min.js"></script>
+    <!-- <script src="<?= media(); ?>/js/fontawesome.js" crossorigin="anonymous"></script>
+    The javascript plugin to display page loading on top
+    <script src="<?= media(); ?>/js/plugins/pace.min.js"></script> -->
    <!-- Page specific javascripts-->
     <script type="text/javascript" src="<?= media(); ?>/js/plugins/sweetalert.min.js"></script>
 

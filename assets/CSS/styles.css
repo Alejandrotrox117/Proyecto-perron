@@ -595,6 +595,8 @@ td {
 }
 .delPhoto{
 	color: #FFF;
+
+.app-sidebar__toggle{
 	display: -webkit-flex;
 	display: -moz-flex;
 	display: -ms-flex;
@@ -680,4 +682,9 @@ td {
 #celFotos img{
     width: 150px;
     margin: 10px;
+	font-size: 15pt;
+}
+
+.app-sidebar__toggle::before{
+	display: none;
 }
