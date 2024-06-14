@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap'); */
 
 /*
 font-family: 'Oswald', sans-serif;
@@ -595,7 +595,7 @@ td {
 }
 .delPhoto{
 	color: #FFF;
-
+}
 .app-sidebar__toggle{
 	display: -webkit-flex;
 	display: -moz-flex;
@@ -604,15 +604,9 @@ td {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border-radius: 50%;
-	width: 25px;
-	height: 25px;
-	background: red;
-	position: absolute;
-	right: -10px;
-	top: -10px;
-	z-index: 10;
+	font-size: 15pt;
 }
+
 #tbl_list_productos img{
 	width: 50px;
 }
@@ -689,4 +683,3 @@ td {
 	display: none;
 }
 
-}
