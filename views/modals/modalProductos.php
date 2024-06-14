@@ -62,7 +62,7 @@
                 </div>
               </div>
               
-              <div class="tile-footer">
+              <div class="tile-footer" id="tile-footer">
                  <div class="form-group col-md-12">
                      <div id="containerGallery">
                          <span>Agregar foto (440 x 545)</span>

@@ -10,6 +10,7 @@ $(document).on('focusin', function(e) {
 
 
 window.addEventListener('load', function(){
+
     //DataTable
     tablaProductos = $('#tablaProductos').DataTable({
         "aProcessing": true,
@@ -191,7 +192,7 @@ function fntDelItem(element){
     let ajaxUrl = base_url+'/productos/delFile'; 
 
     let formData = new FormData();
-    formData.append('idproducto',idProducto);
+    formData.append('idProducto',idProducto);
     formData.append("file",nameImg);
     request.open("POST",ajaxUrl,true);
     request.send(formData);
@@ -325,5 +326,11 @@ function OpenModal() {
     document.querySelector('#btnActionForm').innerHTML ="Guardar";
     document.querySelector("#formProductos").reset();
     $('#modals_productos').modal('show');
+    if(document.querySelector('.modal-title').textContent == "Registrar Producto"){
+            document.querySelector('#containerGallery').style.display = 'none';
+    }else{
+        document.querySelector('#containerGallery').style.display = 'block';
+    }
+        
     //removePhoto();
 }

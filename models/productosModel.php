@@ -47,7 +47,7 @@
 			return $return;
 		}
 
-        public function updateProducto(int $idproducto, string $nombre, string $descripcion, int $categoriaid, string $precio, int $stock, int $status){
+		public function updateProducto(int $idproducto, string $nombre, string $descripcion, int $categoriaid, string $precio, int $stock, int $status){
 			$this->intIdProducto = $idproducto;
 			$this->strNombre = $nombre;
 			$this->strDescripcion = $descripcion;
@@ -60,14 +60,14 @@
 			$request = $this->select_all($sql);
 			if(empty($request))
 			{
-				$sql = "UPDATE productos SET nombre=?, descripcion=?, precio=?, stock=?, estado=?  WHERE nombre = $this->strNombre ";
+				$sql = "UPDATE productos SET nombre=?, descripcion=?, precio=?, stock=?, estado=?  WHERE productosId = $this->intIdProducto ";
 				$arrData = array($this->strNombre, $this->strDescripcion, $this->strPrecio, $this->intStock, $this->intStatus);
-	        	$request = $this->update($sql,$arrData);
-	        	$return = $request;
+				$request = $this->update($sql,$arrData);
+				$return = $request;
 			}else{
 				$return = "exist";
 			}
-	        return $return;
+			return $return;
 		}
 
 		public function insertImage(int $idProducto, string $imagen){
