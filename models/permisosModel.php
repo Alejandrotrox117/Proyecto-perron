@@ -28,5 +28,31 @@ class PermisosModel extends Mysql
         $request = $this->searchAll($sql);
         return $request;
     }
+
+    public function deletePermisosRol(int $idrol){
+        $this->rolId = $idrol;
+        try {
+            $sql = "DELETE FROM permisos WHERE rol_id = $this->rolId";
+            $request = $this->delete($sql);
+            return $request;
+        } catch (Exception $e) {
+            
+            return $e->getMessage();
+        }
+    }
+
+
+    public function insertPermisos(int $idrol, int $idmodulo, int $lectura, int $escritura, int $actualizar, int $eliminar){
+
+
+
+
+
+
+
+
+
+
+    }
 }
 ?>

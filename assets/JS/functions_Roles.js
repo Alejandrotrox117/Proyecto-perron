@@ -79,6 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // para que se actualizen en la vista
             EditRol();
             DeleteRol();
+            PermisosRol();
           });
         } else {
           swal("Error", objData.msg, "error");
@@ -225,12 +226,14 @@ function DeleteRol() {
   });
 }
 
+// PERMISOS ////
 function PermisosRol() {
   var btnPermisos = document.querySelectorAll(".btnPermisos");
-  btnPermisos.forEach(function (btnPermiso) {
-    btnPermiso.addEventListener("click", function () {
+  btnPermisos.forEach(function (btnPermisos) {
+    btnPermisos.addEventListener("click", function () {
       // Obtenemos el id del rol por el atributo "rl"
       var idRol = this.getAttribute("rl");
+
       var request = window.XMLHttpRequest
         ? new XMLHttpRequest()
         : new ActiveXObject("Microsoft.XMLHTTP");
@@ -244,11 +247,43 @@ function PermisosRol() {
 
       request.onreadystatechange = function () {
         if (request.readyState == 4 && request.status == 200) {
-          console.log(request.responseText);
-          document.querySelector("#contenidoAjax").innerHTML = request.responseText;
+          // Mostramos los permisos
+          document.querySelector("#contenidoAjax").innerHTML =
+            request.responseText;
           $("#modalPermisos").modal("show");
+          document.querySelector("#btnGuardarPermiso").addEventListener(
+            "click",
+            function (e) {
+              e.preventDefault();
+              guardarPermisos();
+            },
+            false
+          );
         }
       };
     });
   });
+}
+
+// función para guardar el permiso
+function guardarPermisos() {
+  var request = window.XMLHttpRequest
+    ? new XMLHttpRequest()
+    : new ActiveXObject("Microsoft.XMLHTTP");
+  var ajaxUrl = base_url + "/permisos/setPermisos";
+  var formElement = document.querySelector("#formPermisos");
+  var formData = new FormData(formElement);
+  request.open("POST", ajaxUrl, true);
+  request.send(formData);
+
+  // request.onreadystatechange = function () {
+  //   if (request.readyState == 4 && request.status == 200) {
+  //     var objData = JSON.parse(request.responseText);
+  //     if (objData.status) {
+  //       swal("Permisos de usuario", objData.msg, "success");
+  //     } else {
+  //       swal("Error", objData.msg, "error");
+  //     }
+  //   }
+  // };
 }

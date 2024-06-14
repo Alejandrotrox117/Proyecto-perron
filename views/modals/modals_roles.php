@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div class="modal fade" id="modalFormRol" data-backdrop="static" data-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  aria-labelledby="staticBackdropLabel">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header headerRegister">
@@ -49,88 +49,3 @@
 </div>
 
 
-
-<!-- Modal PERMISOS
-<div class="modal fade bd-example-modal-xl" id="modalPermisos" tabindex="-1" role="dialog"
-  aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="titleModal">Permisos</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-       
-        <div class="col-md-12">
-          <div class="tile">
-            <form action="" id="formPermisos" name="formPermisos" >
-            <div class="table-responsive">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Modulo</th>
-                    <th>Leer</th>
-                    <th>Escribir</th>
-                    <th>Actualizar</th>
-                    <th>Eliminar</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Usuario</td>
-                    <td>
-                      <div class="toggle-flip">
-                        <label>
-                          <input type="checkbox"><span class="flip-indecator" data-toggle-on="ON"
-                            data-toggle-off="OFF"></span>
-                        </label>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="toggle-flip">
-                        <label>
-                          <input type="checkbox"><span class="flip-indecator" data-toggle-on="ON"
-                            data-toggle-off="OFF"></span>
-                        </label>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="toggle-flip">
-                        <label>
-                          <input type="checkbox"><span class="flip-indecator" data-toggle-on="ON"
-                            data-toggle-off="OFF"></span>
-                        </label>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="toggle-flip">
-                        <label>
-                          <input type="checkbox"><span class="flip-indecator" data-toggle-on="ON"
-                            data-toggle-off="OFF"></span>
-                        </label>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="text-center">
-            <button class="btn btn-primary" type="submit">
-              <i class="fa fa-fw fa-lg fa-check-circle"></i> Guardar</button>
-            <button class="btn btn-danger" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"
-                aria-hidden="true"></i>Cancelar</button>
-          </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-</div>
-</div> -->

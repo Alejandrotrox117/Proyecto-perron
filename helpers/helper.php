@@ -14,10 +14,6 @@
         require_once($view_header);
     }
 
-     function alertas($status, $mensaje){
-    $arrResponse = array('status' => $status, 'msg' => $mensaje);
-    }
-
 
     //Permite fragmentar el footer del html principal
     function footerAdmin($data=""){
