@@ -11,6 +11,11 @@ class Dashboard extends Controllers
         $data['page_tag'] = "Dashboard";
         $data['page_title'] = "Dashboard";
         $data['page_name']="dashboard";
+     
+        $data['categorias']= $this->model->Cantcategorias();
+        $data['rol']= $this->model->Cantrol();
+        $data['ultimasOrde']= $this->model->UltimasOrdes();
+        //dep($ultimasOrde);exit; 
 
         $this->views->getView($this,"dashboard",$data);
     }
