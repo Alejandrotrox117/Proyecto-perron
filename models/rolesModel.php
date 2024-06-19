@@ -6,7 +6,7 @@ class rolesModel extends Mysql
     public $intIdRol;
     public $strRol;
     public $descripcionRol;
-    public $intStatus;
+    public $intEstado;
 
     public function __construct()
     {
@@ -30,11 +30,11 @@ class rolesModel extends Mysql
     }
 
 
-    public function insertRol(string $rol, int $estatus, string $descripcion)
+    public function insertRol(string $rol, int $estado, string $descripcion)
     {
         $this->strRol = $rol;
         $this->descripcionRol = $descripcion;
-        $this->intStatus = $estatus;
+        $this->intEstado = $estado;
 
         $query = "SELECT * FROM rol WHERE nombre = '{$this->strRol}'";
         $request = $this->searchAll($query);
@@ -43,17 +43,17 @@ class rolesModel extends Mysql
             return "exist";
         }
 
-        $query_insert = "INSERT INTO rol (nombre, estatus, descripcion) VALUES (?, ?, ?)";
-        $arrData = array($this->strRol, $this->intStatus, $this->descripcionRol);
+        $query_insert = "INSERT INTO rol (nombre, estado, descripcion) VALUES (?, ?, ?)";
+        $arrData = array($this->strRol, $this->intEstado, $this->descripcionRol);
         $request_insert = $this->insert($query_insert, $arrData);
         //devolvemos el resultado  
         return $request_insert ?: false;
     }
-    public function updateRol(int $id, string $rol, int $estatus, string $descripcion)
+    public function updateRol(int $id, string $rol, int $estado, string $descripcion)
     {
         $this->intIdRol = $id;
         $this->descripcionRol = $descripcion;
-        $this->intStatus = $estatus;
+        $this->intEstado = $estado;
         $this->strRol = $rol;
 
         $query = "SELECT * FROM rol WHERE nombre = '{$this->strRol}' AND rolId != $this->intIdRol";
@@ -63,8 +63,8 @@ class rolesModel extends Mysql
             return 'exist';
         }
 
-        $query = "UPDATE rol SET nombre = ?, estatus = ?, descripcion = ? WHERE rolId = $this->intIdRol";
-        $arrData = array($this->strRol, $this->intStatus, $this->descripcionRol);
+        $query = "UPDATE rol SET nombre = ?, estado = ?, descripcion = ? WHERE rolId = $this->intIdRol";
+        $arrData = array($this->strRol, $this->intEstado, $this->descripcionRol);
         $request = $this->update($query, $arrData);
 
         return $request ?: false;

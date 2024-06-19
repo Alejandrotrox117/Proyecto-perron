@@ -1,5 +1,5 @@
 var tablaRoles;
-// permisos.js
+
 import { PermisosRol} from './functions_permisos.js';
 
 
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
       //{ "data": "rol_id" },
       { data: "nombre" },
       { data: "descripcion" },
-      { data: "estatus" },
+      { data: "estado" },
       { data: "acciones" },
     ],
     destroy: true,

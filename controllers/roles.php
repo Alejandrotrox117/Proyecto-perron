@@ -46,10 +46,10 @@ class Roles extends Controllers
         $arrData = $this->model->selectRoles();
 
         for ($i = 0; $i < count($arrData); $i++) {
-            if ($arrData[$i]['estatus'] == 1) {
-                $arrData[$i]['estatus'] = '<span class="badge badge-success">Activo</span>';
+            if ($arrData[$i]['estado'] == 1) {
+                $arrData[$i]['estado'] = '<span class="badge badge-success">Activo</span>';
             } else {
-                $arrData[$i]['estatus'] = '<span class="badge badge-danger">Inactivo</span>';
+                $arrData[$i]['estado'] = '<span class="badge badge-danger">Inactivo</span>';
             }
 
             $arrData[$i]['acciones'] = '<div class="text-center">
