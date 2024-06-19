@@ -30,9 +30,9 @@ class Productos extends Controllers
             $arrData[$i]['precio'] = SMONEY.' '.formatMoney($arrData[$i]['precio']);
     
             $arrData[$i]['acciones'] = '<div class="text-center">
-            <button class="btn btn-warning btn-sm" onClick="btnViewInfo('.$arrData[$i]['productosId'].')" title="Ver"><i class="fas fa-eye"></i></button>
-            <button class="btn btn-warning btn-sm" onClick="btnEditInfo(this,'.$arrData[$i]['productosId'].')" title="Editar"><i class="fas fa-edit"></i></button>
-            <button class="btn btn-danger btn-sm" onClick="btnDelInfo('.$arrData[$i]['productosId'].')" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
+            <button class="btn btn-warning btn-sm" onClick="btnViewInfo('.$arrData[$i]['productoId'].')" title="Ver"><i class="fas fa-eye"></i></button>
+            <button class="btn btn-warning btn-sm" onClick="btnEditInfo(this,'.$arrData[$i]['productoId'].')" title="Editar"><i class="fas fa-edit"></i></button>
+            <button class="btn btn-danger btn-sm" onClick="btnDelProduct('.$arrData[$i]['productoId'].')" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
             </div>';
         }
         // Convertir a formato JSON y enviar la respuesta

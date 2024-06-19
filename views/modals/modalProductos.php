@@ -32,8 +32,8 @@
                             <input class="form-control" id="txtprecio" name="txtprecio" type="text" required="">
                         </div>
                         <div class="form-group col-md-6">
-                            <label class="control-label">Stock <span class="required">*</span></label>
-                            <input class="form-control" id="stock" name="stock" type="text" required="">
+                            <label class="control-label">Cantidad en existencias <span class="required">*</span></label>
+                            <input class="form-control" id="cantidad" name="cantidad" type="text" required="">
                         </div>
                     </div>
 
@@ -73,7 +73,7 @@
                      </div>
                      <hr>
                      <div id="containerImages">
-                         <!-- <div id="div24">
+                         <div id="div24">
                              <div class="prevImage">
                                  <img src="<?= media(); ?>/img/uploads/producto1.jpg">
                              </div>
@@ -88,7 +88,7 @@
                              <input type="file" name="foto" id="img1" class="inputUploadfile">
                              <label for="img1" class="btnUploadfile"><i class="fas fa-upload "></i></label>
                              <button class="btnDeleteImage" type="button" onclick="fntDelItem('div24')"><i class="fas fa-trash-alt"></i></button>
-                         </div> -->
+                         </div>
                         
                      </div>
                  </div>
@@ -122,8 +122,8 @@
               <td id="celPrecio"></td>
             </tr>
             <tr>
-              <td>Stock:</td>
-              <td id="celStock"></td>
+              <td>cantidad:</td>
+              <td id="celcantidad"></td>
             </tr>
             <tr>
               <td>Categoría:</td>

@@ -40,9 +40,9 @@ window.addEventListener('load', function(){
             "dataSrc": ""
         },
         "columns": [
-            { "data": "productosId" },
+            { "data": "productoId" },
             { "data": "nombre" },
-            { "data": "stock" },
+            { "data": "cantidad" },
             { "data": "precio"},
             { "data": "estado"},
             { "data": "acciones"}
@@ -65,8 +65,8 @@ window.addEventListener('load', function(){
             e.preventDefault();
             let nombre = document.querySelector('#nombre').value;
             let precio = document.querySelector('#txtprecio').value;
-            let stock = document.querySelector('#stock').value;
-            if(nombre == '' || precio == '' || stock == ''){
+            let cantidad = document.querySelector('#cantidad').value;
+            if(nombre == '' || precio == '' || cantidad == ''){
                 swal("Atencion", "Todos los campos son obligatorios.", "error");
                 return false;
             }
@@ -185,7 +185,7 @@ function fntInputFile(){
     });
 }
 
-function fntDelItem(element){
+function btnDelProduct(element){
     let nameImg = document.querySelector(element+' .btnDeleteImage').getAttribute("imgname");
     let idProducto = document.querySelector("#idProducto").value;
     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
@@ -230,7 +230,7 @@ function btnViewInfo(idProducto){
 
                 document.querySelector("#celNombre").innerHTML = objProducto.nombre;
                 document.querySelector("#celPrecio").innerHTML = objProducto.precio;
-                document.querySelector("#celStock").innerHTML = objProducto.stock;
+                document.querySelector("#celcantidad").innerHTML = objProducto.cantidad;
                 document.querySelector("#celCategoria").innerHTML = objProducto.categoria;
                 document.querySelector("#celStatus").innerHTML = estadoProducto;
                 document.querySelector("#celDescripcion").innerHTML = objProducto.descripcion;
@@ -273,7 +273,7 @@ function btnEditInfo(element,idProducto){
                     document.querySelector("#nombre").value = objProducto.nombre;
                     document.querySelector("#descripcion").value = objProducto.descripcion;
                     document.querySelector("#txtprecio").value = objProducto.precio;
-                    document.querySelector("#stock").value = objProducto.stock;
+                    document.querySelector("#cantidad").value = objProducto.cantidad;
                     document.querySelector("#categoria").value = objProducto.categoriaId;
                     document.querySelector("#estado").value = objProducto.estado;
                     tinymce.activeEditor.setContent(objProducto.descripcion); 
