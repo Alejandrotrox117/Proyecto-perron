@@ -15,13 +15,13 @@ class dashboardModel extends Mysql
     }
     public function Cantrol()
     {
-        $sql = "SELECT COUNT(*) as total FROM rol WHERE estatus != 0";
+        $sql = "SELECT COUNT(*) as total FROM rol WHERE estado != 0";
         $request = $this->search($sql);
         $total = $request['total'];
         return $total;
     }
     public function UltimasOrdes(){
-        $sql = "SELECT p.pedidoId, CONCAT(pr.nombres, ' ', pr.apellidos) as nombre, p.monto, p.estado FROM pedido p INNER JOIN persona pr ON p.personaId = pr.idpersona ORDER BY p.pedidoId DESC LIMIT 10;
+        $sql = "SELECT p.solicitudId, CONCAT(pr.nombres, ' ', pr.apellidos) as nombre, p.precio, p.estado FROM solicitud p INNER JOIN persona pr ON p.personaId = pr.personaId ORDER BY p.solicitudId DESC LIMIT 10;
         ";
         $request = $this->searchAll($sql);
         return $request;

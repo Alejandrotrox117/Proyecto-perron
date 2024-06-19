@@ -68,36 +68,36 @@
     <div class="row">
         <div class="col-md-6">
             <div class="tile">
-                <h3 class="tile-title">Ultimos Pedidos</h3>
+                <h3 class="tile-title">Ultimas solicitudes</h3>
                 <table class="table table-striped table-sm">
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>Clientes</th>
                             <th>Estado</th>
-                            <th class="text-right">Monto</th>
+                            <th class="text-right">precio</th>
                             <th>Ver</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                 if(count($data['ultimasOrde']) > 0){
-                foreach ($data['ultimasOrde'] as $pedido) {
+                foreach ($data['ultimasOrde'] as $solicitud) {
                 ?>
                         <tr>
                             <td>
-                                <?= $pedido['pedidoId'] ?>
+                                <?= $solicitud['solicitudId'] ?>
                             </td>
                             <td>
-                                <?= $pedido['nombre'] ?>
+                                <?= $solicitud['nombre'] ?>
                             </td>
                             <td>
-                                <?= $pedido['estado'] ?>
+                                <?= $solicitud['estado'] ?>
                             </td>
                             <td>
-                                <?= SMONEY." ".$pedido['monto'] ?>
+                                <?= SMONEY." ".$solicitud['precio'] ?>
                             </td>
-                            <td><a href="<?= base_url() ?>/pedidos/orden/<?= $pedido['pedidoId']?>" target="_blank"><i
+                            <td><a href="<?= base_url() ?>/solicituds/orden/<?= $solicitud['solicitudId']?>" target="_blank"><i
                                         class="fa fa-eye" aria-hidden="true"></i></a></td>
                         </tr>
                         <?php }
@@ -300,9 +300,7 @@
         }
 
     });
-    // Data retrieved from https://gs.statcounter.com/browser-market-share#monthly-202201-202201-bar
-
-    // Create the chart
+    
     Highcharts.chart('otros', {
         chart: {
             type: 'column'
