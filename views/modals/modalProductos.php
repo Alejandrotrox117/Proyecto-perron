@@ -36,6 +36,20 @@
                             <input class="form-control" id="cantidad" name="cantidad" type="text" required="">
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Modelo <span class="required">*</span></label>
+                            <input class="form-control" id="modelo" name="modelo" type="text" required="">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Color<span class="required">*</span></label>
+                            <input class="form-control" id="color" name="color" type="text" required="">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Capacidad<span class="required">*</span></label>
+                            <input class="form-control" id="capacidad" name="capacidad" type="text" required="">
+                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="form-group col-md-6">
@@ -44,9 +58,9 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="estado">Estado <span class="required">*</span></label>
-                            <select class="form-control selectpicker" id="estado" name="estado" required="">
+                            <select class="form-control" id="estado" name="estado" required="">
                               <option value="1">Activo</option>
-                              <option value="2">Inactivo</option>
+                              <option value="0">Inactivo</option>
                             </select>
                         </div>
                     </div>
@@ -122,8 +136,20 @@
               <td id="celPrecio"></td>
             </tr>
             <tr>
-              <td>cantidad:</td>
+              <td>Cantidad:</td>
               <td id="celcantidad"></td>
+            </tr>
+            <tr>
+              <td>Modelo:</td>
+              <td id="celModelo"></td>
+            </tr>
+            <tr>
+              <td>Color:</td>
+              <td id="celColor"></td>
+            </tr>
+            <tr>
+              <td>Capacidad:</td>
+              <td id="celCapacidad"></td>
             </tr>
             <tr>
               <td>Categoría:</td>

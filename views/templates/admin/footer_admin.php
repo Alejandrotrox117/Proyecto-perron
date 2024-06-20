@@ -18,9 +18,6 @@
     <script src="<?= media(); ?>/js/plugins/pace.min.js"></script> -->
    <!-- Page specific javascripts-->
     <script type="text/javascript" src="<?= media(); ?>/js/plugins/sweetalert.min.js"></script>
-
-    <!-- Libreria de edicion en textareas-->
-    <script type="text/javascript" src="<?= media(); ?>/js/tinymce/tinymce.min.js"></script>
     
     <!-- Data table plugin-->
     <script src="https://code.highcharts.com/highcharts.js"></script>

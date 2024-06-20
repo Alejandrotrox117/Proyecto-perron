@@ -115,21 +115,21 @@ class Categorias extends Controllers
         }
     }
 
-    public function delCategoria($idCategoria){
-        if($_POST['idCategoria']){
+    public function delCategoria() {
+        if (isset($_POST['idCategoria'])) {
             $intIdcategoria = $_POST['idCategoria'];
-			$requestDelete = $this->model->deleteCategoria($intIdcategoria);
-				if($requestDelete = 'ok'){
-					$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado la categoría');
-				}else if($requestDelete == 'exist'){
-					$arrResponse = array('status' => false, 'msg' => 'No es posible eliminar una categoría con productos asociados.');
-				}else{
-					$arrResponse = array('status' => false, 'msg' => 'Error al eliminar la categoría.');
-				}
-				echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
-			}
-		    die();
-	}
+            $requestDelete = $this->model->deleteCategoria($intIdcategoria);
+            if ($requestDelete === "ok") {
+                $arrResponse = array('status' => true, 'msg' => 'Se ha eliminado la categoría');
+            } else if ($requestDelete === "exist") {
+                $arrResponse = array('status' => false, 'msg' => 'No es posible eliminar una categoría con productos asociados.');
+            } else {
+                $arrResponse = array('status' => false, 'msg' => 'Error al eliminar la categoría.');
+            }
+            echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        }
+        die();
+    }
 
     //Categorias en el  select de registros de Produc
     public function getSelectCategorias(){

@@ -1,14 +1,6 @@
 //datatable
 let tablaProductos;
 
-//funcion para superponer el editor para que los modal que tenga funcionen
-$(document).on('focusin', function(e) {
-    if ($(e.target).closest(".tox-dialog").length) {
-        e.stopImmediatePropagation();
-    }
-});
-
-
 window.addEventListener('load', function(){
 
     //DataTable
@@ -66,8 +58,11 @@ window.addEventListener('load', function(){
             let nombre = document.querySelector('#nombre').value;
             let precio = document.querySelector('#txtprecio').value;
             let cantidad = document.querySelector('#cantidad').value;
-            if(nombre == '' || precio == '' || cantidad == ''){
-                swal("Atencion", "Todos los campos son obligatorios.", "error");
+            let modelo = document.querySelector('#modelo').value;
+            let color = document.querySelector('#color').value;
+            let capacidad = document.querySelector('#capacidad').value;
+            if(nombre == '' || precio == '' || cantidad == ''|| modelo == ''|| color == ''|| capacidad == ''){
+                swal("Atencion", "Todos los campos son obligatorios. Si observas que el productos que deseas agregar no aplica en el campo, Coloca NA", "error");
                 return false;
             }
             tinyMCE.triggerSave(); //Funcion para tomar los datos del editor tinyMCE
@@ -117,22 +112,6 @@ window.addEventListener('load', function(){
      fntInputFile();
      selectCategorias();
 }, false);
-
-//Funcion para el uso de la libreria de la edicion en textarea
-$(document).ready(function() {
-    tinymce.init({
-        selector: '#descripcion',
-	    width: "100%",
-        height: 300,    
-        statubar: true,
-        plugins: [
-            "advlist autolink link image lists charmap print preview hr anchor pagebreak",
-            "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-            "save table contextmenu directionality emoticons template paste textcolor"
-        ],
-        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons",
-    });
-});
 
 function fntInputFile(){
     let inputUploadfile = document.querySelectorAll(".inputUploadfile");
@@ -231,6 +210,9 @@ function btnViewInfo(idProducto){
                 document.querySelector("#celNombre").innerHTML = objProducto.nombre;
                 document.querySelector("#celPrecio").innerHTML = objProducto.precio;
                 document.querySelector("#celcantidad").innerHTML = objProducto.cantidad;
+                document.querySelector("#celModelo").innerHTML = objProducto.modelo;
+                document.querySelector("#celColor").innerHTML = objProducto.color;
+                document.querySelector("#celCapacidad").innerHTML = objProducto.capacidad;
                 document.querySelector("#celCategoria").innerHTML = objProducto.categoria;
                 document.querySelector("#celStatus").innerHTML = estadoProducto;
                 document.querySelector("#celDescripcion").innerHTML = objProducto.descripcion;
@@ -269,14 +251,17 @@ function btnEditInfo(element,idProducto){
                 {
                     let htmlImage = "";
                     let objProducto = objData.data;
+                    console.log(objProducto);
                     document.querySelector("#idProducto").value = objProducto.productosId;
                     document.querySelector("#nombre").value = objProducto.nombre;
                     document.querySelector("#descripcion").value = objProducto.descripcion;
                     document.querySelector("#txtprecio").value = objProducto.precio;
                     document.querySelector("#cantidad").value = objProducto.cantidad;
+                    document.querySelector("#modelo").value = objProducto.modelo;
+                    document.querySelector("#color").value = objProducto.color;
+                    document.querySelector("#capacidad").value = objProducto.capacidad;
                     document.querySelector("#categoria").value = objProducto.categoriaId;
                     document.querySelector("#estado").value = objProducto.estado;
-                    tinymce.activeEditor.setContent(objProducto.descripcion); 
     
                     if(objProducto.images.length > 0){
                         let objProductos = objProducto.images;

@@ -43,13 +43,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   let formCategorias = document.querySelector("#formCategorias");
-
-// formCategorias.addEventListener("submit", function(e) {
-//   e.preventDefault();
-
-//   // Resto del código del formulario
-
-// });
   //Crear Categoria
   
   formCategorias.addEventListener("submit",function (e) {
@@ -237,9 +230,8 @@ function btnEditCat(element, idcategoria) {
   };
 }
 
-function btnDelCat(idcategoria) {
-  swal(
-    {
+function btnDelCat(idcategoria){
+  swal({
       title: "Eliminar Categoría",
       text: "¿Realmente quiere eliminar al categoría?",
       type: "warning",
@@ -247,38 +239,33 @@ function btnDelCat(idcategoria) {
       confirmButtonText: "Si, eliminar!",
       cancelButtonText: "No, cancelar!",
       closeOnConfirm: false,
-      closeOnCancel: true,
-    },
-    function (isConfirm) {
-      if (isConfirm) {
-        let request = window.XMLHttpRequest
-          ? new XMLHttpRequest()
-          : new ActiveXObject("Microsoft.XMLHTTP");
-        let ajaxUrl = base_url + "/categorias/delCategoria";
-        let strData = "idCategoria=" + idcategoria;
-        request.open("POST", ajaxUrl, true);
-        request.setRequestHeader(
-          "Content-type",
-          "application/x-www-form-urlencoded"
-        );
-        request.send(strData);
-        request.onreadystatechange = function () {
-          if (request.readyState == 4 && request.status == 200) {
-            let objData = JSON.parse(request.responseText);
-            if (objData.status) {
-              swal("Atención!", objData.msg, "error");
-              tablaCategoria.ajax.reload(function () {
-                btnEditCat();
-                btnEditCat();
-              });
-            } else {
-              swal("Atención!", objData.msg, "error");
-            }
+      closeOnCancel: true
+  }, function(isConfirm) {
+
+      if (isConfirm) 
+      {
+          let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+          let ajaxUrl = base_url+'/categorias/delCategoria';
+          let strData = "idCategoria="+idcategoria;
+          request.open("POST",ajaxUrl,true);
+          request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          request.send(strData);
+          request.onreadystatechange = function(){
+              if(request.readyState == 4 && request.status == 200){
+                  let objData = JSON.parse(request.responseText);
+                  if(objData.status){
+                      swal("Atención!", objData.msg , "error");
+                      tablaCategoria.ajax.reload(function () {
+                          btnEditCat();
+                        });
+                  }else{
+                      swal("Atención!", objData.msg , "error");
+                  }
+              }
           }
-        };
       }
-    }
-  );
+
+  });
 }
 
 function removePhoto() {

@@ -74,13 +74,13 @@ class categoriasModel extends Mysql
     //Eliminar
     public function deleteCategoria(int $idcategoria){
         $this->intIdcategoria = $idcategoria;
-        $sql = "SELECT * FROM productos WHERE categoriaId = $this->intIdcategoria";
+        $sql = "SELECT * FROM producto WHERE categoriaId = $this->intIdcategoria";
         $request = $this->select_all($sql);
-    
+
         if (empty($request)) {
             $sql = "DELETE FROM categoria WHERE categoriaId = $idcategoria";	
             $request = $this->delete($sql);
-    
+
             if ($request){
                 return "ok";
             }else{

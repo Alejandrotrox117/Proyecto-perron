@@ -54,16 +54,20 @@ class Productos extends Controllers
                 $intCategoriaId = intval($_POST['categoria']);
                 $strPrecio = strClean($_POST['txtprecio']);
                 $intStock = intval($_POST['stock']);
+                $strModelo = strClean($_POST['txtprecio']);
+                $strColor = strClean($_POST['txtprecio']);
+                $strCapacidad = strClean($_POST['txtprecio']);
                 $intEstado = intval($_POST['estado']);
+                
                 $request_producto = "";
 
                 if($idProducto == 0)
                 {
                     $option = 1;
-                    $request_producto = $this->model->insertProducto($idProducto, $strNombre, $strDescripcion, $intCategoriaId, $strPrecio, $intStock, $intEstado );
+                    $request_producto = $this->model->insertProducto($idProducto, $strNombre, $strDescripcion, $intCategoriaId, $strPrecio, $intStock, $strModelo, $strColor, $strCapacidad, $intEstado );
                 }else{
                     $option = 2;
-                    $request_producto = $this->model->updateProducto($idProducto, $strNombre, $strDescripcion, $intCategoriaId, $strPrecio, $intStock, $intEstado);
+                    $request_producto = $this->model->updateProducto($idProducto, $strNombre, $strDescripcion, $intCategoriaId, $strPrecio, $intStock, $strModelo, $strColor, $strCapacidad, $intEstado);
                 }
                 if($request_producto > 0 )
                 {
