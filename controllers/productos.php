@@ -43,7 +43,9 @@ class Productos extends Controllers
     
     public function setProducto(){
         if($_POST){
-            if(empty($_POST['nombre']) || empty($_POST['categoria']) || empty($_POST['txtprecio']) || empty($_POST['estado']) )
+            
+
+            if(empty($_POST['nombre']) || empty($_POST['categoria']) || empty($_POST['txtprecio']))
             {
                 $arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
             }else{
@@ -53,23 +55,24 @@ class Productos extends Controllers
                 $strDescripcion = ($_POST['descripcion']);
                 $intCategoriaId = intval($_POST['categoria']);
                 $strPrecio = strClean($_POST['txtprecio']);
-                $intStock = intval($_POST['stock']);
-                $strModelo = strClean($_POST['txtprecio']);
-                $strColor = strClean($_POST['txtprecio']);
-                $strCapacidad = strClean($_POST['txtprecio']);
+                $intStock = intval($_POST['cantidad']);
+                $strModelo = strClean($_POST['modelo']);
+                $strColor = strClean($_POST['color']);
+                $strCapacidad = strClean($_POST['capacidad']);
                 $intEstado = intval($_POST['estado']);
                 
                 $request_producto = "";
+            
 
-                if($idProducto == 0)
+                if($idProducto === 0 || $idProducto === "")
                 {
                     $option = 1;
-                    $request_producto = $this->model->insertProducto($idProducto, $strNombre, $strDescripcion, $intCategoriaId, $strPrecio, $intStock, $strModelo, $strColor, $strCapacidad, $intEstado );
+                    $request_producto = $this->model->insertProducto($idProducto, $strNombre, $strDescripcion, $intCategoriaId, $strPrecio, $intStock, $strModelo, $strColor, $strCapacidad, $intEstado);
                 }else{
                     $option = 2;
                     $request_producto = $this->model->updateProducto($idProducto, $strNombre, $strDescripcion, $intCategoriaId, $strPrecio, $intStock, $strModelo, $strColor, $strCapacidad, $intEstado);
                 }
-                if($request_producto > 0 )
+                if($request_producto > 0)
                 {
                     if($option == 1){
                         $arrResponse = array('status' => true, 'idProducto' => $request_producto, 'msg' => 'Datos guardados correctamente.');
@@ -83,6 +86,7 @@ class Productos extends Controllers
                 }
             }
             echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+               
             exit();
         }
     }

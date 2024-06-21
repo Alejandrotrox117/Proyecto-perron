@@ -49,6 +49,7 @@ class categoriasModel extends Mysql
         }
         return $retornar;
     }
+
     //Actualizar
     public function updateCategoria(int $idcategoria, string $nombreCat, string $descripcion, int $estatus, string $portada){
         $this->intIdcategoria = $idcategoria;
@@ -69,7 +70,7 @@ class categoriasModel extends Mysql
             $request = "exist";
         }
         return $request;			
-    }
+    }    
 
     //Eliminar
     public function deleteCategoria(int $idcategoria){
@@ -91,14 +92,6 @@ class categoriasModel extends Mysql
         }
     }
 }
-
-
-
-
-
-
-
-
 
 
 ?>

@@ -204,7 +204,7 @@ function btnEditCat(element, idcategoria) {
         if (objData.estado == "1") {
           parseInt((document.querySelector("#listEstatus").value = 1));
         } else {
-          parseInt((document.querySelector("#listEstatus").value = 2));
+          parseInt((document.querySelector("#listEstatus").value = 0));
         }
 
         //$('#listEstatus').selectpicker('render');

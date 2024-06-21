@@ -53,8 +53,8 @@
 			return $return;
 		}
 
-		public function updateProducto(int $idproducto, string $nombre, string $descripcion, int $categoriaid, string $precio, int $cantidad, string $modelo, string $color, string $capacidad, int $status){
-			$this->intIdProducto = $idproducto;
+		public function updateProducto(int $idProducto, string $nombre, string $descripcion, int $categoriaid, string $precio, int $cantidad, string $modelo, string $color, string $capacidad, int $status){
+			$this->intIdProducto = $idProducto;
 			$this->strNombre = $nombre;
 			$this->strDescripcion = $descripcion;
 			$this->intCategoriaId = $categoriaid;
@@ -64,13 +64,24 @@
 			$this->strColor = $color;
 			$this->strCapacidad = $capacidad;
 			$this->intStatus = $status;
+
 			$return = 0;
-			$sql = "SELECT * FROM producto WHERE nombre = '{$this->strNombre}'";
+			$sql = "SELECT * FROM producto WHERE nombre = '{$this->strNombre}' AND productoId != '{$this->intIdProducto}'";
 			$request = $this->select_all($sql);
 			if(empty($request))
-			{
-				$sql = "UPDATE producto SET nombre=?, descripcion=?, precio=?, cantidad=?, modelo=?, color=?, capacidad=?, estado=?  WHERE productoId = $this->intIdProducto ";
-				$arrData = array($this->strNombre, $this->strDescripcion, $this->strPrecio, $this->intcantidad, $this->strModelo, $this->strColor, $this->strCapacidad, $this->intStatus);
+			{  
+				$sql = "UPDATE producto SET categoriaId = ?, nombre = ?, descripcion = ?, precio = ?, cantidad = ?, modelo = ?, color = ?, capacidad = ?, estado = ? WHERE productoId = '{$this->intIdProducto}'";
+				$arrData = array(
+					$this->intCategoriaId,
+					$this->strNombre,
+					$this->strDescripcion,
+					$this->strPrecio,
+					$this->intcantidad,
+					$this->strModelo,
+					$this->strColor,
+					$this->strCapacidad,
+					$this->intStatus,
+				);
 				$request = $this->update($sql,$arrData);
 				$return = $request;
 			}else{

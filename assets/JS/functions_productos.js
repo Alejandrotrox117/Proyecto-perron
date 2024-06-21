@@ -65,7 +65,6 @@ window.addEventListener('load', function(){
                 swal("Atencion", "Todos los campos son obligatorios. Si observas que el productos que deseas agregar no aplica en el campo, Coloca NA", "error");
                 return false;
             }
-            tinyMCE.triggerSave(); //Funcion para tomar los datos del editor tinyMCE
             let ajaxUrl = base_url + '/productos/setProducto';
             let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
             let formData = new FormData(formProductos);
@@ -252,7 +251,7 @@ function btnEditInfo(element,idProducto){
                     let htmlImage = "";
                     let objProducto = objData.data;
                     console.log(objProducto);
-                    document.querySelector("#idProducto").value = objProducto.productosId;
+                    document.querySelector("#idProducto").value = objProducto.productoId;
                     document.querySelector("#nombre").value = objProducto.nombre;
                     document.querySelector("#descripcion").value = objProducto.descripcion;
                     document.querySelector("#txtprecio").value = objProducto.precio;
@@ -275,6 +274,7 @@ function btnEditInfo(element,idProducto){
                                 <i class="fas fa-trash-alt"></i></button></div>`;
                         }
                     }
+                   
                     document.querySelector("#containerImages").innerHTML = htmlImage; 
                     document.querySelector("#containerGallery").classList.remove("notblock");           
                     $('#modals_productos').modal('show');
