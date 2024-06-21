@@ -1,7 +1,7 @@
 <?php
 class Roles extends Controllers
 {
-    public $intIdRol;
+    public $introlId;
     public $id;
     public $rol;
     public $descripcion;
@@ -26,9 +26,9 @@ class Roles extends Controllers
     //Obtener un solo rol
     public function getOneRol(int $id)
     {
-        $intIdRol = intval(strClean($id));
-        if ($intIdRol > 0) {
-            $arrData = $this->model->selectOneRol($intIdRol);
+        $introlId = intval(strClean($id));
+        if ($introlId > 0) {
+            $arrData = $this->model->selectOneRol($introlId);
             if (empty($arrData)) {
                 $arrResponse = array('status' => false, 'msg' => 'Rol no encontrado');
             } else {
@@ -68,16 +68,16 @@ class Roles extends Controllers
     // Crear un nuevo rol
     public function setRol()
     {
-        $intIdRol = intval($_POST['idRol']);
+        $introlId = intval($_POST['rolId']);
         $rol = strClean($_POST['txtRol']);
         $descripcion = strClean($_POST['txtDescripcion']);
         $estatus = intval($_POST['listEstatus']);
 
-        if ($intIdRol == 0) {
+        if ($introlId == 0) {
             // Crear
             $request_rol = $this->model->insertRol($rol, $estatus, $descripcion);
         } else {
-            $request_rol = $this->model->updateRol($intIdRol, $rol, $estatus, $descripcion);
+            $request_rol = $this->model->updateRol($introlId, $rol, $estatus, $descripcion);
         }
 
         if ($request_rol === false) {
@@ -85,7 +85,7 @@ class Roles extends Controllers
         } else if ($request_rol === "exist") {
             $arrResponse = array("status" => false, "msg" => '¡Atención! El rol ya existe.');
         } else {
-            $action = ($intIdRol == 0) ? 'registrado' : 'actualizado';
+            $action = ($introlId == 0) ? 'registrado' : 'actualizado';
             $arrResponse = array("status" => true, "msg" => "Se ha $action el rol correctamente.");
         }
 
@@ -93,11 +93,17 @@ class Roles extends Controllers
         exit();
     }
 
+
+
+
+
+
+    
     public function delRol()
     {
         if ($_POST) {
-            $intIdRol = intval($_POST['idRol']);
-            $requestDelete = $this->model->deleteRol($intIdRol);
+            $introlId = intval($_POST['rolId']);
+            $requestDelete = $this->model->deleteRol($introlId);
 
             if ($requestDelete == "ok") {
                 $arrResponse = array('status' => true, 'msg' => '¡Se ha eliminado el rol!');
@@ -117,7 +123,7 @@ class Roles extends Controllers
         $arrData = $this->model->selectRoles();
         if (count($arrData) > 0) {
             for ($i = 0; $i < count($arrData); $i++) {
-                $htmlOptions .= '<option value="' . $arrData[$i]['rol_id'] . '">' . $arrData[$i]['nombre'] . '</option>';
+                $htmlOptions .= '<option value="' . $arrData[$i]['rolId'] . '">' . $arrData[$i]['nombre'] . '</option>';
             }
         }
         echo $htmlOptions;

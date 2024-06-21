@@ -33,7 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
       dataSrc: "",
     },
     columns: [
-      //{ "data": "rol_id" },
       { data: "nombre" },
       { data: "descripcion" },
       { data: "estado" },
@@ -49,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var formRol = document.querySelector("#formRol");
   formRol.onsubmit = function (e) {
     e.preventDefault();
-    var idRol = document.querySelector("#idRol").value;
+    var rolId = document.querySelector("#rolId").value;
     var nombreRol = document.querySelector("#txtRol").value;
     var descRol = document.querySelector("#txtDescripcion").value;
     var estatusRol = document.querySelector("#listEstatus").value;
@@ -96,14 +95,16 @@ document.addEventListener("DOMContentLoaded", function () {
 // Para abrir el modal del formulario de registro de roles
 function OpenModalRol() {
   $("#modalFormRol").modal("show");
-  document.querySelector("#idRol").value = "";
+  document.querySelector("#rolId").value = "";
   document.querySelector(".modal-header").classList.replace("headerUpdate", "headerRegister");
   document.querySelector("#btnActionForm").classList.replace("btn-info", "btn-primary");
   document.querySelector("#btnText").innerHTML = "Guardar";
   document.querySelector("#titleModal").innerHTML = "Nuevo Rol";
   document.querySelector("#formRol").reset();
 }
-
+document.getElementById("btnModalRol").addEventListener("click", function() {
+  OpenModalRol();
+});
 //funcion load para que se carguen los modales
 window.addEventListener(
   "load",
@@ -133,13 +134,13 @@ function EditRol() {
       document.querySelector("#btnText").innerHTML = "Actualizar";
 
       //Obtener el id del rol por el atributo rl
-      var idRol = this.getAttribute("rl");
+      var rolId = this.getAttribute("rl");
       //para obtener el rol depnediendo del navegador que se este usando
       var request = window.XMLHttpRequest
         ? new XMLHttpRequest()
         : new ActiveXObject("Microsoft.XMLHTTP");
       // Ajax para buscar la informacion con la url de la funcion getOneRol
-      var ajaxUrl = base_url + "/roles/getOneRol/" + idRol;
+      var ajaxUrl = base_url + "/roles/getOneRol/" + rolId;
       request.open("GET", ajaxUrl, true);
       request.send();
       //para obtener la informacion del rol y autorellenar el modal
@@ -148,7 +149,7 @@ function EditRol() {
           var objData = JSON.parse(request.responseText);
           if (objData.status) {
             //obtenemos los valores de cada input del modal utilizando value
-            document.querySelector("#idRol").value = objData.data.rol_id;
+            document.querySelector("#rolId").value = objData.data.rol_id;
             document.querySelector("#txtRol").value = objData.data.nombre;
             document.querySelector("#txtDescripcion").value =
               objData.data.descripcion;
@@ -178,7 +179,7 @@ function DeleteRol() {
   var btnEliRol = document.querySelectorAll(".btnEliRol");
   btnEliRol.forEach(function (btnEliRol) {
     btnEliRol.addEventListener("click", function () {
-      var idRol = this.getAttribute("rl");
+      var rolId = this.getAttribute("rl");
       //alerta de confirmacion de eliminar generada con sweetAlert
       swal(
         {
@@ -198,7 +199,7 @@ function DeleteRol() {
               ? new XMLHttpRequest()
               : new ActiveXObject("Microsoft.XMLHTTP");
             var ajaxUrl = base_url + "/roles/delRol";
-            var strData = "idRol=" + idRol;
+            var strData = "rolId=" + rolId;
             request.open("POST", ajaxUrl, true);
             request.setRequestHeader(
               "Content-type",

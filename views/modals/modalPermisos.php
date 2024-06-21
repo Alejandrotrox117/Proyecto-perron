@@ -15,12 +15,13 @@
           <div class="tile">
             <!--  Almacenamos el id del rol seleccionado-->
             <form action="" id="formPermisos" name="formPermisos">
-              <input type="hidden" id="idRol" name="idRol" value="<?= $data['rolId']; ?>" required="">
+              <input type="hidden" id="rolId" name="rolId" value="<?= $data['rolId']; ?>" required="">
 
               <div class="table-responsive">
                 <table class="table">
                   <thead>
                     <tr>
+                      <th>#</th>
                       <th>Modulo</th>
                       <th>Ver</th>
                       <th>Crear</th>
@@ -30,73 +31,62 @@
                   </thead>
                   <tbody>
                     <?php
-                    $n = 1;
-                    $modulos = $data['modulos']; 
-                    // Obtenemos permisos para la tabla
-                    for ($i = 0; $i < count($modulos); $i++) {
-                      $modulo = $modulos[$i];
-                      $idmod = isset($modulo['moduloId']) ? $modulo['moduloId'] : '';
+                    $no = 1;
+                    $modulo = $data['modulo'];
+                    for ($i = 0; $i < count($modulo); $i++) {
+                      $permiso = $modulo[$i]['permiso'];
 
-                      // Verificamos si el módulo tiene permisos definidos
-                      if (isset($modulo['permisos'])) {
-                        $permisos = $modulo['permisos'];
-                        $lecturaChecked = isset($permisos['lectura']) && $permisos['lectura'] == 1 ? 'checked' : '';
-                        $escrituraChecked = isset($permisos['escritura']) && $permisos['escritura'] == 1 ? 'checked' : '';
-                        $actualizacionChecked = isset($permisos['actualizar']) && $permisos['actualizar'] == 1 ? 'checked' : '';
-                        $eliminacionChecked = isset($permisos['eliminar']) && $permisos['eliminar'] == 1 ? 'checked' : '';
-                      } else {
-                        // Si no hay permisos definidos, asignamos valores por defecto
-                        $lecturaChecked = '';
-                        $escrituraChecked = '';
-                        $actualizacionChecked = '';
-                        $eliminacionChecked = '';
-                       
-                      }
-                     
+                      // Verificar si los permisos están activados o desactivados
+                      $rCheck = isset($permiso['lectura']) && $permiso['lectura'] == 1 ? " checked " : "";
+                      $wCheck = isset($permiso['escritura']) && $permiso['escritura'] == 1 ? " checked " : "";
+                      $uCheck = isset($permiso['actualizar']) && $permiso['actualizar'] == 1 ? " checked " : "";
+                      $dCheck = isset($permiso['eliminar']) && $permiso['eliminar'] == 1 ? " checked " : "";
+
+                      $idmod = $modulo[$i]['moduloId'];
                       ?>
                       <tr>
-                       
-                          <input type="hidden" name="modulos[<?= $i; ?>][idmodulo]" value="<?= $idmod ?>" required>
-
-                        
-                        <td><?= $modulos[$i]['titulo']; ?>
-                        </td>
-
                         <td>
-                          <div class="toggle-flip ">
+                          <?= $no; ?>
+                          <input type="hidden" name="modulo[<?= $i; ?>][moduloId]" value="<?= $idmod ?>" required>
+                        </td>
+                        <td>
+                          <?= $modulo[$i]['titulo']; ?>
+                        </td>
+                        <td>
+                          <div class="toggle-flip">
                             <label>
-                              <input type="checkbox" name="modulos[<?= $i; ?>][lectura]" <?= $lecturaChecked; ?>><span
-                                class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
+                              <input type="checkbox" name="modulo[<?= $i; ?>][lectura]" <?= $rCheck ?>>
+                              <span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
                             </label>
                           </div>
                         </td>
                         <td>
                           <div class="toggle-flip">
                             <label>
-                              <input type="checkbox" name="modulos[<?= $i; ?>][escritura]" <?= $escrituraChecked; ?>><span
-                                class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
+                              <input type="checkbox" name="modulo[<?= $i; ?>][escritura]" <?= $wCheck ?>>
+                              <span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
                             </label>
                           </div>
                         </td>
                         <td>
                           <div class="toggle-flip">
                             <label>
-                              <input type="checkbox" name="modulos[<?= $i; ?>][actualizar]" <?= $actualizacionChecked; ?>><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
+                              <input type="checkbox" name="modulo[<?= $i; ?>][actualizar]" <?= $uCheck ?>>
+                              <span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
                             </label>
                           </div>
                         </td>
                         <td>
                           <div class="toggle-flip">
                             <label>
-                              <input type="checkbox" name="modulos[<?= $i; ?>][eliminar]" <?= $eliminacionChecked; ?>><span
-                                class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
+                              <input type="checkbox" name="modulo[<?= $i; ?>][eliminar]" <?= $dCheck ?>>
+                              <span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
                             </label>
                           </div>
                         </td>
                       </tr>
                       <?php
-
-                      $n++;
+                      $no++;
                     }
                     ?>
                   </tbody>

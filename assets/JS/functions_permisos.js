@@ -4,12 +4,12 @@ export function PermisosRol() {
     btnPermisos.forEach(function (btnPermisos) {
       btnPermisos.addEventListener("click", function () {
         // Obtenemos el id del rol por el atributo "rl"
-        var idRol = this.getAttribute("rl");
+        var rolId = this.getAttribute("rl");
   
         var request = window.XMLHttpRequest
           ? new XMLHttpRequest()
           : new ActiveXObject("Microsoft.XMLHTTP");
-        var ajaxUrl = base_url + "/permisos/getPermisos/" + idRol;
+        var ajaxUrl = base_url + "/permisos/getPermisos/" + rolId;
   
         // Peticion GET para obtener los permisos del rol
         request.open("GET", ajaxUrl, true);
@@ -49,6 +49,7 @@ export function PermisosRol() {
     request.send(formData);
   
     request.onreadystatechange = function () {
+      
       if (request.readyState == 4 && request.status == 200) {
         var objData = JSON.parse(request.responseText);
         if (objData.status) {

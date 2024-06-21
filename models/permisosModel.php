@@ -3,7 +3,7 @@ class PermisosModel extends Mysql
 {
     public $intIdpermiso;
 		public $rolId;
-		public $idModulo;
+		public $moduloId;
 		public $lectura;
 		public $escritura;
 		public $actualizar;
@@ -24,7 +24,7 @@ class PermisosModel extends Mysql
     public function searchPermisosRol(int $idrol)
     {
         $this->rolId = $idrol;
-        $sql = "SELECT * FROM permisos WHERE rolId = $this->rolId";
+        $sql = "SELECT * FROM permiso WHERE rolId = $this->rolId";
         $request = $this->searchAll($sql);
         return $request;
     }
@@ -32,7 +32,7 @@ class PermisosModel extends Mysql
     public function deletePermisosRol(int $idrol){
         $this->rolId = $idrol;
         try {
-            $sql = "DELETE FROM permisos WHERE rolId = $this->rolId";
+            $sql = "DELETE FROM permiso WHERE rolId = $this->rolId";
             $request = $this->delete($sql);
             return $request;
         } catch (Exception $e) {
@@ -42,17 +42,17 @@ class PermisosModel extends Mysql
     }
 
 
-    public function insertPermisosRol(int $idrol, int $idmodulo, int $lectura, int $escritura, int $actualizar,int $eliminar ){
+    public function insertPermisosRol(int $idrol, int $moduloId, int $lectura, int $escritura, int $actualizar,int $eliminar ){
         
        
         $this->rolId = $idrol;
-        $this->idModulo = $idmodulo;
+        $this->moduloId = $moduloId;
         $this->lectura = $lectura;
         $this->escritura = $escritura;
         $this->actualizar = $actualizar;
         $this->eliminar = $eliminar;
-        $query = "INSERT INTO permisos(rolId, moduloId, lectura, escritura, actualizar,eliminar) VALUES(?,?,?,?,?,?)";
-        $arrData = array($this->rolId, $this->idModulo, $this->lectura, $this->escritura, $this->actualizar, $this->eliminar);
+        $query = "INSERT INTO permiso(rolId, moduloId, lectura, escritura, actualizar,eliminar) VALUES(?,?,?,?,?,?)";
+        $arrData = array($this->rolId, $this->moduloId, $this->lectura, $this->escritura, $this->actualizar, $this->eliminar);
         $request = $this->insert($query, $arrData);
         return $request;
     }
