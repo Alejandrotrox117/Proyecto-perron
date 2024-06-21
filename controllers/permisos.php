@@ -38,8 +38,9 @@ class Permisos extends Controllers
                 }
             }
 
+
             $arrayRol['modulo'] = $arrayModulos;
-            //$html = getModal('modalPermisos', $arrayRol);
+            $html = getModal('modalPermisos', $arrayRol);
         }
 
         exit();
@@ -50,26 +51,26 @@ class Permisos extends Controllers
         if (!empty($_POST['rolId']) && !empty($_POST['modulo'])) {
             $intRolId = intval($_POST['rolId']);
             $modulos = $_POST['modulo'];
-    
+
             $this->model->deletePermisosRol($intRolId);
-    
+
             $errors = 0;
             $permisosModulo = []; // Array para almacenar el estado de los permisos por módulo
-    
+
             foreach ($modulos as $modulo) {
                 $intmoduloId = $modulo['moduloId'];
                 $lectura = isset($modulo['lectura']) ? 1 : 0;
                 $escritura = isset($modulo['escritura']) ? 1 : 0;
                 $actualizar = isset($modulo['actualizar']) ? 1 : 0;
                 $eliminar = isset($modulo['eliminar']) ? 1 : 0;
-    
+
                 // Utilizar sentencia preparada para insertar permisos
                 $requestPermiso = $this->model->insertPermisosRol($intRolId, $intmoduloId, $lectura, $escritura, $actualizar, $eliminar);
-    
+
                 if ($requestPermiso === false) {
                     $errors++;
                 }
-    
+
                 // Almacenar el estado de los permisos para el módulo actual
                 $permisosModulo[$intmoduloId] = [
                     'lectura' => $lectura,
@@ -78,22 +79,22 @@ class Permisos extends Controllers
                     'eliminar' => $eliminar,
                 ];
             }
-    
+
             if ($errors === 0) {
                 $arrResponse = array('status' => true, 'msg' => 'Permisos asignados correctamente.', 'permisos' => $permisosModulo);
             } else {
                 $arrResponse = array("status" => false, "msg" => 'No es posible asignar los permisos.', 'permisos' => $permisosModulo);
             }
-    
+
             echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
         } else {
             $arrResponse = array("status" => false, "msg" => 'Datos incompletos.');
             echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
         }
-    
+
         exit();
     }
-    
+
 
 }
 
