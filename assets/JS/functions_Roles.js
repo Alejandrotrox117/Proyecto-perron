@@ -118,61 +118,48 @@ window.addEventListener(
 
 //Editar rol
 function EditRol() {
-  var btnEditRol = document.querySelectorAll(".btnEditRol");
-  btnEditRol.forEach(function (btnEditRol) {
-    btnEditRol.addEventListener("click", function () {
-      //Para cambiar el nomrbre del modal al hacer click en actualizar
+  const btnEditRol = document.querySelectorAll(".btnEditRol");
+  btnEditRol.forEach(btn => {
+    btn.addEventListener("click", () => {
+      // Actualizar el modal
       document.querySelector("#titleModal").innerHTML = "Actualizar Rol";
-      //cambia el tiutlo del modal de insertar a actualizar
-      document
-        .querySelector(".modal-header")
-        .classList.replace("headerRegister", "headerUpdate");
-      // cambia el nombre de guardar a actualizar
-      document
-        .querySelector("#btnActionForm")
-        .classList.replace("btn-primary", "btn-info");
+      document.querySelector(".modal-header").classList.replace("headerRegister", "headerUpdate");
+      document.querySelector("#btnActionForm").classList.replace("btn-primary", "btn-info");
       document.querySelector("#btnText").innerHTML = "Actualizar";
 
-      //Obtener el id del rol por el atributo rl
-      var rolId = this.getAttribute("rl");
-      //para obtener el rol depnediendo del navegador que se este usando
-      var request = window.XMLHttpRequest
-        ? new XMLHttpRequest()
-        : new ActiveXObject("Microsoft.XMLHTTP");
-      // Ajax para buscar la informacion con la url de la funcion getOneRol
-      var ajaxUrl = base_url + "/roles/getOneRol/" + rolId;
+      // Obtener el id del rol
+      const rolId = btn.getAttribute("rl");
+
+      // Realizar la solicitud AJAX
+      const ajaxUrl = base_url + "/roles/getOneRol/" + rolId;
+      const request = new XMLHttpRequest();
       request.open("GET", ajaxUrl, true);
-      request.send();
-      //para obtener la informacion del rol y autorellenar el modal
-      request.onreadystatechange = function () {
-        if (request.readyState == 4 && request.status == 200) {
-          var objData = JSON.parse(request.responseText);
+      request.onload = () => {
+        if (request.status >= 200 && request.status < 400) {
+          const objData = JSON.parse(request.responseText);
           if (objData.status) {
-            //obtenemos los valores de cada input del modal utilizando value
-            document.querySelector("#rolId").value = objData.data.rol_id;
+            // Rellenar el modal con los datos del rol
+            document.querySelector("#rolId").value = objData.data.rolId;
             document.querySelector("#txtRol").value = objData.data.nombre;
-            document.querySelector("#txtDescripcion").value =
-              objData.data.descripcion;
-            document.querySelector("#listEstatus").value = objData.data.estatus;
+            document.querySelector("#txtDescripcion").value = objData.data.descripcion;
+            document.querySelector("#listEstatus").value = objData.data.estado;
 
-            // Establecer el valor seleccionado del elemento listEstatus
-            var listEstatus = document.querySelector("#listEstatus");
-            if (objData.data.estatus === 1) {
-              listEstatus.selectedIndex = 0; // Activo
-            } else {
-              listEstatus.selectedIndex = 1; // Inactivo
-            }
-
+            // Mostrar el modal
             $("#modalFormRol").modal("show");
           } else {
             swal("Error", objData.msg, "error");
           }
+        } else {
+          swal("Error", "No se pudo obtener la información del rol.", "error");
         }
       };
+      request.onerror = () => {
+        swal("Error", "Error de conexión.", "error");
+      };
+      request.send();
     });
   });
 }
-
 //Funcion para eliminar un rol
 
 function DeleteRol() {

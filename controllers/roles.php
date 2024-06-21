@@ -1,6 +1,7 @@
 <?php
 class Roles extends Controllers
 {
+
     public $introlId;
     public $id;
     public $rol;
@@ -10,8 +11,21 @@ class Roles extends Controllers
     public function __construct()
     {
         parent::__construct();
+        $this->model = new rolesModel();
+
     }
 
+    // Método getter para obtener el valor de $model
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    // Método setter para establecer el valor de $model
+    public function setModel(rolesModel $model)
+    {
+        $this->model = $model;
+    }
 
     public function roles($params)
     {
@@ -60,12 +74,60 @@ class Roles extends Controllers
         }
 
         // Convertir a formato JSON
+
         echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
         // Finalizar el proceso
         exit();
     }
 
-    // Crear un nuevo rol
+    // public function setRol(){
+
+    //         $rol = strClean($_POST['txtRol']);
+    //         $descripcion = strClean($_POST['txtDescripcion']);
+    //         $estatus = intval($_POST['listEstatus']);
+
+
+    //     $intIdrol = intval($_POST['rolId']);
+    //     $strRol =  strClean($_POST['txtRol']);
+    //     $strDescipcion = strClean($_POST['txtDescripcion']);
+    //     $intStatus = intval($_POST['listEstatus']);
+
+    //     if($intIdrol == 0)
+    //     {
+    //         Crear
+    //         $request_rol = $this->model->insertRol($strRol, $intStatus, $strDescipcion);
+
+
+    //         $option = 1;
+    //     }else{
+    //         Actualizar
+    //         $request_rol = $this->model->updateRol($intIdrol, $strRol, $intStatus,$strDescipcion );
+    //         $option = 2;
+    //     }
+
+    //     if($request_rol > 0 )
+    //     {
+    //         if($option == 1)
+    //         {
+    //             $arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
+    //         }else{
+    //             $arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
+    //         }
+    //     }else if($request_rol == 'exist'){
+
+    //         $arrResponse = array('status' => false, 'msg' => '¡Atención! El Rol ya existe.');
+    //     }else{
+    //         $arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
+    //     }
+    //     var_dump($_POST);
+    //     echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+    //     die();
+    // }
+
+
+
+
+    //Crear un nuevo rol
     public function setRol()
     {
         $introlId = intval($_POST['rolId']);
@@ -73,11 +135,11 @@ class Roles extends Controllers
         $descripcion = strClean($_POST['txtDescripcion']);
         $estatus = intval($_POST['listEstatus']);
 
-        if ($introlId == 0) {
-            // Crear
-            $request_rol = $this->model->insertRol($rol, $estatus, $descripcion);
-        } else {
+        // Verificar si se trata de una actualización o un nuevo rol
+        if ($introlId > 0) { // Si $introlId es mayor que 0, es una actualización
             $request_rol = $this->model->updateRol($introlId, $rol, $estatus, $descripcion);
+        } else { // Si $introlId es 0, es un nuevo rol
+            $request_rol = $this->model->insertRol($rol, $estatus, $descripcion);
         }
 
         if ($request_rol === false) {
@@ -98,7 +160,7 @@ class Roles extends Controllers
 
 
 
-    
+
     public function delRol()
     {
         if ($_POST) {
@@ -129,7 +191,7 @@ class Roles extends Controllers
         echo $htmlOptions;
         die();
     }
-    
+
 }
 
 
