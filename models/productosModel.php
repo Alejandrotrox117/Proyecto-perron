@@ -26,7 +26,7 @@
             return $request;
         }
 
-
+		//Agregar
 		public function insertProducto(int $idProducto, string $nombre, string $descripcion, int $categoriaid, string $precio, int $cantidad, string $modelo, string $color, string $capacidad, int $status){
 			$this->intIdProducto = $idProducto;
 			$this->strNombre = $nombre;
@@ -53,6 +53,7 @@
 			return $return;
 		}
 
+		//Actualizar
 		public function updateProducto(int $idProducto, string $nombre, string $descripcion, int $categoriaid, string $precio, int $cantidad, string $modelo, string $color, string $capacidad, int $status){
 			$this->intIdProducto = $idProducto;
 			$this->strNombre = $nombre;
@@ -90,6 +91,19 @@
 			return $return;
 		}
 
+		//Eliminar
+		public function deleteProducto(int $idProducto){
+			$this->intIdProducto = $idProducto;
+				$sql = "DELETE FROM producto WHERE productoId = '{$this->intIdProducto}'";	
+				$request = $this->delete($sql);
+	
+				if ($request){
+					return "ok";
+				}else{
+					return "Error";
+				}
+			}
+		
 		public function insertImage(int $idProducto, string $imagen){
 			$this->intIdProducto = $idProducto;
 			$this->strImagen = $imagen;

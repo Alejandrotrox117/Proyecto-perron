@@ -274,7 +274,6 @@ function btnEditInfo(element,idProducto){
                                 <i class="fas fa-trash-alt"></i></button></div>`;
                         }
                     }
-                   
                     document.querySelector("#containerImages").innerHTML = htmlImage; 
                     document.querySelector("#containerGallery").classList.remove("notblock");           
                     $('#modals_productos').modal('show');
@@ -284,6 +283,45 @@ function btnEditInfo(element,idProducto){
             }
         }
 }
+
+function btnDeleteProduct(idProducto){
+    swal({
+        title: "Eliminar Producto",
+        text: "¿Realmente quiere eliminar el Producto?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Si, eliminar!",
+        cancelButtonText: "No, cancelar!",
+        closeOnConfirm: false,
+        closeOnCancel: true
+    }, function(isConfirm) {
+  
+        if (isConfirm) 
+        {
+            let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+            let ajaxUrl = base_url+'/productos/delProducto';
+            let strData = "idProducto="+idProducto;
+            request.open("POST",ajaxUrl,true);
+            request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            request.send(strData);
+            request.onreadystatechange = function(){
+                if(request.readyState == 4 && request.status == 200){
+                    let objData = JSON.parse(request.responseText);
+                    if(objData.status){
+                        swal("Atención!", objData.msg , "error");
+                        tablaProductos.ajax.reload(function () {
+                            btnEditInfo();
+                            btnDeleteProduct();
+                          });
+                    }else{
+                        swal("Atención!", objData.msg , "error");
+                    }
+                }
+            }
+        }
+  
+    });
+  }
 
 //Funcion que se activa cuando se necesita traer los valores de la categoria
 function selectCategorias(){

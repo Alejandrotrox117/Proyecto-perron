@@ -32,7 +32,7 @@ class Productos extends Controllers
             $arrData[$i]['acciones'] = '<div class="text-center">
             <button class="btn btn-warning btn-sm" onClick="btnViewInfo('.$arrData[$i]['productoId'].')" title="Ver"><i class="fas fa-eye"></i></button>
             <button class="btn btn-warning btn-sm" onClick="btnEditInfo(this,'.$arrData[$i]['productoId'].')" title="Editar"><i class="fas fa-edit"></i></button>
-            <button class="btn btn-danger btn-sm" onClick="btnDelProduct('.$arrData[$i]['productoId'].')" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
+            <button class="btn btn-danger btn-sm" onClick="btnDeleteProduct('.$arrData[$i]['productoId'].')" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
             </div>';
         }
         // Convertir a formato JSON y enviar la respuesta
@@ -155,6 +155,22 @@ class Productos extends Controllers
             echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
         }
         exit();
+    }
+
+    public function delProducto($idProducto){
+        if (isset($_POST['idProducto'])) {
+            $intIdProducto = $_POST['idProducto'];
+            $requestDelete = $this->model->deleteProducto($intIdProducto);
+            if ($requestDelete === "ok") {
+                $arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el producto');
+            } else if ($requestDelete === "exist") {
+                $arrResponse = array('status' => false, 'msg' => 'No es posible eliminar el producto...');
+            } else {
+                $arrResponse = array('status' => false, 'msg' => 'Error al eliminar la categoría.');
+            }
+            echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        }
+        die();
     }
 }
    
