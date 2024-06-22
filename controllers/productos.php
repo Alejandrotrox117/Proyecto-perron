@@ -114,6 +114,18 @@ class Productos extends Controllers
         exit();
     }
 
+    // Controlador para obtener el código desde la base de datos
+    public function getCodigo($codigo) {
+        $codigo = intval($codigo);
+        if ($codigo > 0) {
+            $arrData = $this->model->getCodigo($codigo);
+            // Devuelve los datos del código si existen
+            echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
+        }
+        // Maneja el caso en el que no se encuentra el código
+        exit();
+}
+
     public function setImage(){
         if($_POST){
             if(empty($_POST['idProducto'])){

@@ -27,6 +27,19 @@
             return $request;
         }
 
+		//Buscar Codigo en tabla Productos
+		public function getCodigo($codigo){
+			$this->intCodigo = $codigo;
+			$sql = "SELECT * FROM producto WHERE codigo = '{$this->intCodigo}'";
+			$request = $this->select_all($sql);
+			if(empty($request)){
+				$return = "ok";
+			}else{
+				$return = "exist";
+			}
+			return $return;
+		}
+
 		//Agregar
 		public function insertProducto(int $idProducto, int $codigo, string $nombre, string $descripcion, int $categoriaid, string $precio, int $cantidad, string $modelo, string $color, string $capacidad, int $status){
 			$this->intIdProducto = $idProducto;

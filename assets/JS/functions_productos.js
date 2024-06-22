@@ -88,7 +88,6 @@ window.addEventListener('load', function(){
             }
 
         }
-    }
 
     //Funcion para asignar un valor diferente al div del boton galeria de imagenes
     if(document.querySelector(".btnAddImage")){
@@ -110,7 +109,30 @@ window.addEventListener('load', function(){
  
      fntInputFile();
      selectCategorias();
+}
 }, false);
+
+function generarCodigoUnico(){
+            let numeroAleatorio = Math.floor(Math.random() * 900000) + 100000;
+            let request = new XMLHttpRequest();
+            let ajaxUrl = base_url + '/Productos/getCodigo/' + numeroAleatorio;
+            request.open("GET", ajaxUrl, true);
+            request.onreadystatechange = function () {
+                if (request.readyState === 4) {
+                    if (request.status === 200) {
+                        let objData = JSON.parse(request.responseText);
+                        if(objData == "ok") {
+                            // Asigna el código al elemento con id "codigo"
+                            document.querySelector("#codigo").value = numeroAleatorio;
+                        }
+                        if(objData == "exist"){
+                            generarCodigoUnico();
+                        }
+                    }
+                }
+            };
+            request.send();
+}
 
 function fntInputFile(){
     let inputUploadfile = document.querySelectorAll(".inputUploadfile");
@@ -344,6 +366,7 @@ function selectCategorias(){
 
 // Para abrir el modal del formulario de registro de Productos
 function OpenModal() {
+    generarCodigoUnico();
     document.querySelector("#idProducto").value = "";
     document.querySelector('.tile-title').innerHTML ="Nuevo Producto";
     document.querySelector('.modal-title').innerHTML ="Registrar Producto";
