@@ -2,6 +2,7 @@
     class ProductosModel extends Mysql{
 
         private $intIdProducto;
+		private $intCodigo;
 		private $strNombre;
 		private $strDescripcion;
 		private $intCategoriaId;
@@ -21,14 +22,15 @@
 
         //funcion para consultar todos
         public function selectProductos(){
-            $query = "SELECT p.productoId, c.categoriaId, c.nombre as categoria, p.nombre, p.descripcion, p.precio, p.cantidad, p.modelo, p.color, p.capacidad, p.creado, p.estado FROM producto p INNER JOIN categoria c ON p.categoriaId = c.categoriaId";
+            $query = "SELECT p.productoId, c.categoriaId, p.codigo, c.nombre as categoria, p.nombre, p.descripcion, p.precio, p.cantidad, p.modelo, p.color, p.capacidad, p.creado, p.estado FROM producto p INNER JOIN categoria c ON p.categoriaId = c.categoriaId";
             $request = $this->select_all($query);
             return $request;
         }
 
 		//Agregar
-		public function insertProducto(int $idProducto, string $nombre, string $descripcion, int $categoriaid, string $precio, int $cantidad, string $modelo, string $color, string $capacidad, int $status){
+		public function insertProducto(int $idProducto, int $codigo, string $nombre, string $descripcion, int $categoriaid, string $precio, int $cantidad, string $modelo, string $color, string $capacidad, int $status){
 			$this->intIdProducto = $idProducto;
+			$this->intCodigo = $codigo;
 			$this->strNombre = $nombre;
 			$this->strDescripcion = $descripcion;
 			$this->intCategoriaId = $categoriaid;
@@ -43,8 +45,8 @@
 			$request = $this->select_all($sql);
 			if(empty($request))
 			{
-				$query_insert  = "INSERT INTO producto(categoriaId, nombre, descripcion, precio, cantidad, modelo, color, capacidad, estado) VALUES(?,?,?,?,?,?,?,?,?)";
-				$arrData = array($this->intCategoriaId, $this->strNombre, $this->strDescripcion, $this->strPrecio, $this->intcantidad, $this->strModelo, $this->strColor, $this->strCapacidad, $this->intStatus);
+				$query_insert  = "INSERT INTO producto(categoriaId, codigo, nombre, descripcion, precio, cantidad, modelo, color, capacidad, estado) VALUES(?,?,?,?,?,?,?,?,?,?)";
+				$arrData = array($this->intCategoriaId, $this->intCodigo, $this->strNombre, $this->strDescripcion, $this->strPrecio, $this->intcantidad, $this->strModelo, $this->strColor, $this->strCapacidad, $this->intStatus);
 				$request_insert = $this->insert($query_insert,$arrData);
 				$return = $request_insert;
 			}else{
@@ -54,8 +56,9 @@
 		}
 
 		//Actualizar
-		public function updateProducto(int $idProducto, string $nombre, string $descripcion, int $categoriaid, string $precio, int $cantidad, string $modelo, string $color, string $capacidad, int $status){
+		public function updateProducto(int $idProducto, int $codigo, string $nombre, string $descripcion, int $categoriaid, string $precio, int $cantidad, string $modelo, string $color, string $capacidad, int $status){
 			$this->intIdProducto = $idProducto;
+			$this->intCodigo = $codigo;
 			$this->strNombre = $nombre;
 			$this->strDescripcion = $descripcion;
 			$this->intCategoriaId = $categoriaid;
@@ -71,9 +74,10 @@
 			$request = $this->select_all($sql);
 			if(empty($request))
 			{  
-				$sql = "UPDATE producto SET categoriaId = ?, nombre = ?, descripcion = ?, precio = ?, cantidad = ?, modelo = ?, color = ?, capacidad = ?, estado = ? WHERE productoId = '{$this->intIdProducto}'";
+				$sql = "UPDATE producto SET categoriaId = ?, codigo = ?, nombre = ?, descripcion = ?, precio = ?, cantidad = ?, modelo = ?, color = ?, capacidad = ?, estado = ? WHERE productoId = '{$this->intIdProducto}'";
 				$arrData = array(
 					$this->intCategoriaId,
+					$this->intCodigo,
 					$this->strNombre,
 					$this->strDescripcion,
 					$this->strPrecio,
@@ -115,7 +119,7 @@
 
 		public function selectProducto(int $idproducto){
 			$this->intIdProducto = $idproducto;
-			$sql = "SELECT p.productoId, c.categoriaId, c.nombre as categoria,  p.nombre, p.descripcion, p.precio, p.cantidad, p.modelo, p.color, p.capacidad, p.estado FROM producto p INNER JOIN categoria c ON p.categoriaid = c.categoriaId WHERE productoId = $this->intIdProducto";
+			$sql = "SELECT p.productoId, c.categoriaId, c.nombre as categoria, p.codigo,  p.nombre, p.descripcion, p.precio, p.cantidad, p.modelo, p.color, p.capacidad, p.estado FROM producto p INNER JOIN categoria c ON p.categoriaid = c.categoriaId WHERE productoId = $this->intIdProducto";
 			$request = $this->select($sql);
 			return $request;
 

@@ -50,7 +50,7 @@ window.addEventListener('load', function(){
         "order": [[0, "asc"]]
     });
 
-    //funcion para agregar una categoria
+    //funcion para agregar una producto
     if(document.querySelector("#formProductos")){
         let formProductos = document.querySelector("#formProductos");
         formProductos.onsubmit = function(e){
@@ -206,6 +206,7 @@ function btnViewInfo(idProducto){
                 '<span class="badge badge-danger">Inactivo</span>';
 
 
+                document.querySelector("#celCodigo").innerHTML = objProducto.codigo;
                 document.querySelector("#celNombre").innerHTML = objProducto.nombre;
                 document.querySelector("#celPrecio").innerHTML = objProducto.precio;
                 document.querySelector("#celcantidad").innerHTML = objProducto.cantidad;
@@ -256,6 +257,7 @@ function btnEditInfo(element,idProducto){
                     document.querySelector("#descripcion").value = objProducto.descripcion;
                     document.querySelector("#txtprecio").value = objProducto.precio;
                     document.querySelector("#cantidad").value = objProducto.cantidad;
+                    document.querySelector("#codigo").value = objProducto.codigo;
                     document.querySelector("#modelo").value = objProducto.modelo;
                     document.querySelector("#color").value = objProducto.color;
                     document.querySelector("#capacidad").value = objProducto.capacidad;
@@ -350,9 +352,11 @@ function OpenModal() {
     document.querySelector("#formProductos").reset();
     $('#modals_productos').modal('show');
     if(document.querySelector('.modal-title').textContent == "Registrar Producto"){
-            document.querySelector('#containerGallery').style.display = 'none';
+        document.querySelector('#containerGallery').style.display = 'none';
+        document.querySelector('#containerImages').style.display = 'none';
     }else{
         document.querySelector('#containerGallery').style.display = 'block';
+        document.querySelector('#containerImages').style.display = 'block';
     }
         
     //removePhoto();

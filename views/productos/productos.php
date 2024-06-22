@@ -24,7 +24,7 @@
                 <table class="table table-hover table-bordered" id="tablaProductos">
                   <thead>
                     <tr>
-                      <th>ID</th>
+                      <th>Codigo</th>
                       <th>Nombre</th>
                       <th>Stock</th>
                       <th>Precio</th>

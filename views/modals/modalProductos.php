@@ -38,6 +38,10 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
+                            <label class="control-label">Codigo<span class="required">*</span></label>
+                            <input class="form-control" id="codigo" name="codigo" type="text" required="">
+                        </div>
+                        <div class="form-group col-md-6">
                             <label class="control-label">Modelo <span class="required">*</span></label>
                             <input class="form-control" id="modelo" name="modelo" type="text" required="">
                         </div>
@@ -127,6 +131,10 @@
       <div class="modal-body">
         <table class="table table-bordered">
           <tbody>
+            <tr>
+              <td>Codigo:</td>
+              <td id="celCodigo"></td>
+            </tr>
             <tr>
               <td>Nombres:</td>
               <td id="celNombre"></td>
