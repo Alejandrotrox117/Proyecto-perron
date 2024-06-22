@@ -74,10 +74,12 @@ window.addEventListener('load', function(){
                 if(request.readyState == 4 && request.status == 200){
                     let objData = JSON.parse(request.responseText);
                     if(objData.status){
-                        $('#modals_productos').modal("hide");
-                        formProductos.reset();
+                        //$('#modals_productos').modal("hide");
+                        //formProductos.reset();
                         swal("Productos", objData.msg, "success");
                         document.querySelector("#idProducto").value = objData.idproducto;
+                        document.querySelector("#containerGallery").classList.remove("notblock");
+                        document.querySelector('#containerGallery').style.display = 'block';  
 
                         tablaProductos.ajax.reload(null, false);
                     }else{
@@ -373,14 +375,9 @@ function OpenModal() {
     // document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
     document.querySelector('#btnActionForm').innerHTML ="Guardar";
     document.querySelector("#formProductos").reset();
-    $('#modals_productos').modal('show');
-    if(document.querySelector('.modal-title').textContent == "Registrar Producto"){
-        document.querySelector('#containerGallery').style.display = 'none';
-        document.querySelector('#containerImages').style.display = 'none';
-    }else{
-        document.querySelector('#containerGallery').style.display = 'block';
-        document.querySelector('#containerImages').style.display = 'block';
-    }
-        
+    document.querySelector("#containerGallery").classList.add("notblock");
+    document.querySelector('#containerGallery').style.display = 'none';
+    document.querySelector("#containerImages").innerHTML = "";
+    $('#modals_productos').modal('show');        
     //removePhoto();
 }
