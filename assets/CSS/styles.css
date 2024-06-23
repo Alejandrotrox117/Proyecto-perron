@@ -556,6 +556,20 @@ td {
     text-align: left;
 }
 
+
+.app-sidebar__toggle{
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 15pt;
+}
+
+/*Estilos imagen Categorias*/
+
 .prevPhoto {
     display: flex;
     justify-content: space-between;
@@ -564,6 +578,7 @@ td {
     border: 1px solid #CCC;
     position: relative;
     cursor: pointer;
+    background: url(../images/portada_categoria.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -595,8 +610,6 @@ td {
 }
 .delPhoto{
 	color: #FFF;
-}
-.app-sidebar__toggle{
 	display: -webkit-flex;
 	display: -moz-flex;
 	display: -ms-flex;
@@ -604,9 +617,15 @@ td {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-size: 15pt;
+	border-radius: 50%;
+	width: 25px;
+	height: 25px;
+	background: red;
+	position: absolute;
+	right: -10px;
+	top: -10px;
+	z-index: 10;
 }
-
 #tbl_list_productos img{
 	width: 50px;
 }
@@ -622,7 +641,10 @@ td {
     width: 200px;
     margin: auto;
 }
+/*Fin --- Estilos imagen Categorias*/
 
+
+/*Estilos imagen Productos*/
 /* Upload fotos */
 #containerImages{
     display: flex;
@@ -635,6 +657,7 @@ td {
     margin-right: 10px;
     margin-bottom: 8px;
 }
+
 
 .prevImage{
     border: 1px solid #CCC;

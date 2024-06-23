@@ -207,8 +207,7 @@ function btnEditCat(element, idcategoria) {
           parseInt((document.querySelector("#listEstatus").value = 0));
         }
 
-        //$('#listEstatus').selectpicker('render');
-
+        
         if (document.querySelector("#img")) {
           document.querySelector("#img").src = objData.url_portada;
         } else {
