@@ -195,17 +195,12 @@ function fntDelItem(element) {
     let nameImg = document.querySelector(element + ' .btnDeleteImage').getAttribute("imgname");
     let idProducto = document.querySelector("#idProducto").value;
 
-    console.log("Attempting to delete image:", nameImg);
-    console.log("Product ID:", idProducto);
-
     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     let ajaxUrl = base_url + '/productos/delFile'; 
 
     let formData = new FormData();
     formData.append('idProducto', idProducto);
     formData.append('file', nameImg);
-
-    console.log("FormData to be sent:", formData.get('idProducto'), formData.get('file'));
 
     request.open("POST", ajaxUrl, true);
     request.send(formData);
@@ -275,7 +270,7 @@ function btnEditInfo(element,idProducto){
         document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
         document.querySelector('#btnActionForm').innerHTML ="Actualizar";
         let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-        let ajaxUrl = base_url+'/Productos/getProducto/'+idProducto;
+        let ajaxUrl = base_url+'/productos/getProducto/'+idProducto;
         request.open("GET",ajaxUrl,true);
         request.send();
         request.onreadystatechange = function(){
@@ -306,7 +301,7 @@ function btnEditInfo(element,idProducto){
                                 <div class="prevImage">
                                 <img src="${objProductos[p].url_image}"></img>
                                 </div>
-                                <button type="button" class="btnDeleteImage" onclick="fntDelItem('#div${key}')" imgname="${objProductos[p].imagen}">
+                                <button type="button" class="btnDeleteImage notblock" onclick="fntDelItem('#div${key}')" imgname="${objProductos[p].imagen}">
                                 <i class="fas fa-trash-alt"></i></button></div>`;
                         }
                     }
