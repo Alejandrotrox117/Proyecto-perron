@@ -124,29 +124,28 @@ class Productos extends Controllers
         }
         // Maneja el caso en el que no se encuentra el código
         exit();
-}
+    }
 
     public function setImage(){
-        dep($_POST);
-        // if($_POST){
-        //     if(empty($_POST['idProducto'])){
-        //          $arrResponse = array('status' => false, 'msg' => 'Error de dato.');
-        //     }else{
-        //         $idProducto = intval($_POST['idProducto']);
-        //         $foto = $_FILES['foto'];
-        //         $imgNombre = 'producto_'.md5(date('d-m-Y H:m:s')).'.jpg';
-        //         $request_image = $this->model->insertImage($idProducto,$imgNombre);
-        //         if($request_image){
-        //             $uploadImage = uploadImage($foto,$imgNombre);
-        //             $arrResponse = array('status' => true, 'imgname' => $imgNombre, 'msg' => 'Archivo cargado.');
-        //         }else{
-        //             $arrResponse = array('status' => false, 'msg' => 'Error de carga.');
-        //         }
-        //     }
-        //     sleep(2);
-        //     echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
-        // }
-        // exit();
+        if($_POST){
+            if(empty($_POST['idProducto'])){
+                 $arrResponse = array('status' => false, 'msg' => 'Error de dato.');
+            }else{
+                $idProducto = intval($_POST['idProducto']);
+                $foto = $_FILES['foto'];
+                $imgNombre = 'producto_'.md5(date('d-m-Y H:m:s')).'.jpg';
+                $request_image = $this->model->insertImage($idProducto,$imgNombre);
+                if($request_image){
+                    $uploadImage = uploadImage($foto,$imgNombre);
+                    $arrResponse = array('status' => true, 'imgname' => $imgNombre, 'msg' => 'Archivo cargado.');
+                }else{
+                    $arrResponse = array('status' => false, 'msg' => 'Error de carga.');
+                }
+            }
+            sleep(2);
+            echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+        }
+        exit();
     }
 
     public function delFile(){
@@ -156,7 +155,7 @@ class Productos extends Controllers
             }else{
                 //Eliminar de la DB
                 $idProducto = intval($_POST['idProducto']);
-                $imgNombre  = strClean($_POST['file']);
+                $imgNombre  = $_POST['file'];
                 $request_image = $this->model->deleteImage($idProducto,$imgNombre);
 
                 if($request_image){

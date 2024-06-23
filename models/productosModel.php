@@ -119,7 +119,7 @@
 				}else{
 					return "Error";
 				}
-			}
+		}
 		
 		public function insertImage(int $idProducto, string $imagen){
 			$this->intIdProducto = $idProducto;
@@ -143,6 +143,14 @@
 			$sql = "SELECT productoId, imagen FROM imagen WHERE productoId = $this->intIdProducto";
 			$request = $this->select_all($sql);
 			return $request;
+		}
+
+		public function deleteImage(int $idproducto, string $imagen){
+			$this->intIdProducto = $idproducto;
+			$this->strImagen = $imagen;
+			$query  = "DELETE FROM imagen WHERE productoid = $this->intIdProducto AND imagen = '{$this->strImagen}'";
+	        $request_delete = $this->delete($query);
+	        return $request_delete;
 		}
     }
 ?>

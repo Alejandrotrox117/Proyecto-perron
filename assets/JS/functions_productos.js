@@ -32,7 +32,7 @@ window.addEventListener('load', function(){
             "dataSrc": ""
         },
         "columns": [
-            { "data": "productoId" },
+            { "data": "codigo" },
             { "data": "nombre" },
             { "data": "cantidad" },
             { "data": "precio"},
@@ -77,7 +77,7 @@ window.addEventListener('load', function(){
                         //$('#modals_productos').modal("hide");
                         //formProductos.reset();
                         swal("Productos", objData.msg, "success");
-                        document.querySelector("#idProducto").value = objData.idproducto;
+                        document.querySelector("#idProducto").value = objData.idProducto;
                         document.querySelector("#containerGallery").classList.remove("notblock");
                         document.querySelector('#containerGallery').style.display = 'block';  
 
@@ -88,7 +88,6 @@ window.addEventListener('load', function(){
                  }
                  return false;
             }
-
         }
 
     //Funcion para asignar un valor diferente al div del boton galeria de imagenes
@@ -108,7 +107,6 @@ window.addEventListener('load', function(){
          fntInputFile();
         }
      }
- 
      fntInputFile();
      selectCategorias();
 }
@@ -124,7 +122,7 @@ function generarCodigoUnico(){
                     if (request.status === 200) {
                         let objData = JSON.parse(request.responseText);
                         if(objData == "ok") {
-                            // Asigna el código al elemento con id "codigo"
+                            
                             document.querySelector("#codigo").value = numeroAleatorio;
                         }
                         if(objData == "exist"){
@@ -136,83 +134,95 @@ function generarCodigoUnico(){
             request.send();
 }
 
-function fntInputFile(){
+function fntInputFile() {
     let inputUploadfile = document.querySelectorAll(".inputUploadfile");
-    inputUploadfile.forEach(function(inputUploadfile) {
-        inputUploadfile.addEventListener('change', function(){
+    inputUploadfile.forEach(function(input) {
+        input.addEventListener('change', function() {
+            console.log("Change event captured!");
             let idProducto = document.querySelector("#idProducto").value;
             let parentId = this.parentNode.getAttribute("id");
-            let idFile = this.getAttribute("id");            
-            let uploadFoto = document.querySelector("#"+idFile).value;
-            let fileimg = document.querySelector("#"+idFile).files;
-            let prevImg = document.querySelector("#"+parentId+" .prevImage");
+            let idFile = this.getAttribute("id");
+            let uploadFoto = this.value;
+            let fileimg = this.files;
+            let prevImg = document.querySelector("#" + parentId + " .prevImage");
             let nav = window.URL || window.webkitURL;
-            if(uploadFoto !=''){
+
+            if (uploadFoto != '') {
                 let type = fileimg[0].type;
                 let name = fileimg[0].name;
-                if(type != 'image/jpeg' && type != 'image/jpg' && type != 'image/png'){
+
+                if (type != 'image/jpeg' && type != 'image/jpg' && type != 'image/png') {
                     prevImg.innerHTML = "Archivo no válido";
-                    uploadFoto.value = "";
+                    this.value = "";
                     return false;
-                }else{
+                } else {
                     let objeto_url = nav.createObjectURL(this.files[0]);
-                    prevImg.innerHTML = `<img class="loading" src="${base_url}/assets/img/loading.svg" >`;
+                    prevImg.innerHTML = `<img class="loading" src="${base_url}/assets/img/loading.svg">`;
 
                     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-                    let ajaxUrl = base_url+'/productos/setImage'; 
+                    let ajaxUrl = base_url + '/productos/setImage'; 
                     let formData = new FormData();
-                    formData.append('idProducto',idProducto);
+                    console.log(formData);
+                    formData.append('idProducto', idProducto);
                     formData.append("foto", this.files[0]);
-                    request.open("POST",ajaxUrl,true);
+
+                    request.open("POST", ajaxUrl, true);
                     request.send(formData);
-                    request.onreadystatechange = function(){
-                        if(request.readyState != 4) return;
-                        if(request.status == 200){
+                    request.onreadystatechange = function() {
+                        if (request.readyState != 4) return;
+                        if (request.status == 200) {
                             let objData = JSON.parse(request.responseText);
-                            if(objData.status){
+                            console.log("Response from server:", objData); 
+                            if (objData.status) {
                                 prevImg.innerHTML = `<img src="${objeto_url}">`;
-                                document.querySelector("#"+parentId+" .btnDeleteImage").setAttribute("imgname",objData.imgname);
-                                document.querySelector("#"+parentId+" .btnUploadfile").classList.add("notblock");
-                                document.querySelector("#"+parentId+" .btnDeleteImage").classList.remove("notblock");
-                            }else{
-                                swal("Error", objData.msg , "error");
+                                let btnDeleteImage = document.querySelector("#" + parentId + " .btnDeleteImage");
+                                btnDeleteImage.setAttribute("imgname", objData.imgname);
+                                console.log("imgname set to:", objData.imgname); 
+                                document.querySelector("#" + parentId + " .btnUploadfile").classList.add("notblock");
+                                btnDeleteImage.classList.remove("notblock");
+                            } else {
+                                swal("Error", objData.msg, "error");
                             }
                         }
                     }
-
                 }
             }
-
         });
     });
 }
 
-function btnDelProduct(element){
-    let nameImg = document.querySelector(element+' .btnDeleteImage').getAttribute("imgname");
+function fntDelItem(element) {
+    let nameImg = document.querySelector(element + ' .btnDeleteImage').getAttribute("imgname");
     let idProducto = document.querySelector("#idProducto").value;
+
+    console.log("Attempting to delete image:", nameImg);
+    console.log("Product ID:", idProducto);
+
     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    let ajaxUrl = base_url+'/productos/delFile'; 
+    let ajaxUrl = base_url + '/productos/delFile'; 
 
     let formData = new FormData();
-    formData.append('idProducto',idProducto);
-    formData.append("file",nameImg);
-    request.open("POST",ajaxUrl,true);
+    formData.append('idProducto', idProducto);
+    formData.append('file', nameImg);
+
+    console.log("FormData to be sent:", formData.get('idProducto'), formData.get('file'));
+
+    request.open("POST", ajaxUrl, true);
     request.send(formData);
-    request.onreadystatechange = function(){
-        if(request.readyState != 4) return;
-        if(request.status == 200){
+    request.onreadystatechange = function() {
+        if (request.readyState != 4) return;
+        if (request.status == 200) {
             let objData = JSON.parse(request.responseText);
-            if(objData.status)
-            {
+            console.log("Server response:", objData);
+            if (objData.status) {
                 let itemRemove = document.querySelector(element);
                 itemRemove.parentNode.removeChild(itemRemove);
-            }else{
-                swal("", objData.msg , "error");
+            } else {
+                swal("", objData.msg, "error");
             }
         }
     }
 }
-
 function btnViewInfo(idProducto){
     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     let ajaxUrl = base_url+'/productos/getProducto/'+idProducto;
@@ -275,7 +285,6 @@ function btnEditInfo(element,idProducto){
                 {
                     let htmlImage = "";
                     let objProducto = objData.data;
-                    console.log(objProducto);
                     document.querySelector("#idProducto").value = objProducto.productoId;
                     document.querySelector("#nombre").value = objProducto.nombre;
                     document.querySelector("#descripcion").value = objProducto.descripcion;
@@ -287,7 +296,8 @@ function btnEditInfo(element,idProducto){
                     document.querySelector("#capacidad").value = objProducto.capacidad;
                     document.querySelector("#categoria").value = objProducto.categoriaId;
                     document.querySelector("#estado").value = objProducto.estado;
-    
+
+                    console.log(objProducto.images);
                     if(objProducto.images.length > 0){
                         let objProductos = objProducto.images;
                         for (let p = 0; p < objProductos.length; p++) {
@@ -296,7 +306,7 @@ function btnEditInfo(element,idProducto){
                                 <div class="prevImage">
                                 <img src="${objProductos[p].url_image}"></img>
                                 </div>
-                                <button type="button" class="btnDeleteImage" onclick="fntDelItem('#div${key}')" imgname="${objProductos[p].img}">
+                                <button type="button" class="btnDeleteImage" onclick="fntDelItem('#div${key}')" imgname="${objProductos[p].imagen}">
                                 <i class="fas fa-trash-alt"></i></button></div>`;
                         }
                     }
