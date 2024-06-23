@@ -1,6 +1,8 @@
 <?php 
     require_once("config/config.php");
     require_once("helpers/helper.php");
+    require_once("controllers/validaciones.php");
+
     $url = !empty($_GET['url']) ? $_GET['url'] : 'home/home';
     $arrUrl = explode('/', $url);
     $controller = $arrUrl[0];

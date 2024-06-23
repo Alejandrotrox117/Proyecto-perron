@@ -1,8 +1,8 @@
 var tablaRoles;
 
-import { PermisosRol} from './functions_permisos.js';
-
-
+import { PermisosRol } from "./functions_permisos.js";
+import { validarFormulario } from "./functions_validarForms.js";
+import { expresiones } from "./functions_expresionesRegulares.js";
 //Datatable con sus atributos
 document.addEventListener("DOMContentLoaded", function () {
   tablaRoles = $("#tablaRoles").DataTable({
@@ -43,66 +43,86 @@ document.addEventListener("DOMContentLoaded", function () {
     pageLength: 10,
     order: [[0, "asc"]],
   });
-
-  // Crear un nuevo rol
-  var formRol = document.querySelector("#formRol");
-  formRol.onsubmit = function (e) {
-    e.preventDefault();
-    var rolId = document.querySelector("#rolId").value;
-    var nombreRol = document.querySelector("#txtRol").value;
-    var descRol = document.querySelector("#txtDescripcion").value;
-    var estatusRol = document.querySelector("#listEstatus").value;
-
-    if (nombreRol == "" || descRol == "" || estatusRol == "") {
-      swal("Atención", "Todos los campos son obligatorios", "error");
-      return false;
-    }
-
-    var request = window.XMLHttpRequest
-      ? new XMLHttpRequest()
-      : new ActiveXObject("Microsoft.XMLHTTP");
-    // Ajax para insertar datos
-    var ajaxUrl = base_url + "/roles/setRol";
-
-    var formData = new FormData(formRol);
-    request.open("POST", ajaxUrl, true);
-    request.send(formData);
-    request.onreadystatechange = function () {
-      if (request.readyState == 4 && request.status == 200) {
-        var objData = JSON.parse(request.responseText);
-
-        if (objData.status) {
-          $("#modalFormRol").modal("hide");
-          formRol.reset();
-          swal("Rol de usuario", objData.msg, "success");
-
-          // Después de insertar un nuevo rol con éxito
-          tablaRoles.ajax.reload(function () {
-            // Cargamos nuevamente las roles
-            // para que se actualizen en la vista
-            EditRol();
-            DeleteRol();
-            PermisosRol();
-          });
-        } else {
-          swal("Error", objData.msg, "error");
-        }
-      }
-    };
-  };
 });
+
+// Crear un nuevo rol
+// Obtiene el formulario y las reglas de validación
+const formulario = document.getElementById("formRol");
+const reglasValidacion = {
+  txtRol: expresiones.txtRol,
+  txtDescripcion: expresiones.txtDescripcion,
+  // Agrega las demás reglas de validación aquí
+};
+// Agrega los eventos de escucha a los inputs antes de que el modal se abra
+$("#modalFormRol").on("show.bs.modal", function () {
+  // Validar el formulario en tiempo real
+  validarFormulario(formulario, reglasValidacion);
+});
+
+document
+  .getElementById("btnActionForm")
+  .addEventListener("click", function (e) {
+    e.preventDefault();
+    const camposValidados = validarFormulario(formulario, reglasValidacion);
+    // Verificar si todos los campos son válidos
+    if (Object.values(camposValidados).every((campo) => campo === true)) {
+      // Si todos los campos son válidos, enviar el formulario
+      var request = window.XMLHttpRequest
+        ? new XMLHttpRequest()
+        : new ActiveXObject("Microsoft.XMLHTTP");
+      // Ajax para insertar datos
+      var ajaxUrl = base_url + "/roles/setRol";
+      var formData = new FormData(formRol);
+      request.open("POST", ajaxUrl, true);
+      request.send(formData);
+      request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+          var objData = JSON.parse(request.responseText);
+
+          if (objData.status) {
+            $("#modalFormRol").modal("hide");
+            // Reinicia la validación al cerrar el modal
+            $("#modalFormRol").on("hidden.bs.modal", function () {
+              // Restablece los estilos de los campos
+              const inputs = $(this).find("input, select");
+              inputs.removeClass("is-valid");
+              inputs.removeClass("is-invalid");
+              // Oculta los mensajes de error
+              $(this).find(".form-control-feedback").hide();
+            });
+            formRol.reset();
+            swal("Rol de usuario", objData.msg, "success");
+            // Después de insertar un nuevo rol con éxito
+            tablaRoles.ajax.reload(function () {
+              // Cargamos nuevamente las roles
+              // para que se actualizen en la vista
+              EditRol();
+              DeleteRol();
+              PermisosRol();
+            });
+          } else {
+            swal("Error", objData.msg, "error");
+          }
+        }
+      };
+    }
+  });
 
 // Para abrir el modal del formulario de registro de roles
 function OpenModalRol() {
   $("#modalFormRol").modal("show");
   document.querySelector("#rolId").value = "";
-  document.querySelector(".modal-header").classList.replace("headerUpdate", "headerRegister");
-  document.querySelector("#btnActionForm").classList.replace("btn-info", "btn-primary");
+  document
+    .querySelector(".modal-header")
+    .classList.replace("headerUpdate", "headerRegister");
+  document
+    .querySelector("#btnActionForm")
+    .classList.replace("btn-info", "btn-primary");
   document.querySelector("#btnText").innerHTML = "Guardar";
   document.querySelector("#titleModal").innerHTML = "Nuevo Rol";
   document.querySelector("#formRol").reset();
 }
-document.getElementById("btnModalRol").addEventListener("click", function() {
+document.getElementById("btnModalRol").addEventListener("click", function () {
   OpenModalRol();
 });
 //funcion load para que se carguen los modales
@@ -119,16 +139,25 @@ window.addEventListener(
 //Editar rol
 function EditRol() {
   const btnEditRol = document.querySelectorAll(".btnEditRol");
-  btnEditRol.forEach(btn => {
+  btnEditRol.forEach((btn) => {
     btn.addEventListener("click", () => {
       // Actualizar el modal
       document.querySelector("#titleModal").innerHTML = "Actualizar Rol";
-      document.querySelector(".modal-header").classList.replace("headerRegister", "headerUpdate");
-      document.querySelector("#btnActionForm").classList.replace("btn-primary", "btn-info");
+      document
+        .querySelector(".modal-header")
+        .classList.replace("headerRegister", "headerUpdate");
+      document
+        .querySelector("#btnActionForm")
+        .classList.replace("btn-primary", "btn-info");
       document.querySelector("#btnText").innerHTML = "Actualizar";
 
       // Obtener el id del rol
-      const rolId = btn.getAttribute("rl");
+      // ... (resto del código de la función EditRol) ...
+
+      // Obtener el id del rol
+      const rolId = parseInt(btn.getAttribute("rl"), 10); // Convertir a entero
+
+      // ... (resto del código de la función EditRol) ...
 
       // Realizar la solicitud AJAX
       const ajaxUrl = base_url + "/roles/getOneRol/" + rolId;
@@ -141,7 +170,8 @@ function EditRol() {
             // Rellenar el modal con los datos del rol
             document.querySelector("#rolId").value = objData.data.rolId;
             document.querySelector("#txtRol").value = objData.data.nombre;
-            document.querySelector("#txtDescripcion").value = objData.data.descripcion;
+            document.querySelector("#txtDescripcion").value =
+              objData.data.descripcion;
             document.querySelector("#listEstatus").value = objData.data.estado;
 
             // Mostrar el modal
@@ -160,6 +190,11 @@ function EditRol() {
     });
   });
 }
+// Ejecutar la función EditRol después de que el DOM esté completamente cargado
+$(document).ready(function () {
+  EditRol();
+});
+
 //Funcion para eliminar un rol
 
 function DeleteRol() {
@@ -214,4 +249,3 @@ function DeleteRol() {
     });
   });
 }
-

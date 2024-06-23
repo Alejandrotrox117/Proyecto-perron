@@ -11,9 +11,16 @@ class rolesModel extends Mysql
     public function __construct()
     {
         parent::__construct();
-        $this->conn = (new Conexion())->connect(); 
+        $this->conn = (new Conexion())->connect();
     }
-
+     // Función para obtener un rol por su ID
+     public function getRolById(int $id)
+     {
+         $this->intIdRol = $id;
+         $sql = "SELECT * FROM rol WHERE rolId = $this->intIdRol";
+         $request = $this->search($sql);
+         return $request;
+     }
     //funcion para consultar todos
     public function selectRoles()
     {
@@ -51,26 +58,30 @@ class rolesModel extends Mysql
         return $request_insert ?: false;
     }
     public function updateRol(int $id, string $rol, int $estado, string $descripcion)
-    {
-        $this->intIdRol = $id;
-        $this->descripcionRol = $descripcion;
-        $this->intEstado = $estado;
-        $this->strRol = $rol;
+{
+    $this->intIdRol = $id;
+    $this->descripcionRol = $descripcion;
+    $this->intEstado = $estado;
+    $this->strRol = $rol;
 
-        $query = "SELECT * FROM rol WHERE nombre = '{$this->strRol}' AND rolId != $this->intIdRol";
+    // Verificar si el nombre del rol ha cambiado
+    // Verificar si el nombre del rol ha cambiado
+    if ($this->strRol !== $this->getRolById($this->intIdRol)['nombre']) {
+        // Verificar si existe un rol con el mismo nombre y el mismo rolId
+        $query = "SELECT * FROM rol WHERE nombre = ? AND rolId = ?";
+        $arrData = array($this->strRol, $this->intIdRol); // 2 parámetros
         $request = $this->searchAll($query);
-
-        if (!empty($request)) {
+if (!empty($request)) {
             return 'exist';
         }
-
-        $query = "UPDATE rol SET nombre = ?, estado = ?, descripcion = ? WHERE rolId = $this->intIdRol";
-        $arrData = array($this->strRol, $this->intEstado, $this->descripcionRol);
-        $request = $this->update($query, $arrData);
-
-        return $request ?: false;
     }
 
+    $query = "UPDATE rol SET nombre = ?, estado = ?, descripcion = ? WHERE rolId = ?";
+    $arrData = array($this->strRol, $this->intEstado, $this->descripcionRol, $this->intIdRol);
+    $request = $this->update($query, $arrData);
+
+    return $request ?: false;
+}
     public function deleteRol(int $idRol)
     {
         $this->intIdRol = $idRol;
