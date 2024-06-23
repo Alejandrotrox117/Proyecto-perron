@@ -80,68 +80,56 @@ class Roles extends Controllers
         exit();
     }
 
-    // public function setRol(){
-
-    //         $rol = strClean($_POST['txtRol']);
-    //         $descripcion = strClean($_POST['txtDescripcion']);
-    //         $estatus = intval($_POST['listEstatus']);
-
-
-    //     $intIdrol = intval($_POST['rolId']);
-    //     $strRol =  strClean($_POST['txtRol']);
-    //     $strDescipcion = strClean($_POST['txtDescripcion']);
-    //     $intStatus = intval($_POST['listEstatus']);
-
-    //     if($intIdrol == 0)
-    //     {
-    //         Crear
-    //         $request_rol = $this->model->insertRol($strRol, $intStatus, $strDescipcion);
-
-
-    //         $option = 1;
-    //     }else{
-    //         Actualizar
-    //         $request_rol = $this->model->updateRol($intIdrol, $strRol, $intStatus,$strDescipcion );
-    //         $option = 2;
-    //     }
-
-    //     if($request_rol > 0 )
-    //     {
-    //         if($option == 1)
-    //         {
-    //             $arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
-    //         }else{
-    //             $arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
-    //         }
-    //     }else if($request_rol == 'exist'){
-
-    //         $arrResponse = array('status' => false, 'msg' => '¡Atención! El Rol ya existe.');
-    //     }else{
-    //         $arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
-    //     }
-    //     var_dump($_POST);
-    //     echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
-    //     die();
-    // }
-
-
-
 
     //Crear un nuevo rol
+
     public function setRol()
     {
+        // Validar los tipos de datos
         $introlId = intval($_POST['rolId']);
         $rol = strClean($_POST['txtRol']);
         $descripcion = strClean($_POST['txtDescripcion']);
         $estatus = intval($_POST['listEstatus']);
-
+    
+        // Validar la existencia de los campos
+        if (!isset($_POST['rolId']) || !isset($_POST['txtRol']) || !isset($_POST['txtDescripcion']) || !isset($_POST['listEstatus'])) {
+            $arrResponse = array("status" => false, "msg" => 'Faltan datos para procesar la solicitud.');
+            echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+            exit();
+        }
+    
+        // Validar el formato con expresiones regulares
+        $reglas = [
+            //'rolId' => REGEX_ROL_ID,
+            'txtRol' => REGEX_NOMBRES,
+            'txtDescripcion' => REGEX_DESCRIPCION,
+            //'listEstatus' => REGEX_ESTATUS
+        ];
+    
+        if (!validarFormulario($_POST, $reglas)) {
+            $arrResponse = array("status" => false, "msg" => 'Los datos enviados no son válidos.');
+            
+            echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+            exit();
+        }
+    
         // Verificar si se trata de una actualización o un nuevo rol
         if ($introlId > 0) { // Si $introlId es mayor que 0, es una actualización
-            $request_rol = $this->model->updateRol($introlId, $rol, $estatus, $descripcion);
+            // Obtener el rol actual
+            $rolActual = $this->model->getRolById($introlId);
+    
+            // Verificar si los datos han cambiado
+            if ($rolActual['nombre'] === $rol && $rolActual['descripcion'] === $descripcion && $rolActual['estado'] === $estatus) {
+                $arrResponse = array("status" => true, "msg" => "No se han realizado cambios.");
+                echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+                exit();
+            } else {
+                $request_rol = $this->model->updateRol($introlId, $rol, $estatus, $descripcion);
+            }
         } else { // Si $introlId es 0, es un nuevo rol
             $request_rol = $this->model->insertRol($rol, $estatus, $descripcion);
         }
-
+    
         if ($request_rol === false) {
             $arrResponse = array("status" => false, "msg" => 'No es posible registrar el rol.');
         } else if ($request_rol === "exist") {
@@ -150,14 +138,10 @@ class Roles extends Controllers
             $action = ($introlId == 0) ? 'registrado' : 'actualizado';
             $arrResponse = array("status" => true, "msg" => "Se ha $action el rol correctamente.");
         }
-
+    
         echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
         exit();
     }
-
-
-
-
 
 
 

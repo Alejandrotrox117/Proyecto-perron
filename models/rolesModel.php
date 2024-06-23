@@ -4,16 +4,23 @@ class rolesModel extends Mysql
 {
     private $conn;
     public $intIdRol;
-    public $strRol;
+    public $rol;
     public $descripcionRol;
     public $intEstado;
 
     public function __construct()
     {
         parent::__construct();
-        $this->conn = (new Conexion())->connect(); 
+        $this->conn = (new Conexion())->connect();
     }
-
+     // Función para obtener un rol por su ID
+     public function getRolById(int $id)
+     {
+         $this->intIdRol = $id;
+         $sql = "SELECT * FROM rol WHERE rolId = $this->intIdRol";
+         $request = $this->search($sql);
+         return $request;
+     }
     //funcion para consultar todos
     public function selectRoles()
     {
@@ -33,11 +40,11 @@ class rolesModel extends Mysql
 
     public function insertRol(string $rol, int $estado, string $descripcion)
     {
-        $this->strRol = $rol;
+        $this->rol = $rol;
         $this->descripcionRol = $descripcion;
         $this->intEstado = $estado;
 
-        $query = "SELECT * FROM rol WHERE nombre = '{$this->strRol}'";
+        $query = "SELECT * FROM rol WHERE nombre = '{$this->rol}'";
         $request = $this->searchAll($query);
         //validar si el rol ya existe
         if (!empty($request)) {
@@ -45,7 +52,7 @@ class rolesModel extends Mysql
         }
 
         $query_insert = "INSERT INTO rol (nombre, estado, descripcion) VALUES (?, ?, ?)";
-        $arrData = array($this->strRol, $this->intEstado, $this->descripcionRol);
+        $arrData = array($this->rol, $this->intEstado, $this->descripcionRol);
         $request_insert = $this->insert($query_insert, $arrData);
         //devolvemos el resultado  
         return $request_insert ?: false;
@@ -55,9 +62,9 @@ class rolesModel extends Mysql
         $this->intIdRol = $id;
         $this->descripcionRol = $descripcion;
         $this->intEstado = $estado;
-        $this->strRol = $rol;
+        $this->rol = $rol;
 
-        $query = "SELECT * FROM rol WHERE nombre = '{$this->strRol}' AND rolId != $this->intIdRol";
+        $query = "SELECT * FROM rol WHERE nombre = '{$this->rol}' AND rolId != $this->intIdRol";
         $request = $this->searchAll($query);
 
         if (!empty($request)) {
@@ -65,12 +72,14 @@ class rolesModel extends Mysql
         }
 
         $query = "UPDATE rol SET nombre = ?, estado = ?, descripcion = ? WHERE rolId = $this->intIdRol";
-        $arrData = array($this->strRol, $this->intEstado, $this->descripcionRol);
+        $arrData = array($this->rol, $this->intEstado, $this->descripcionRol);
         $request = $this->update($query, $arrData);
 
         return $request ?: false;
     }
 
+
+    
     public function deleteRol(int $idRol)
     {
         $this->intIdRol = $idRol;
