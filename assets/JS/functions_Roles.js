@@ -33,7 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
       dataSrc: "",
     },
     columns: [
-      //{ "data": "rol_id" },
       { data: "nombre" },
       { data: "descripcion" },
       { data: "estado" },
@@ -49,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var formRol = document.querySelector("#formRol");
   formRol.onsubmit = function (e) {
     e.preventDefault();
-    var idRol = document.querySelector("#idRol").value;
+    var rolId = document.querySelector("#rolId").value;
     var nombreRol = document.querySelector("#txtRol").value;
     var descRol = document.querySelector("#txtDescripcion").value;
     var estatusRol = document.querySelector("#listEstatus").value;
@@ -96,14 +95,16 @@ document.addEventListener("DOMContentLoaded", function () {
 // Para abrir el modal del formulario de registro de roles
 function OpenModalRol() {
   $("#modalFormRol").modal("show");
-  document.querySelector("#idRol").value = "";
+  document.querySelector("#rolId").value = "";
   document.querySelector(".modal-header").classList.replace("headerUpdate", "headerRegister");
   document.querySelector("#btnActionForm").classList.replace("btn-info", "btn-primary");
   document.querySelector("#btnText").innerHTML = "Guardar";
   document.querySelector("#titleModal").innerHTML = "Nuevo Rol";
   document.querySelector("#formRol").reset();
 }
-
+document.getElementById("btnModalRol").addEventListener("click", function() {
+  OpenModalRol();
+});
 //funcion load para que se carguen los modales
 window.addEventListener(
   "load",
@@ -117,68 +118,55 @@ window.addEventListener(
 
 //Editar rol
 function EditRol() {
-  var btnEditRol = document.querySelectorAll(".btnEditRol");
-  btnEditRol.forEach(function (btnEditRol) {
-    btnEditRol.addEventListener("click", function () {
-      //Para cambiar el nomrbre del modal al hacer click en actualizar
+  const btnEditRol = document.querySelectorAll(".btnEditRol");
+  btnEditRol.forEach(btn => {
+    btn.addEventListener("click", () => {
+      // Actualizar el modal
       document.querySelector("#titleModal").innerHTML = "Actualizar Rol";
-      //cambia el tiutlo del modal de insertar a actualizar
-      document
-        .querySelector(".modal-header")
-        .classList.replace("headerRegister", "headerUpdate");
-      // cambia el nombre de guardar a actualizar
-      document
-        .querySelector("#btnActionForm")
-        .classList.replace("btn-primary", "btn-info");
+      document.querySelector(".modal-header").classList.replace("headerRegister", "headerUpdate");
+      document.querySelector("#btnActionForm").classList.replace("btn-primary", "btn-info");
       document.querySelector("#btnText").innerHTML = "Actualizar";
 
-      //Obtener el id del rol por el atributo rl
-      var idRol = this.getAttribute("rl");
-      //para obtener el rol depnediendo del navegador que se este usando
-      var request = window.XMLHttpRequest
-        ? new XMLHttpRequest()
-        : new ActiveXObject("Microsoft.XMLHTTP");
-      // Ajax para buscar la informacion con la url de la funcion getOneRol
-      var ajaxUrl = base_url + "/roles/getOneRol/" + idRol;
+      // Obtener el id del rol
+      const rolId = btn.getAttribute("rl");
+
+      // Realizar la solicitud AJAX
+      const ajaxUrl = base_url + "/roles/getOneRol/" + rolId;
+      const request = new XMLHttpRequest();
       request.open("GET", ajaxUrl, true);
-      request.send();
-      //para obtener la informacion del rol y autorellenar el modal
-      request.onreadystatechange = function () {
-        if (request.readyState == 4 && request.status == 200) {
-          var objData = JSON.parse(request.responseText);
+      request.onload = () => {
+        if (request.status >= 200 && request.status < 400) {
+          const objData = JSON.parse(request.responseText);
           if (objData.status) {
-            //obtenemos los valores de cada input del modal utilizando value
-            document.querySelector("#idRol").value = objData.data.rol_id;
+            // Rellenar el modal con los datos del rol
+            document.querySelector("#rolId").value = objData.data.rolId;
             document.querySelector("#txtRol").value = objData.data.nombre;
-            document.querySelector("#txtDescripcion").value =
-              objData.data.descripcion;
-            document.querySelector("#listEstatus").value = objData.data.estatus;
+            document.querySelector("#txtDescripcion").value = objData.data.descripcion;
+            document.querySelector("#listEstatus").value = objData.data.estado;
 
-            // Establecer el valor seleccionado del elemento listEstatus
-            var listEstatus = document.querySelector("#listEstatus");
-            if (objData.data.estatus === 1) {
-              listEstatus.selectedIndex = 0; // Activo
-            } else {
-              listEstatus.selectedIndex = 1; // Inactivo
-            }
-
+            // Mostrar el modal
             $("#modalFormRol").modal("show");
           } else {
             swal("Error", objData.msg, "error");
           }
+        } else {
+          swal("Error", "No se pudo obtener la información del rol.", "error");
         }
       };
+      request.onerror = () => {
+        swal("Error", "Error de conexión.", "error");
+      };
+      request.send();
     });
   });
 }
-
 //Funcion para eliminar un rol
 
 function DeleteRol() {
   var btnEliRol = document.querySelectorAll(".btnEliRol");
   btnEliRol.forEach(function (btnEliRol) {
     btnEliRol.addEventListener("click", function () {
-      var idRol = this.getAttribute("rl");
+      var rolId = this.getAttribute("rl");
       //alerta de confirmacion de eliminar generada con sweetAlert
       swal(
         {
@@ -198,7 +186,7 @@ function DeleteRol() {
               ? new XMLHttpRequest()
               : new ActiveXObject("Microsoft.XMLHTTP");
             var ajaxUrl = base_url + "/roles/delRol";
-            var strData = "idRol=" + idRol;
+            var strData = "rolId=" + rolId;
             request.open("POST", ajaxUrl, true);
             request.setRequestHeader(
               "Content-type",

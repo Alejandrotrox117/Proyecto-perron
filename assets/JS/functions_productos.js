@@ -377,7 +377,7 @@ function selectCategorias(){
 
 
 // Para abrir el modal del formulario de registro de Productos
-function OpenModal() {
+function OpenModalProductos() {
     generarCodigoUnico();
     document.querySelector("#idProducto").value = "";
     document.querySelector('.tile-title').innerHTML ="Nuevo Producto";

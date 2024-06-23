@@ -6,7 +6,7 @@
       <div class="app-title">
         <div>
           <h1><i class="fas fa-box-tissue"></i> <?= $data['page_title'] ?>
-          <button class="btn btn-primary" type="button" onclick="OpenModal();">
+          <button class="btn btn-primary" type="button" onclick="OpenModalProductos();">
             <i class="fa-solid fa-plus"></i> Agregar</button>
         </h1>
         </div>

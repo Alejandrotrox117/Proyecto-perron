@@ -3,7 +3,7 @@ window.addEventListener('load', function() {
 }, false);
 
 function fntRolesUsuario() {
-    var ajaxUrl = base_url + '/Roles/getSelectRoles';
+    var ajaxUrl = base_url + '/roles/getSelectRoles';
     var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     request.open("GET", ajaxUrl, true);
     request.send();

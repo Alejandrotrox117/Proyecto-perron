@@ -2,7 +2,7 @@
 
 class rolesModel extends Mysql
 {
-
+    private $conn;
     public $intIdRol;
     public $strRol;
     public $descripcionRol;
@@ -11,6 +11,7 @@ class rolesModel extends Mysql
     public function __construct()
     {
         parent::__construct();
+        $this->conn = (new Conexion())->connect(); 
     }
 
     //funcion para consultar todos
@@ -77,7 +78,7 @@ class rolesModel extends Mysql
         $request = $this->searchAll($query);
 
         if (empty($request)) {
-            $sql = "DELETE FROM rol WHERE rolId = $idRol";	
+            $sql = "DELETE FROM rol WHERE rolId = $idRol";
             $request = $this->delete($sql);
 
             if ($request) {
