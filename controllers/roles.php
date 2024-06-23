@@ -100,10 +100,10 @@ class Roles extends Controllers
     
         // Validar el formato con expresiones regulares
         $reglas = [
-            'rolId' => REGEX_ROL_ID,
+            //'rolId' => REGEX_ROL_ID,
             'txtRol' => REGEX_NOMBRES,
             'txtDescripcion' => REGEX_DESCRIPCION,
-            'listEstatus' => REGEX_ESTATUS
+            //'listEstatus' => REGEX_ESTATUS
         ];
     
         if (!validarFormulario($_POST, $reglas)) {
